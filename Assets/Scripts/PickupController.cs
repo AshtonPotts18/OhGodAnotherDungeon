@@ -11,7 +11,7 @@ public class PickupController : MonoBehaviour
     //pickup settings
     [SerializeField] private float range = 2.5f;
 
-    private SellableItem heldItem;
+    public SellableItem heldItem;
     private SellableItem targetedItem;
 
     public SellableItem HeldItem => heldItem;
