@@ -1,0 +1,413 @@
+using JetBrains.Annotations;
+using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using Unity.Collections;
+using Unity.ProjectAuditor.Editor.Core;
+using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.Sqlite;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
+using UnityEngine.InputSystem.Utilities;
+
+/* Notes:
+ * 
+ * The map is going to be generated on the grid. 
+ * -> Attempt to make the grid within this script
+ * ->Generate rooms
+ * ->Dalauny Triangles
+ * ->MST
+ * ->Random Edges
+ * ->Path Find Hallways (A*?)
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ * 
+ */
+
+
+
+
+
+public class RandomlyGenerateRooms : MonoBehaviour
+{
+    [SerializeField] private GameObject roomManager;
+    [SerializeField] private GameObject startingRoom_Prefab;
+    [SerializeField] private GameObject handRoom_Prefab;
+
+    [SerializeField] private GameObject[] room_prefabs;
+    [SerializeField] private GameObject hallway_prefab;
+
+    [SerializeField] private Vector2Int roomRange;
+    [SerializeField] private int roomSpawnRadius;
+
+    [SerializeField] private Int16 roomCount;
+    [SerializeField] private int roomOffset = 5;
+    [SerializeField] const int roomSpawnAttemptCap = 50;
+
+    [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
+    private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
+
+    public void Awake()
+    {
+        int output = 0;
+        do
+        {
+            generatedRooms.Clear();
+            output = GenerateRooms();
+        } while (output != 0);
+
+
+    }
+
+
+    public int GenerateRooms()
+    {
+
+        GenerateStartingRoom(generatedRooms);
+        GenerateHandRooms(generatedRooms);
+        GenerateLootRooms(generatedRooms); // generates all the room cooridiantes and stores them in generatedRooms
+
+        List<Vector2> delaunayTrianglePoints = generatedRooms.Keys.ToList(); // generates a list of the coords(keys) to calculates triangles
+        List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
+
+
+        List<Edge> paths = new List<Edge>();
+
+        for (int i = 0; i < triangles.Count; i++) // adds all the triangle edges to the paths list
+        {
+            Triangle triangle = triangles[i];
+            Edge edge = new Edge();
+            for (int edgeCounter = 0; edgeCounter < 3; edgeCounter++)
+            {
+                edge = new Edge(triangle[edgeCounter], triangle[((edgeCounter + 1) % 3)]);
+
+            }
+
+            if (!paths.Contains(edge))// checks if this path has already been added before adding it
+            {
+                paths.Add(edge);
+            }
+        }
+
+        if (triangles.Count == 0) return -1;
+
+        // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
+
+        SpawnRooms(generatedRooms);
+
+        List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
+        for (int i = 0; i < paths.Count; i++)
+        {
+            Edge edge = paths[i];
+            if (path_MST.Contains(edge)) continue;
+            else if (RandomDeletePath())
+            {
+                paths.Remove(edge);
+                i--;
+            }
+        }
+
+        // Generate Hallways
+        foreach (Edge edge in paths)
+        {
+            Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
+            WalkPath(edge, randomStartDirection);
+        }
+
+
+
+        return 0;
+    }
+
+    private void WalkPath(Edge _path, Vector2 _randomStartingPosition)
+    {
+
+        Vector2 startPoint = _path.a;
+        Vector2 endPoint = _path.b;
+
+        
+
+        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + _randomStartingPosition);
+        while (currPosition != endPoint)
+        {
+            Vector2Int nextPosition = RandHallwayWalk(currPosition, endPoint);
+            currPosition = new Vector2Int(nextPosition.x, nextPosition.y);
+        }
+
+
+
+
+    }
+
+    private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition)
+    {
+        Vector3 currentPosition3D = WalkRandomDirection(currentPosition2D, targetPosition);
+
+        currentPosition2D = new Vector2Int(Mathf.RoundToInt(currentPosition3D.x), Mathf.RoundToInt(currentPosition3D.z));
+
+        GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, transform);
+        hallway.name = "hallway";
+
+        return currentPosition2D;
+    
+    }
+
+    private Vector3 WalkRandomDirection(Vector2Int currentPosition, Vector2 targetPosition)
+    {
+        bool xAxisPossible = (currentPosition.x != targetPosition.x);
+        bool yAxisPossible = (currentPosition.y != targetPosition.y);
+        Vector2 distanceFromTarget = targetPosition - currentPosition;
+
+        if (currentPosition.x != targetPosition.x && currentPosition.y != targetPosition.y) // both need to be moved
+        {
+            bool xMoveAxis = RandomAxis(xAxisPossible, yAxisPossible); // true == x // false == y
+
+            if (xMoveAxis)
+            {
+                currentPosition.x = MoveAxisX(currentPosition, distanceFromTarget.x > 0);
+            }
+            else if (!xMoveAxis)
+            {
+                currentPosition.y = MoveAxisY(currentPosition, distanceFromTarget.y > 0);
+            }
+        }
+        else if (currentPosition.y == targetPosition.y) // move x axis
+        {
+            currentPosition.x = MoveAxisX(currentPosition, distanceFromTarget.x > 0); 
+        }
+        else if (currentPosition.x == targetPosition.x) // move y Axis
+        {
+            currentPosition.y = MoveAxisY(currentPosition, distanceFromTarget.y > 0);
+        }
+        return new Vector3(currentPosition.x, 0, currentPosition.y);
+    }
+
+    private int MoveAxisY(Vector2Int currentPosition, bool positiveDirection)
+    {
+        if (positiveDirection)
+            return currentPosition.y += 5;
+        else
+            return currentPosition.y -= 5;
+    }
+
+    private int MoveAxisX(Vector2Int currentPosition, bool positiveDirection)
+    {
+        if (positiveDirection)
+            return currentPosition.x += 5;
+        else
+            return currentPosition.x -= 5;
+    }
+
+    private bool RandomAxis(bool xAxisPossible, bool yAxisPossible)
+    {
+        bool output = false;
+        if (xAxisPossible && yAxisPossible)
+        {
+            output = (Convert.ToBoolean(UnityEngine.Random.Range(0, 1)));
+        }
+        else if (!xAxisPossible && yAxisPossible)
+        {
+            output = true;
+        }
+
+        return output;
+    }
+
+    private void GenerateStartingRoom(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+        Vector2Int roomPosition = new Vector2Int(0, 0);
+        _generatedRooms.Add(roomPosition, startingRoom_Prefab);
+    }
+    private void GenerateHandRooms(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+        Vector2 roomPosition;
+
+        for (int i = 0; i < 2; i++)
+        {
+
+            roomPosition = FindValidHandRoomPosition(_generatedRooms);
+            _generatedRooms.Add(roomPosition, handRoom_Prefab);
+        }
+    }
+    private Vector2 FindValidHandRoomPosition(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+
+        Int16 AttemptLog = 0;
+        Vector2 roomPosition;
+        bool validRoomPosition = false;
+
+        do
+        {
+            roomPosition = GetRandomRoomPosition();
+            Vector3 roomScale = handRoom_Prefab.transform.localScale;
+
+            validRoomPosition = CheckBounds(new Bounds(new Vector3(roomPosition.x, 0, roomPosition.y), roomScale), _generatedRooms);
+
+            Debug.Log("Loading Room " + AttemptLog);
+            AttemptLog++;
+            if (AttemptLog == roomSpawnAttemptCap)
+            {
+                Debug.Log("Hand room too many spawn attempts");
+                break;
+            }
+
+        } while (!validRoomPosition);
+
+        return roomPosition;
+
+    }
+
+    private void GenerateLootRooms(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+        for (int i = 0; i < roomCount; i++)
+        {
+            GenerateRoom(_generatedRooms);
+            Debug.Log("All rooms generated");
+        }
+    }
+
+    private void GenerateRoom(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+
+        int roomPrefabIndex = GetRandomPrefabPosition();
+        Int16 AttemptLog = 0;
+        Vector2 roomPosition;
+        bool validRoomPosition = false;
+
+        do
+        {
+            roomPosition = GetRandomRoomPosition();
+            Vector3 roomScale = room_prefabs[roomPrefabIndex].transform.localScale;
+
+            validRoomPosition = CheckBounds(new Bounds(new Vector3(roomPosition.x, 0, roomPosition.y), roomScale), _generatedRooms);
+
+
+            Debug.Log("Loading Room " + AttemptLog);
+            AttemptLog++;
+            if (AttemptLog == roomSpawnAttemptCap)
+            {
+                Debug.Log("Random room too many spawn attempts");
+                break;
+            }
+
+        } while (!validRoomPosition);
+
+        _generatedRooms.Add(roomPosition, room_prefabs[roomPrefabIndex]); // add this room and prefab to generatedRooms
+
+    }
+
+    private void SpawnRooms(Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+        foreach (KeyValuePair<Vector2, GameObject> room in _generatedRooms)
+        {
+            Vector3 roomPosition = new Vector3(room.Key.x, 0, room.Key.y);
+            Instantiate(room.Value, roomPosition, Quaternion.identity, transform);
+        }
+    }
+
+    private Vector2 GetRandomRoomPosition()
+    {
+        Vector2 randomLocation = (UnityEngine.Random.insideUnitCircle * roomSpawnRadius);
+
+        int snappedX = Mathf.RoundToInt(randomLocation.x / roomOffset) * roomOffset;
+        int snappedy = Mathf.RoundToInt(randomLocation.y / roomOffset) * roomOffset;
+
+        Vector2 output = new Vector2(snappedX, snappedy);
+        Debug.Log("RandomPoint Generated");
+        
+
+        return output;
+    }
+
+    private int GetRandomPrefabPosition()
+    {
+        return UnityEngine.Random.Range(0, room_prefabs.Length);
+    }
+
+    private bool CheckBounds(Bounds room1, Dictionary<Vector2, GameObject> _generatedRooms)
+    {
+        bool intersects = false;
+        foreach (KeyValuePair<Vector2, GameObject> placedRoom in _generatedRooms)
+        {
+            Bounds placedRoomBounds = new Bounds(new Vector3(placedRoom.Key.x, 0, placedRoom.Key.y), placedRoom.Value.transform.localScale);
+            if (room1.Intersects(placedRoomBounds))
+            {
+                intersects = true;
+            }
+        }
+
+        return !intersects;
+
+    }
+
+
+    private List<Edge> PrimsMST(Vector2 _startingRoom, List<Edge> _paths)
+    {
+        List<Edge> outMST = new List<Edge>();
+        HashSet<Vector2> visitedRooms = new HashSet<Vector2>();
+
+        visitedRooms.Add(_startingRoom);
+        while (outMST.Count < roomCount)
+        {
+            Edge? bestPath = null; // the ? allows for variables to be null because c# doesn't like it otherwise
+
+            foreach (Edge path in _paths)
+            {
+                bool roomAVisited = visitedRooms.Contains(path.a);
+                bool roomBVisited = visitedRooms.Contains(path.b);
+
+                if (roomAVisited == roomBVisited) continue; // this way the tree only branches from rooms already in the tree
+
+                if (bestPath == null || bestPath.Value.weight > path.weight) bestPath = path; // if this path is a shorter distance it is the best path
+
+
+
+            }
+            Edge selectedPath = bestPath.Value;
+            outMST.Add(selectedPath);
+
+            visitedRooms.Add(selectedPath.a);
+            visitedRooms.Add(selectedPath.b);
+        }
+        return outMST;
+    }
+
+    private bool RandomDeletePath()
+    {
+        bool output = false;
+        if (UnityEngine.Random.Range(0, 100) <= randomPathChance)
+        {
+            output = true;
+        }
+        return output;
+    }
+
+}
+
+public class Direction2D
+{
+    public static List<Vector2Int> directions = new List<Vector2Int>()
+    {
+        Vector2Int.up,
+        Vector2Int.down,
+        Vector2Int.left,
+        Vector2Int.right
+    };
+    public static Vector2Int GetRandomDirection()
+    {
+        return directions[UnityEngine.Random.Range(0, directions.Count)];
+    }
+}
+
+
