@@ -85,68 +85,6 @@ Transform:
   - {fileID: 5513617619894066318}
   m_Father: {fileID: 4701186740186763039}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &7880893747255263154
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5453811425520430242}
-  - component: {fileID: 3666527724802887555}
-  m_Layer: 0
-  m_Name: EnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5453811425520430242
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7880893747255263154}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.020686, y: 0.5, z: 0.003352}
-  m_LocalScale: {x: 0.2, y: 5, z: 0.1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4701186740186763039}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3666527724802887555
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7880893747255263154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a9d839f5d5f854daefcb02e42ef863, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  roomsRoot: {fileID: 7648330746552643431}
-  player: {fileID: 4031878307116609382, guid: 71a0366f1336a344cac5d918aafc6800, type: 3}
-  roomBoundsObjectName: RoomBounds
-  enemyPrefab: {fileID: 470877837953471532, guid: dac897857e41b3f468148d82cf75f7d7, type: 3}
-  currentLevel: 1
-  enemiesAtLevelOne: 1
-  extraEnemiesPerLevel: 1
-  maxEnemyLimit: 10
-  spawnImmediately: 1
-  spawnInterval: 0
-  navMeshSampleRadius: 2
-  spawnAttemptsPerRoom: 24
-  navMeshAreaMask: -1
-  clearanceRadius: 0.4
-  clearanceHeight: 1.8
-  blockingLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
 --- !u!1 &8919740315219510778
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,7 +118,6 @@ Transform:
   m_LocalScale: {x: 5, y: 0.2, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 5453811425520430242}
   - {fileID: 7648330746552643431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
