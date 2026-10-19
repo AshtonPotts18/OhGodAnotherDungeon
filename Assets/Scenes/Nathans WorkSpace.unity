@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HealthandPlus
   slider: {fileID: 1528878077}
+  GameOver: Game Over
   TagName: Enemy
   InvincFrames: 0.25
 --- !u!114 &1349784864
@@ -706,12 +707,44 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 109.30505
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 38.003662
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.9330513
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.1159546
+      objectReference: {fileID: 0}
+    - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -271.9
+      value: 167
       objectReference: {fileID: 0}
     - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 317.9
+      value: -45
       objectReference: {fileID: 0}
     - target: {fileID: 3834763622684092475, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_Name
@@ -737,6 +770,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 884439004}
+    - target: {fileID: 7964341293122508526, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
