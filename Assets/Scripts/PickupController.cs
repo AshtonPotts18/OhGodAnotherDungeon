@@ -14,6 +14,8 @@ public class PickupController : MonoBehaviour
     public SellableItem heldItem;
     private SellableItem targetedItem;
 
+    public SellableItem HeldItem => heldItem;
+
     // Update is called once per frame
     void Update()
     {
@@ -92,5 +94,17 @@ public class PickupController : MonoBehaviour
         {
             pickupPrompt.gameObject.SetActive(false);
         }
+    }
+
+    public void MoveHeldItem()
+    {
+        if (heldItem == null) return;
+
+        SellableItem itemToMove = heldItem;
+
+        heldItem = null;
+        targetedItem = null;
+
+        Destroy(itemToMove.gameObject);
     }
 }
