@@ -468,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 417664747}
   - component: {fileID: 417664746}
-  - component: {fileID: 417664748}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -2004,7 +2003,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 944691917}
   m_SourcePrefab: {fileID: 100100000, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
->>>>>>> e0ffeb778d44226514cb31ff6ed04abfe7ab7922
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
