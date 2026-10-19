@@ -1,10 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
+
+
 public class HealthandPlus : MonoBehaviour
 {
 
     public Slider slider;
+
+    public string GameOver;
 
     [SerializeField] private string TagName;
 
@@ -25,6 +30,16 @@ public class HealthandPlus : MonoBehaviour
             clock -= Time.deltaTime;
         }
     }
+
+
+    private void Update()
+    {
+        if(slider.value < 0)
+        {
+            SceneManager.LoadScene(GameOver);
+        }
+    }
+
 
     public void SetMax(int Max)
     {
