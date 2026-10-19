@@ -33,9 +33,9 @@ public class EnemySpawner : MonoBehaviour
 
     private void Start()
     {
-        if (roomsRoot == null || enemyPrefab == null)
+        if (roomsRoot == null || player == null || enemyPrefab == null)
         {
-            Debug.LogError($"{name}: Assign Rooms Root, and Enemy Prefab.", this);
+            Debug.LogError($"{name}: Assign Rooms Root, Player, and Enemy Prefab.", this);
             enabled = false;
             return;
         }
@@ -45,8 +45,6 @@ public class EnemySpawner : MonoBehaviour
 
     private void Update()
     {
-        UpdatePlayerReference();
-        if(player == null) { return; }
         RemoveDestroyEnemies();
 
         if (Time.time < nextSpawnTime || spawnedEnemies.Count >= GetEnemyLimit())
@@ -56,15 +54,6 @@ public class EnemySpawner : MonoBehaviour
 
         nextSpawnTime = Time.time + Mathf.Max(0.1f, spawnInterval);
         TrySpawnEnemy();
-    }
-
-    private void UpdatePlayerReference()
-    {
-        bool hasLivePlayer = player != null && player.gameObject.scene.IsValid() &&
-            player.gameObject.activeInHierarchy;
-        if(hasLivePlayer) { return; }
-        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-        if (playerObject != null) { player = playerObject.transform; }
     }
 
     //Tracks Level number to make sure the map is never the same
