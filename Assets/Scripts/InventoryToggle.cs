@@ -24,7 +24,7 @@ public class InventoryToggle : MonoBehaviour
     {
         if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
         {
-            if(!isOpen && pickupController != null && pickupController.HeldItem != null)
+            if(!isOpen && pickupController != null && pickupController.heldItem != null)
             {
                 StoreHeldItem();
             }
@@ -51,7 +51,7 @@ public class InventoryToggle : MonoBehaviour
     
     private void StoreHeldItem()
     {
-        SellableItem worldItem = pickupController.HeldItem;
+        SellableItem worldItem = pickupController.heldItem;
     
         if (worldItem == null || dragController == null) return;
     
