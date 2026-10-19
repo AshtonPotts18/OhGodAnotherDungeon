@@ -1,0 +1,86 @@
+{
+    "version": 1,
+    "name": "Menu",
+    "maps": [
+        {
+            "name": "Pause",
+            "id": "bf0b66c8-dfdd-452c-bad5-1513b65c88f5",
+            "actions": [
+                {
+                    "name": "Open and Close",
+                    "type": "Button",
+                    "id": "3c9565ab-9a74-42bb-b7b3-1b678c3e6472",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "0925ac90-5dd2-418e-9312-40686a05b943",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Open and Close",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Menu Nav",
+            "id": "e528d7b0-eecb-4293-a108-c6b181e890a1",
+            "actions": [
+                {
+                    "name": "Up",
+                    "type": "Button",
+                    "id": "92420358-dfac-4bb5-86c9-a9738932f12a",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "Down",
+                    "type": "Button",
+                    "id": "ac840582-8dcf-43a9-9935-5523eda63627",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "bcf3db28-74d3-44a3-a752-6cbd5c53f35c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Up",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "4ece94e7-561b-43ba-834f-69b7f7ae4344",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Down",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
