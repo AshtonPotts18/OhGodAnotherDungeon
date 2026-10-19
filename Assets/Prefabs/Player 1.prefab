@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3210071393195323531}
   - component: {fileID: 6917062015981843815}
   - component: {fileID: 1190590102167744848}
-  - component: {fileID: 5725297878230091861}
   - component: {fileID: 7917788734977564086}
   - component: {fileID: 4322497515102470083}
+  - component: {fileID: -4838458195444386119}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -212,36 +212,6 @@ MonoBehaviour:
   holdHand: {fileID: 6452007730974309547}
   pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
   range: 2.5
---- !u!114 &5725297878230091861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4702544181617325606}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
-  m_Actions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
-  m_NotificationBehavior: 0
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents: []
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: MoveMent
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &7917788734977564086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -274,6 +244,36 @@ MonoBehaviour:
   slider: {fileID: 7508006183706755870}
   Stamina: {fileID: 1777930546242449825}
   time: 1.5
+--- !u!114 &-4838458195444386119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702544181617325606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+  m_Actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Keyboard&Mouse
+  m_DefaultActionMap: df70fa95-8a34-4494-b137-73ab6b9c7d37
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &4705889974067986637
 GameObject:
   m_ObjectHideFlags: 0
@@ -711,6 +711,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gui
       objectReference: {fileID: 0}
+    - target: {fileID: 3834763622684092475, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5036092604680978632, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
@@ -743,6 +747,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8505865405342430525}
+    - target: {fileID: 7964341293122508526, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7964341293122508526, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AdditionalShaderChannelsFlag
       value: 25
