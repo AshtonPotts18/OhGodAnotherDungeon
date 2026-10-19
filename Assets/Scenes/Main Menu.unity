@@ -910,7 +910,7 @@ GameObject:
   - component: {fileID: 862874720}
   - component: {fileID: 862874719}
   - component: {fileID: 862874724}
-  - component: {fileID: 862874723}
+  - component: {fileID: 862874725}
   m_Layer: 5
   m_Name: Menu
   m_TagString: Untagged
@@ -1006,26 +1006,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &862874723
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 862874718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ade9867f51deb0747ae782579301307b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::MenuNav
-  numberofbuttons: 3
-  actionmap: {fileID: -944628639613478452, guid: ced28e6904e273649a056194abd48fad, type: 3}
-  mainbutton:
-  - {fileID: 733198414}
-  - {fileID: 25920489}
-  - {fileID: 1064349965}
-  timer: 0.25
-  starttimer: 0.25
 --- !u!114 &862874724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1056,6 +1036,26 @@ MonoBehaviour:
   m_DefaultActionMap: Menu Nav
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &862874725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 862874718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c2c55640d9f0fb47997d5d28bfa8cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MenuNav
+  numberofbuttons: 3
+  actionmap: {fileID: -944628639613478452, guid: ced28e6904e273649a056194abd48fad, type: 3}
+  mainbutton:
+  - {fileID: 733198414}
+  - {fileID: 25920489}
+  - {fileID: 1064349965}
+  timer: 0.25
+  starttimer: 0.25
 --- !u!1 &1023562195
 GameObject:
   m_ObjectHideFlags: 0
