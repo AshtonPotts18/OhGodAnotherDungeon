@@ -409,7 +409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 729e1c24d431142439a92d6e9775fb26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryDragController
-  cameraLook: {fileID: 0}
+  cameraLook: {fileID: 7909069791514087151, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   inventory: {fileID: 502777263}
   itemLayer: {fileID: 1956143087}
   canvas: {fileID: 1205710462}
@@ -886,7 +886,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InventoryToggle
   inventoryPanel: {fileID: 502777261}
   dragController: {fileID: 502777262}
-  pickupController: {fileID: 0}
+  pickupController: {fileID: 1190590102167744848, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
 --- !u!114 &1205710460
 MonoBehaviour:
   m_ObjectHideFlags: 0
