@@ -58,6 +58,7 @@ public class InventoryToggle : MonoBehaviour
 
     public void ToggleInventory()
     {
+
         isOpen = !isOpen;
 
         if (inventoryPanel != null)
