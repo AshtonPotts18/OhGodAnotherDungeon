@@ -468,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 417664747}
   - component: {fileID: 417664746}
-  - component: {fileID: 417664748}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
