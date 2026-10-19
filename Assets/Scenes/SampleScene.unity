@@ -1530,6 +1530,8 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 944691917}
   m_SourcePrefab: {fileID: 100100000, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
+<<<<<<< HEAD
+=======
 --- !u!1001 &7480297693860207324
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1627,6 +1629,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
+>>>>>>> a113b2f05ad0e6f6484dfc64dab4dda6380f626e
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
