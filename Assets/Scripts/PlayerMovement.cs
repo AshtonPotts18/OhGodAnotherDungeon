@@ -64,9 +64,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Movement();
+        //Movement();
 
-        //if (cameraLookLocked == true)
+        //if (cameraLookLocked)
         //{
         //    Cursor.lockState = CursorLockMode.None;
         //    Cursor.visible = true;
@@ -76,6 +76,16 @@ public class PlayerMovement : MonoBehaviour
         //    Cursor.lockState = CursorLockMode.Locked;
         //    Cursor.visible = false;
         //}
+
+        if(cameraLookLocked)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            return;
+        }
+        Movement();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
 }
