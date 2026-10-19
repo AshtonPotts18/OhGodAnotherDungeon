@@ -39,14 +39,17 @@ public class InventoryToggle : MonoBehaviour
             return;
         }
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
         if(playerObject != null)
         {
             pickupController = playerObject.GetComponentInChildren<PickupController>();
         }
+
         if(!isOpen && pickupController != null && pickupController.HeldItem != null)
         {
             StoreHeldItem();
         }
+
         else
         {
             ToggleInventory();
