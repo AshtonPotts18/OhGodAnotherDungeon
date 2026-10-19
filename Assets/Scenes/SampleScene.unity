@@ -468,7 +468,6 @@ GameObject:
   m_Component:
   - component: {fileID: 417664747}
   - component: {fileID: 417664746}
-  - component: {fileID: 417664748}
   m_Layer: 0
   m_Name: RoomManager
   m_TagString: Untagged
@@ -515,9 +514,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
---- !u!114 &417664748
-=======
 --- !u!1 &502777261
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,38 +535,11 @@ GameObject:
   m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!114 &502777262
->>>>>>> e0ffeb778d44226514cb31ff6ed04abfe7ab7922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< HEAD
-  m_GameObject: {fileID: 417664745}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7a9d839f5d5f854daefcb02e42ef863, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
-  roomsRoot: {fileID: 417664747}
-  player: {fileID: 4031878307116609382, guid: 71a0366f1336a344cac5d918aafc6800, type: 3}
-  roomBoundsObjectName: RoomBounds
-  enemyPrefab: {fileID: 470877837953471532, guid: dac897857e41b3f468148d82cf75f7d7, type: 3}
-  currentLevel: 1
-  enemiesAtLevelOne: 1
-  extraEnemiesPerLevel: 1
-  maxEnemyLimit: 10
-  spawnImmediately: 1
-  spawnInterval: 0
-  navMeshSampleRadius: 2
-  spawnAttemptsPerRoom: 24
-  navMeshAreaMask: -1
-  clearanceRadius: 0.4
-  clearanceHeight: 1.8
-  blockingLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-=======
   m_GameObject: {fileID: 502777261}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -2034,7 +2003,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 944691917}
   m_SourcePrefab: {fileID: 100100000, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
->>>>>>> e0ffeb778d44226514cb31ff6ed04abfe7ab7922
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
