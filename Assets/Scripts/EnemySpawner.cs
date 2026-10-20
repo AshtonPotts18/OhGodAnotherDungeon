@@ -153,6 +153,8 @@ public class EnemySpawner : MonoBehaviour
         {
             if (!TryGetSpawnPoint(roomArea, out Vector3 spawnPosition)) { continue; }
             GameObject enemy = Instantiate( enemyPrefab, spawnPosition, enemyPrefab.transform.rotation);
+
+            enemy.tag = "Enemy";
             Enemy_Movement movement = enemy.GetComponentInChildren<Enemy_Movement>();
 
             if (movement != null)

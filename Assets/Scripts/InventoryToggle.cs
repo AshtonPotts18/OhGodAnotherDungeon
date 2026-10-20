@@ -22,21 +22,43 @@ public class InventoryToggle : MonoBehaviour
 
     private void Update()
     {
-        if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
+        //if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
+        //{
+        //    if(!isOpen && pickupController != null && pickupController.HeldItem != null)
+        //    {
+        //        StoreHeldItem();
+        //    }
+        //    else
+        //    {
+        //        ToggleInventory();
+        //    }
+        //}
+
+        if(Keyboard.current == null || !Keyboard.current.iKey.wasPressedThisFrame)
         {
-            if(!isOpen && pickupController != null && pickupController.HeldItem != null)
-            {
-                StoreHeldItem();
-            }
-            else
-            {
-                ToggleInventory();
-            }
+            return;
+        }
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if(playerObject != null)
+        {
+            pickupController = playerObject.GetComponentInChildren<PickupController>();
+        }
+
+        if(!isOpen && pickupController != null && pickupController.HeldItem != null)
+        {
+            StoreHeldItem();
+        }
+
+        else
+        {
+            ToggleInventory();
         }
     }
 
     public void ToggleInventory()
     {
+
         isOpen = !isOpen;
 
         if (inventoryPanel != null)

@@ -249,10 +249,21 @@ public class InventoryDragController : MonoBehaviour
     }
     public void SetInventoryOpen(bool isOpen)
     {
-        if (cameraLook != null)
+        //if (cameraLook != null)
+        //{
+        //    cameraLook.cameraLookLocked = isOpen;
+        //}
+
+        cameraLook = FindAnyObjectByType<PlayerMovement>();
+
+        if (cameraLook == null)
         {
-            cameraLook.cameraLookLocked = isOpen;
+            Debug.LogError("Could not find the spawned player's PlayerMovement.");
+            return;
         }
+
+        cameraLook.cameraLookLocked = isOpen;
+        Debug.Log($"Inventory open: {isOpen}");
     }
 }
    
