@@ -300,15 +300,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4705889974067986637}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 3126.599}
-  m_LocalScale: {x: 0.4920084, y: 0.66232955, z: 0.9887536}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.9887536, y: 0.9887536, z: 0.9887536}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2234289286435248875}
+  m_Father: {fileID: 3784275634252124735}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1486.6636, y: -1936.2528}
+  m_AnchoredPosition: {x: 10.000061, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &8565564780028754614
@@ -705,7 +705,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3834763622684092475, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_Name
@@ -754,19 +754,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
-    - targetCorrespondingSourceObject: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
-      insertIndex: -1
+    - targetCorrespondingSourceObject: {fileID: 1820511773043910128, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      insertIndex: 0
       addedObject: {fileID: 5349961623233332027}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
 --- !u!1 &1777930546242449825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3849391330877343342, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
-  m_PrefabInstance: {fileID: 3298802529758967759}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &2234289286435248875 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
   m_PrefabInstance: {fileID: 3298802529758967759}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &3784275634252124735 stripped
