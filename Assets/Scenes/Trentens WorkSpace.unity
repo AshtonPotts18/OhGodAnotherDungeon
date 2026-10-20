@@ -373,7 +373,7 @@ MonoBehaviour:
   hallway_prefab: {fileID: 4663460709355380625, guid: f016681226bb8f8489da3661baf645ba, type: 3}
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 50
-  roomCount: 3
+  roomCount: 1
   roomOffset: 5
   randomPathChance: 12.3
 --- !u!4 &318203405

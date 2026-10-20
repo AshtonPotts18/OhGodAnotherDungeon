@@ -51,21 +51,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         List<Edge> paths = new List<Edge>();
 
-        for (int i = 0; i < triangles.Count; i++) // adds all the triangle edges to the paths list
-        {
-            Triangle triangle = triangles[i];
-            Edge edge = new Edge();
-            for (int edgeCounter = 0; edgeCounter < 3; edgeCounter++)
-            {
-                edge = new Edge(triangle[edgeCounter], triangle[((edgeCounter + 1) % 3)]);
-
-            }
-
-            if (!paths.Contains(edge))// checks if this path has already been added before adding it
-            {
-                paths.Add(edge);
-            }
-        }
+        TrianglesToPaths(triangles, paths);
 
         if (triangles.Count == 0) return -1;
 
@@ -74,6 +60,38 @@ public class RandomlyGenerateRooms : MonoBehaviour
         SpawnRooms(generatedRooms);
 
         List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
+        RandomlyDeletePaths(paths, in path_MST);
+        GenerateHallways(paths);
+
+
+        return 0;
+    }
+
+    private void TrianglesToPaths(List<Triangle> triangles, List<Edge> paths)
+    {
+        for (int i = 0; i < triangles.Count; i++) // adds all the triangle edges to the paths list
+        {
+            AddEdgesFromTriangles(triangles[i], paths);
+        }
+    }
+
+    private void AddEdgesFromTriangles(Triangle triangle, List<Edge> paths)
+    {
+        Edge edge = new Edge();
+
+        for (int edgeCounter = 0; edgeCounter < 3; edgeCounter++)
+        {
+            edge = new Edge(triangle[edgeCounter], triangle[((edgeCounter + 1) % 3)]);
+        }
+
+        if (!paths.Contains(edge))  // checks if this path has already been added before adding it
+        {
+            paths.Add(edge);
+        }
+    }
+
+    private void RandomlyDeletePaths(List<Edge> paths, in List<Edge> path_MST)
+    {
         for (int i = 0; i < paths.Count; i++)
         {
             Edge edge = paths[i];
@@ -84,12 +102,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
                 i--;
             }
         }
-
-        // Generate Hallways
-        GenerateHallways(paths);
-
-
-        return 0;
     }
 
     private void GenerateHallways(List<Edge> _paths)
