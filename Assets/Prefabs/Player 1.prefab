@@ -273,6 +273,7 @@ MonoBehaviour:
   actionmap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   slider: {fileID: 7508006183706755870}
   Stamina: {fileID: 1777930546242449825}
+  stamiaDrain: 1
   staminaRegenCooldown: 1.5
 --- !u!1 &4705889974067986637
 GameObject:
@@ -421,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6452007730974309547}
   m_Layer: 0
-  m_Name: HoldPoint
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

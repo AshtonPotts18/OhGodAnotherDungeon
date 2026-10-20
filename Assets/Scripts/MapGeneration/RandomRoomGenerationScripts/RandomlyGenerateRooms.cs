@@ -1,42 +1,9 @@
-using JetBrains.Annotations;
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
+using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Unity.Collections;
-//using Unity.ProjectAuditor.Editor.Core;
 using Unity.VisualScripting;
-//using Unity.VisualScripting.Dependencies.Sqlite;
-//using UnityEditor;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.InputSystem.Utilities;
-
-/* Notes:
- * 
- * The map is going to be generated on the grid. 
- * -> Attempt to make the grid within this script
- * ->Generate rooms
- * ->Dalauny Triangles
- * ->MST
- * ->Random Edges
- * ->Path Find Hallways (A*?)
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- * 
- */
-
-
-
 
 
 public class RandomlyGenerateRooms : MonoBehaviour
@@ -60,12 +27,12 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     public void Awake()
     {
-        int output = 0;
+        int resultOutput = 0;
         do
         {
             generatedRooms.Clear();
-            output = GenerateRooms();
-        } while (output != 0);
+            resultOutput = GenerateRooms();
+        } while (resultOutput != 0);
 
 
     }
@@ -119,15 +86,19 @@ public class RandomlyGenerateRooms : MonoBehaviour
         }
 
         // Generate Hallways
-        foreach (Edge edge in paths)
+        GenerateHallways(paths);
+
+
+        return 0;
+    }
+
+    private void GenerateHallways(List<Edge> _paths)
+    {
+        foreach (Edge edge in _paths)
         {
             Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
             WalkPath(edge, randomStartDirection);
         }
-
-
-
-        return 0;
     }
 
     private void WalkPath(Edge _path, Vector2 _randomStartingPosition)

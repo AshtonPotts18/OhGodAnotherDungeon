@@ -14,7 +14,7 @@ public class InventoryDragController : MonoBehaviour
     [SerializeField] private LayerMask dropLayer = ~0;
     [SerializeField] private float dropRange = 3f;
 
-    private Item heldItem;
+    private DisplayedInventoryItem heldItem;
 
     public bool isHolding => heldItem != null;
 
@@ -30,7 +30,7 @@ public class InventoryDragController : MonoBehaviour
         }
     }
 
-    public bool PickupItem(Item item)
+    public bool PickupItem(DisplayedInventoryItem item)
     {
         if(item == null)
         {
@@ -55,7 +55,7 @@ public class InventoryDragController : MonoBehaviour
         return isHolding;
     }
     
-    public void BeginMoveItem(Item item)
+    public void BeginMoveItem(DisplayedInventoryItem item)
     {
         if (item == null || isHolding || !item.isPlaced) return;
 
@@ -70,7 +70,7 @@ public class InventoryDragController : MonoBehaviour
         BeginHolding(item);
     }
 
-    private void BeginHolding(Item item)
+    private void BeginHolding(DisplayedInventoryItem item)
     {
         if (item == null || inventory == null || itemLayer == null) return;
 
@@ -238,7 +238,7 @@ public class InventoryDragController : MonoBehaviour
 
         foreach (RaycastResult result in results)
         {
-            Item item = result.gameObject.GetComponentInParent<Item>();
+            DisplayedInventoryItem item = result.gameObject.GetComponentInParent<DisplayedInventoryItem>();
 
             if (item != null && item.isPlaced)
             {
