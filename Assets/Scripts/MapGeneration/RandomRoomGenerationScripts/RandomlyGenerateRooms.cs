@@ -139,9 +139,15 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector3 currentPosition3D = WalkRandomDirection(currentPosition2D, targetPosition);
 
         currentPosition2D = new Vector2Int(Mathf.RoundToInt(currentPosition3D.x), Mathf.RoundToInt(currentPosition3D.z));
+        if (!occupiedGridSpaces.Contains(currentPosition3D))
+        {
+            occupiedGridSpaces.Add(currentPosition3D);
 
-        GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, transform);
-        hallway.name = "hallway";
+            GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, transform);
+            Console.WriteLine("Hallway Instantiate" + currentPosition3D);
+            hallway.name = "hallway";
+
+        }
 
         return currentPosition2D;
     
