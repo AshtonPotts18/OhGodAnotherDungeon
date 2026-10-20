@@ -368,12 +368,12 @@ MonoBehaviour:
   startingRoom_Prefab: {fileID: 2232350165620360481, guid: 15a6ee824ad9c544e833c53e7d36a46d, type: 3}
   handRoom_Prefab: {fileID: 6936300054181408770, guid: 9e5e6b66f9a92f942bd38355681b1e9b, type: 3}
   room_prefabs:
-  - {fileID: 8919740315219510778, guid: bdd76d0174f08c6418bbd67299b9916c, type: 3}
-  - {fileID: 8329556229693097355, guid: a3609881215457d449ca3fc138726ea5, type: 3}
+  - {fileID: 5861500948527349197, guid: 7ed7e384ea494f64d8be5c577bdc4d3c, type: 3}
+  - {fileID: 2889314175638379571, guid: a7679fc8fea1c424ead98e3e022a0761, type: 3}
   hallway_prefab: {fileID: 4663460709355380625, guid: f016681226bb8f8489da3661baf645ba, type: 3}
   roomRange: {x: 0, y: 0}
-  roomSpawnRadius: 50
-  roomCount: 1
+  roomSpawnRadius: 100
+  roomCount: 10
   roomOffset: 5
   randomPathChance: 12.3
 --- !u!4 &318203405

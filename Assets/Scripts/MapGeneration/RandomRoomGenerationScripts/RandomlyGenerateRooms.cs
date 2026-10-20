@@ -24,6 +24,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
+    private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
 
     public void Awake()
     {
@@ -47,13 +48,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         List<Vector2> delaunayTrianglePoints = generatedRooms.Keys.ToList(); // generates a list of the coords(keys) to calculates triangles
         List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
-
-
         List<Edge> paths = new List<Edge>();
 
         TrianglesToPaths(triangles, paths);
 
-        if (triangles.Count == 0) return -1;
+        if (triangles.Count == 0) return -1; // error not enough triangles in map
 
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
@@ -108,23 +107,25 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
         foreach (Edge edge in _paths)
         {
-            Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
-            WalkPath(edge, randomStartDirection);
+            WalkPath(edge);
         }
     }
 
-    private void WalkPath(Edge _path, Vector2 _randomStartingPosition)
+    private void WalkPath(Edge _path)
     {
 
         Vector2 startPoint = _path.a;
         Vector2 endPoint = _path.b;
 
+        Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
+
         
 
-        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + _randomStartingPosition);
+        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection);
         while (currPosition != endPoint)
         {
             Vector2Int nextPosition = RandHallwayWalk(currPosition, endPoint);
+            Vector3 nextPosition3D = new Vector3(nextPosition.x, 0, nextPosition.y);
             currPosition = new Vector2Int(nextPosition.x, nextPosition.y);
         }
 
@@ -211,6 +212,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
         Vector2Int roomPosition = new Vector2Int(0, 0);
         _generatedRooms.Add(roomPosition, startingRoom_Prefab);
+        occupiedGridSpaces.Add(new Vector3(roomPosition.x, 0, roomPosition.y));
     }
     private void GenerateHandRooms(Dictionary<Vector2, GameObject> _generatedRooms)
     {
@@ -221,6 +223,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
             roomPosition = FindValidHandRoomPosition(_generatedRooms);
             _generatedRooms.Add(roomPosition, handRoom_Prefab);
+            occupiedGridSpaces.Add(new Vector3(roomPosition.x, 0, roomPosition.y));
         }
     }
     private Vector2 FindValidHandRoomPosition(Dictionary<Vector2, GameObject> _generatedRooms)
@@ -287,6 +290,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         } while (!validRoomPosition);
 
         _generatedRooms.Add(roomPosition, room_prefabs[roomPrefabIndex]); // add this room and prefab to generatedRooms
+        occupiedGridSpaces.Add(new Vector3(roomPosition.x, 0, roomPosition.y));
 
     }
 
