@@ -117,41 +117,42 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
 
         Vector2 startPoint = _path.a;
+        Debug.Log("HallwayStartingPoint" + startPoint);
         Vector2 endPoint = _path.b;
-
         Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
 
-        
+        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // starting position
 
-        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection);
+
+
         while (currPosition != endPoint)
         {
             Vector2Int nextPosition = RandHallwayWalk(currPosition, endPoint);
             Vector3 nextPosition3D = new Vector3(nextPosition.x, 0, nextPosition.y);
             currPosition = new Vector2Int(nextPosition.x, nextPosition.y);
         }
-
-
-
-
+        Debug.Log("HallwayEndingPoint" + endPoint);
     }
 
     private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition)
     {
-        Vector3 currentPosition3D = WalkRandomDirection(currentPosition2D, targetPosition);
 
-        currentPosition2D = new Vector2Int(Mathf.RoundToInt(currentPosition3D.x), Mathf.RoundToInt(currentPosition3D.z));
+        Vector3 currentPosition3D = new Vector3(currentPosition2D.x, 0, currentPosition2D.y);
+
         if (!occupiedGridSpaces.Contains(currentPosition3D))
         {
             occupiedGridSpaces.Add(currentPosition3D);
 
             GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, hallwayManager.transform);
-            Console.WriteLine("Hallway Instantiate" + currentPosition3D);
-            hallway.name = "hallway";
+            generatedRooms[currentPosition2D] = hallway;
+            hallway.name = "hallway" + currentPosition2D;
 
         }
+        
+        Vector3 nextPosition = WalkRandomDirection(currentPosition2D, targetPosition);
+        currentPosition2D = new Vector2Int(Mathf.RoundToInt(nextPosition.x), Mathf.RoundToInt(nextPosition.z));
 
-        return currentPosition2D;
+        return currentPosition2D; // new currentPosition
     
     }
 
@@ -346,7 +347,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
         return !intersects;
 
     }
-
 
     private List<Edge> PrimsMST(Vector2 _startingRoom, List<Edge> _paths)
     {
