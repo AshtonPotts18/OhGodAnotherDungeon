@@ -304,10 +304,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     private void SpawnRooms(Dictionary<Vector2, GameObject> _generatedRooms)
     {
-        foreach (KeyValuePair<Vector2, GameObject> room in _generatedRooms)
+        List<Vector2> keys = _generatedRooms.Keys.ToList();
+        for (int keyPosition = 0; keyPosition < keys.Count; keyPosition++)
         {
-            Vector3 roomPosition = new Vector3(room.Key.x, 0, room.Key.y);
-            Instantiate(room.Value, roomPosition, Quaternion.identity, roomManager.transform);
+            Vector3 roomPosition = new Vector3(keys[keyPosition].x, 0, keys[keyPosition].y);
+            _generatedRooms[keys[keyPosition]] = Instantiate(_generatedRooms[keys[keyPosition]], roomPosition, Quaternion.identity, roomManager.transform);
         }
     }
 
