@@ -9,6 +9,7 @@ using UnityEngine;
 public class RandomlyGenerateRooms : MonoBehaviour
 {
     [SerializeField] private GameObject roomManager;
+    [SerializeField] private GameObject hallwayManager;
     [SerializeField] private GameObject startingRoom_Prefab;
     [SerializeField] private GameObject handRoom_Prefab;
 
@@ -25,6 +26,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
+
 
     public void Awake()
     {
@@ -143,7 +145,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         {
             occupiedGridSpaces.Add(currentPosition3D);
 
-            GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, transform);
+            GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, hallwayManager.transform);
             Console.WriteLine("Hallway Instantiate" + currentPosition3D);
             hallway.name = "hallway";
 
@@ -305,7 +307,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         foreach (KeyValuePair<Vector2, GameObject> room in _generatedRooms)
         {
             Vector3 roomPosition = new Vector3(room.Key.x, 0, room.Key.y);
-            Instantiate(room.Value, roomPosition, Quaternion.identity, transform);
+            Instantiate(room.Value, roomPosition, Quaternion.identity, roomManager.transform);
         }
     }
 
