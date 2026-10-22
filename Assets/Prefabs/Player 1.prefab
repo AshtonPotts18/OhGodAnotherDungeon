@@ -140,7 +140,7 @@ MonoBehaviour:
   moveSpeed: 5
   lookSpeed: 30
   playerController: {fileID: 3210071393195323531}
-  slider: {fileID: 0}
+  slider: {fileID: 7508006183706755870}
   sprintspeed: 1.25
   cameraLookLocked: 0
   rotationLocked: 0
@@ -273,6 +273,7 @@ MonoBehaviour:
   actionmap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   slider: {fileID: 7508006183706755870}
   Stamina: {fileID: 1777930546242449825}
+  stamiaDrain: 1
   staminaRegenCooldown: 1.5
 --- !u!1 &4705889974067986637
 GameObject:
