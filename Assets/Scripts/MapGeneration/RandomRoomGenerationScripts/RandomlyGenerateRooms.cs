@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -31,20 +29,21 @@ public class RandomlyGenerateRooms : MonoBehaviour
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
 
 
-    public void Awake()
+    public int GenerateMap()
     {
-        int resultOutput = 0;
+        int returnedCode = 0;
         do
         {
             generatedRooms.Clear();
-            resultOutput = GenerateRooms();
-        } while (resultOutput != 0);
+            returnedCode = GenerateRooms();
+        } while (returnedCode != 0);
 
 
+
+        throw new NotImplementedException();
     }
 
-
-    public int GenerateRooms()
+    private int GenerateRooms()
     {
 
         GenerateStartingRoom(generatedRooms);
@@ -123,14 +122,9 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector2 endPoint = _path.b;
         Debug.Log("HallwayStartingPoint" + startPoint);
 
-        Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
-        //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
-        //currPosition adds the starting point to this direction to create the first hallway tile
-
+        Vector2 randomStartDirection = Direction2D.GetRandomDirection() * roomOffset; // 5 is grid / size all rooms are divisable by
 
         Vector2Int currentPosition2D = Vector2Int.RoundToInt(startPoint);
-            
-        //RoomInformation.ConnectRooms(generatedRooms[startPoint], generatedRooms[currPosition]); // connects the starting room with the first hallway segment
 
         Vector2Int nextPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // the position of the first hallway tile
 
