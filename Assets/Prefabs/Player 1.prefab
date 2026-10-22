@@ -1067,7 +1067,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
-  holdHand: {fileID: 6452007730974309547}
+  itemHeldPosition: {fileID: 0}
   pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
   range: 2.5
 --- !u!114 &5725297878230091861
@@ -1359,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6452007730974309547}
   m_Layer: 0
-  m_Name: HoldPoint
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

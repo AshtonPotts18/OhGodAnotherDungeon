@@ -6,7 +6,7 @@ public class PickupController : MonoBehaviour
 
     //references
     [SerializeField] private Camera playerCamera;
-    [SerializeField] private Transform holdHand;
+    [SerializeField] private Transform itemHeldPosition;
     [SerializeField] private TextMeshProUGUI pickupPrompt;
     //pickup settings
     [SerializeField] private float range = 2.5f;
@@ -41,13 +41,13 @@ public class PickupController : MonoBehaviour
 
     private void Pickup()
     {
-        if (targetedItem == null || holdHand == null) return;
+        if (targetedItem == null || itemHeldPosition == null) return;
 
         heldItem = targetedItem;
 
         heldItem.SetHeld(true);
 
-        heldItem.transform.SetParent(holdHand);
+        heldItem.transform.SetParent(itemHeldPosition);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.identity;
     }
