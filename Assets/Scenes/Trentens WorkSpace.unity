@@ -366,15 +366,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RandomlyGenerateRooms
   roomManager: {fileID: 1511343142}
   hallwayManager: {fileID: 356430469}
-  startingRoom_Prefab: {fileID: 2232350165620360481, guid: 15a6ee824ad9c544e833c53e7d36a46d, type: 3}
-  handRoom_Prefab: {fileID: 6936300054181408770, guid: 9e5e6b66f9a92f942bd38355681b1e9b, type: 3}
+  startingRoom_Prefab: {fileID: 7714842466613815254, guid: 15a6ee824ad9c544e833c53e7d36a46d, type: 3}
+  handRoom_Prefab: {fileID: 2091839535961514875, guid: 9e5e6b66f9a92f942bd38355681b1e9b, type: 3}
   room_prefabs:
   - {fileID: 5861500948527349197, guid: 7ed7e384ea494f64d8be5c577bdc4d3c, type: 3}
   - {fileID: 2889314175638379571, guid: a7679fc8fea1c424ead98e3e022a0761, type: 3}
   hallway_prefab: {fileID: 1919957916151986239, guid: 1afc57d15980eea4796fdc12e38def9b, type: 3}
   roomRange: {x: 0, y: 0}
-  roomSpawnRadius: 100
-  roomCount: 10
+  roomSpawnRadius: 50
+  roomCount: 3
   roomOffset: 5
   randomPathChance: 12.3
 --- !u!4 &318203405

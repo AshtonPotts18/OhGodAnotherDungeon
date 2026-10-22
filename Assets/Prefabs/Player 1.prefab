@@ -140,8 +140,8 @@ MonoBehaviour:
   moveSpeed: 5
   lookSpeed: 30
   playerController: {fileID: 3210071393195323531}
-  slider: {fileID: 0}
-  sprintspeed: 1.25
+  slider: {fileID: 7508006183706755870}
+  sprintspeed: 10
   cameraLookLocked: 0
   rotationLocked: 0
 --- !u!143 &3210071393195323531
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
-  holdHand: {fileID: 6452007730974309547}
+  itemHeldPosition: {fileID: 0}
   pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
   range: 2.5
 --- !u!114 &5725297878230091861

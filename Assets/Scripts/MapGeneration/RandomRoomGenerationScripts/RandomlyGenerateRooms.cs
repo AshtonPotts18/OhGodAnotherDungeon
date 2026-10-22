@@ -8,14 +8,17 @@ using UnityEngine;
 
 public class RandomlyGenerateRooms : MonoBehaviour
 {
+    [Header("Room Managers")]
     [SerializeField] private GameObject roomManager;
     [SerializeField] private GameObject hallwayManager;
+    [Header("Prefab Assignment")]
     [SerializeField] private GameObject startingRoom_Prefab;
     [SerializeField] private GameObject handRoom_Prefab;
-
-    [SerializeField] private GameObject[] room_prefabs;
     [SerializeField] private GameObject hallway_prefab;
 
+    [SerializeField] private GameObject[] room_prefabs;
+
+    [Header("Map Generation")]
     [SerializeField] private Vector2Int roomRange;
     [SerializeField] private int roomSpawnRadius;
 

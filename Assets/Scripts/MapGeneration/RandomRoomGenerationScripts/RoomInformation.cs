@@ -1,4 +1,5 @@
 using NUnit.Framework.Constraints;
+using System.Linq;
 using UnityEngine;
 
 public class RoomInformation : MonoBehaviour
@@ -8,7 +9,8 @@ public class RoomInformation : MonoBehaviour
     [Header("Doors: Front, Bottom, Left, Right")]
     public bool[] openDoors = new bool[4];
 
-
+    [SerializeField] GameObject[] walls = new GameObject[4];
+    [SerializeField] GameObject[] doors = new GameObject[0];
 
     static public void ConnectRooms(GameObject room1, GameObject room2)
     {
@@ -51,6 +53,18 @@ public class RoomInformation : MonoBehaviour
         }
 
         //update the prefabs
+        firstRoomInfo.UpdateWalls();
+        secondRoomInfo.UpdateWalls();
     }
 
+    public void UpdateWalls()
+    {
+        for (int wallCount = 0; wallCount < walls.Count(); wallCount++)
+        {
+            if (openDoors[wallCount])
+            {
+                walls[wallCount].SetActive(!openDoors[wallCount]);
+            }
+        }
+    }
 }
