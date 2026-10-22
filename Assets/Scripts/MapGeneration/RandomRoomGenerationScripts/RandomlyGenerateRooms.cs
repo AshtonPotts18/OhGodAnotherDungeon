@@ -117,43 +117,54 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
 
         Vector2 startPoint = _path.a;
-        Debug.Log("HallwayStartingPoint" + startPoint);
         Vector2 endPoint = _path.b;
+        Debug.Log("HallwayStartingPoint" + startPoint);
+
         Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
+        //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
+        //currPosition adds the starting point to this direction to create the first hallway tile
 
-        Vector2Int currPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // starting position
 
+        Vector2Int currentPosition2D = Vector2Int.RoundToInt(startPoint);
+            
+        //RoomInformation.ConnectRooms(generatedRooms[startPoint], generatedRooms[currPosition]); // connects the starting room with the first hallway segment
 
+        Vector2Int nextPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // the position of the first hallway tile
 
-        while (currPosition != endPoint)
+        while (currentPosition2D != endPoint)
         {
-            Vector2Int nextPosition = RandHallwayWalk(currPosition, endPoint);
             Vector3 nextPosition3D = new Vector3(nextPosition.x, 0, nextPosition.y);
-            currPosition = new Vector2Int(nextPosition.x, nextPosition.y);
+
+            if (!occupiedGridSpaces.Contains(nextPosition3D))
+            {
+                SpawnHallway(nextPosition3D, nextPosition);
+                
+            }
+            RoomInformation.ConnectRooms(generatedRooms[currentPosition2D], generatedRooms[nextPosition]);
+            currentPosition2D = nextPosition;
+            nextPosition = RandHallwayWalk(currentPosition2D, endPoint); // function call instanates the hallway
         }
         Debug.Log("HallwayEndingPoint" + endPoint);
     }
 
-    private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition)
-    {
+    private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition) // iterates currentPosition2D
+    { // separate the hallway creation and the walk
 
-        Vector3 currentPosition3D = new Vector3(currentPosition2D.x, 0, currentPosition2D.y);
-
-        if (!occupiedGridSpaces.Contains(currentPosition3D))
-        {
-            occupiedGridSpaces.Add(currentPosition3D);
-
-            GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, hallwayManager.transform);
-            generatedRooms[currentPosition2D] = hallway;
-            hallway.name = "hallway" + currentPosition2D;
-
-        }
-        
+               
         Vector3 nextPosition = WalkRandomDirection(currentPosition2D, targetPosition);
         currentPosition2D = new Vector2Int(Mathf.RoundToInt(nextPosition.x), Mathf.RoundToInt(nextPosition.z));
 
         return currentPosition2D; // new currentPosition
     
+    }
+
+    private void SpawnHallway(Vector3 currentPosition3D, Vector2Int currentPosition2D)
+    {
+        occupiedGridSpaces.Add(currentPosition3D);
+
+        GameObject hallway = Instantiate(hallway_prefab, currentPosition3D, Quaternion.identity, hallwayManager.transform);
+        generatedRooms[currentPosition2D] = hallway;
+        hallway.name = "hallway" + currentPosition2D;
     }
 
     private Vector3 WalkRandomDirection(Vector2Int currentPosition, Vector2 targetPosition)
