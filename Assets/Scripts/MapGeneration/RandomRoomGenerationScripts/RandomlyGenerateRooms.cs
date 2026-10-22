@@ -27,6 +27,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
+    public GameObject startingRoom = null;
 
 
     public int GenerateMap()
@@ -40,7 +41,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
 
 
-        throw new NotImplementedException();
+        return returnedCode;
     }
 
     private int GenerateRooms()
@@ -61,6 +62,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         SpawnRooms(generatedRooms);
+        generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom);
 
         List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
         RandomlyDeletePaths(paths, in path_MST);
