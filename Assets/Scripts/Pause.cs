@@ -1,0 +1,57 @@
+using System.Collections;
+using UnityEngine;
+using UnityEngine.InputSystem;
+
+public class Pause : MonoBehaviour
+{
+
+    [SerializeField] private GameObject PauseMenu;
+    [SerializeField] private GameObject OtherUI;
+
+    [SerializeField] private InputActionAsset ActionMap;
+    [SerializeField] private float timer = 1;
+
+    private bool tap = true;
+    private InputAction Escape;
+
+    private void Awake()
+    {
+        Escape = ActionMap.FindAction("Escape");
+    }
+
+    IEnumerator WaitAndDoSomething()
+    {
+        // Pause execution for set seconds
+        tap = false;
+        if (PauseMenu.activeSelf)
+        {
+            PauseMenu.SetActive(false);
+            OtherUI.SetActive(true);
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Time.timeScale = 1;
+
+        }
+        else
+        {
+            PauseMenu.SetActive(true);
+            OtherUI.SetActive(false);
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            Time.timeScale = 0;
+        }
+        yield return new WaitForSecondsRealtime(timer);
+
+        tap = true;
+    }
+    // Update is called once per frame
+    void Update()
+    {
+        if (Escape.IsPressed() && tap == true)
+        {
+
+            StartCoroutine(WaitAndDoSomething());
+
+        }
+    }
+}
