@@ -30,20 +30,20 @@ public class RandomlyGenerateRooms : MonoBehaviour
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
 
+    public GameObject startingRoom = null;
 
-    public void Awake()
+
+    public int GenerateMap()
     {
-        int resultOutput = 0;
+        int returnCode = 0;
         do
         {
             generatedRooms.Clear();
-            resultOutput = GenerateRooms();
-        } while (resultOutput != 0);
+            returnCode = GenerateRooms();
+        } while (returnCode != 0);
 
-
+        return returnCode;
     }
-
-
     public int GenerateRooms()
     {
 
@@ -62,6 +62,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         SpawnRooms(generatedRooms);
+        startingRoom = generatedRooms[new Vector2Int(0, 0)];
 
         List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
         RandomlyDeletePaths(paths, in path_MST);
