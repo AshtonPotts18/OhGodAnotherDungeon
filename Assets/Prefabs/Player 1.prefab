@@ -140,9 +140,9 @@ MonoBehaviour:
   moveSpeed: 5
   lookSpeed: 30
   playerController: {fileID: 3210071393195323531}
-  slider: {fileID: 0}
-  sprintspeed: 1.25
-  cameraLookLocked: 1
+  slider: {fileID: 7508006183706755870}
+  sprintspeed: 10
+  cameraLookLocked: 0
   rotationLocked: 0
 --- !u!143 &3210071393195323531
 CharacterController:
@@ -194,7 +194,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 116
+  m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &1190590102167744848
 MonoBehaviour:
@@ -209,10 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
-  holdHand: {fileID: 6452007730974309547}
+  itemHeldPosition: {fileID: 0}
   pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
-  pickup: {fileID: 7155804456069638985, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  drop: {fileID: 5681750020322396426, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
 --- !u!114 &5725297878230091861
 MonoBehaviour:
@@ -424,7 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6452007730974309547}
   m_Layer: 0
-  m_Name: HoldPoint
+  m_Name: Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
