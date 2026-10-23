@@ -377,6 +377,7 @@ MonoBehaviour:
   roomCount: 3
   roomOffset: 5
   randomPathChance: 12.3
+  startingRoom: {fileID: 0}
 --- !u!4 &318203405
 Transform:
   m_ObjectHideFlags: 0
@@ -385,14 +386,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318203402}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 90.29893, y: -3.05401, z: 65.25555}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1511343143}
   - {fileID: 356430470}
-  m_Father: {fileID: 573902910}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &356430469
 GameObject:
@@ -500,53 +501,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 557832087}
   m_CullTransparentMesh: 1
---- !u!1 &573902909
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 573902910}
-  - component: {fileID: 573902911}
-  m_Layer: 0
-  m_Name: GameManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &573902910
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573902909}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 318203405}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &573902911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573902909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4d5bfea2431d024394abd7ce02de42f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  mapGenerator: {fileID: 318203404}
-  player: {fileID: 4702544181617325606, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
 --- !u!1 &680124451
 GameObject:
   m_ObjectHideFlags: 0
@@ -641,7 +595,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &871772749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -651,7 +605,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 871772748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 729e1c24d431142439a92d6e9775fb26, type: 3}
+  m_Script: {fileID: 11500000, guid: 96ea81b8787e94648aeabf463882af84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryDragController
   cameraLook: {fileID: 7909069791514087151, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
@@ -660,7 +614,7 @@ MonoBehaviour:
   canvas: {fileID: 1288937272}
   dropLayer:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   dropRange: 3
 --- !u!224 &871772750
 RectTransform:
@@ -692,7 +646,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 871772748}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 233095ca01a242c4791f33af10289a3b, type: 3}
+  m_Script: {fileID: 11500000, guid: d5e08cd747a01c841ad81acf31ac5dfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ItemPlacement
   columns: 3
@@ -921,7 +875,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1288937268}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d36b8ab3276294b4298b91dc36600909, type: 3}
+  m_Script: {fileID: 11500000, guid: fcd4181efb0b4f049b4219f23f815d9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryToggle
   inventoryPanel: {fileID: 871772748}
@@ -1198,11 +1152,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7365b72c033d8e74392305739eec721a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GridTransformGroup
-  columns: 3
-  cellSize: {x: 50, y: 50}
-  spacing: {x: 2, y: 2}
-  useRectTransform: 1
-  includeInactive: 0
 --- !u!114 &1341284962
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1776,6 +1725,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1793227115}
   - {fileID: 1313545876}
-  - {fileID: 573902910}
+  - {fileID: 318203405}
   - {fileID: 1288937273}
   - {fileID: 1127718273}

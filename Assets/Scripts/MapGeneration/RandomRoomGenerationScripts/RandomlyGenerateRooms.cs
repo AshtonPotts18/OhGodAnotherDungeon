@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,24 +28,34 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
-    public GameObject startingRoom = null;
+    public GameObject startingRoom;
 
 
-    public int GenerateMap()
+    public void Awake()
     {
-        int returnedCode = 0;
+        int resultOutput = 0;
         do
         {
             generatedRooms.Clear();
-            returnedCode = GenerateRooms();
-        } while (returnedCode != 0);
+            resultOutput = GenerateRooms();
+        } while (resultOutput != 0);
 
 
-
-        return returnedCode;
     }
 
-    private int GenerateRooms()
+    public void GenerateMap()
+    {
+        int resultOutput = 0;
+        do
+        {
+            generatedRooms.Clear();
+            resultOutput = GenerateRooms();
+        } while (resultOutput != 0);
+
+    }
+
+
+    public int GenerateRooms()
     {
 
         GenerateStartingRoom(generatedRooms);
@@ -62,7 +73,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         SpawnRooms(generatedRooms);
-        generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom);
+        generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
 
         List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
         RandomlyDeletePaths(paths, in path_MST);
@@ -124,9 +135,14 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector2 endPoint = _path.b;
         Debug.Log("HallwayStartingPoint" + startPoint);
 
-        Vector2 randomStartDirection = Direction2D.GetRandomDirection() * roomOffset; // 5 is grid / size all rooms are divisable by
+        Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
+        //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
+        //currPosition adds the starting point to this direction to create the first hallway tile
+
 
         Vector2Int currentPosition2D = Vector2Int.RoundToInt(startPoint);
+            
+        //RoomInformation.ConnectRooms(generatedRooms[startPoint], generatedRooms[currPosition]); // connects the starting room with the first hallway segment
 
         Vector2Int nextPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // the position of the first hallway tile
 
