@@ -1552,7 +1552,7 @@ PrefabInstance:
     - target: {fileID: 5714635240614915669, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
       propertyPath: inventoryPrefab
       value: 
-      objectReference: {fileID: 6329632065369968180, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
+      objectReference: {fileID: 6982799213211949865, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1571,7 +1571,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4657423438648326187, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Name
-      value: Text (TMP)
+      value: PickupPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 6934588193616698649, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Pivot.x
