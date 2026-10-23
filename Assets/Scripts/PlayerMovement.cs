@@ -78,15 +78,7 @@ public class PlayerMovement : MonoBehaviour
             Movement();
         }
 
-        //if(cameraLookLocked)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //    return;
-        //}
-        //Movement();
-        //Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false;
+        
     }
 
 }
