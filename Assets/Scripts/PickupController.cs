@@ -1,5 +1,6 @@
-using UnityEngine;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.InputSystem;
 public class PickupController : MonoBehaviour
 {
@@ -8,35 +9,42 @@ public class PickupController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform holdHand;
     [SerializeField] private TextMeshProUGUI pickupPrompt;
+    [SerializeField] private InputActionReference pickup;
+    [SerializeField] private InputActionReference drop;
     //pickup settings
     [SerializeField] private float range = 2.5f;
 
-    private SellableItem heldItem;
-    private SellableItem targetedItem;
-
-    public SellableItem HeldItem => heldItem;
+    //field
+    private Item heldItem;
+    private Item targetedItem;
+    //Getter
+    public Item HeldItem => heldItem;
 
     // Update is called once per frame
-    void Update()
+    private void Start()
     {
+        TextMeshProUGUI[] texts =
+        FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
+
+        foreach (TextMeshProUGUI text in texts)
+        {
+            if (text.gameObject.name == "PickupPrompt")
+            {
+                pickupPrompt = text;
+                Debug.Log("Pickup prompt assigned successfully!");
+                break;
+            }
+        }
+
+        if (pickupPrompt == null)
+        {
+            Debug.LogError("PickupPrompt was not found!");
+        }
+    }
+    private void Update()
+    {
+        Debug.Log("PickupController Update is running");
         PromptDisplay();
-
-        if (Keyboard.current == null) return;
-
-        if (Keyboard.current.eKey.wasPressedThisFrame)
-        {
-            if (heldItem == null)
-            {
-                Pickup();
-            }
-        }
-        else if (Keyboard.current.qKey.wasPressedThisFrame)
-        {
-            if (heldItem != null)
-            {
-                Drop();
-            }
-        }
     }
 
     private void Pickup()
@@ -62,6 +70,50 @@ public class PickupController : MonoBehaviour
         heldItem = null;
     }
 
+    private void OnEnable()
+    {
+        if (pickup == null || pickup.action == null)
+        {
+            Debug.LogError("pickup not assigned");
+            return;
+        }
+
+        if (drop == null || drop.action == null)
+        {
+            Debug.LogError("drop not assigned");
+            return;
+        }
+            pickup.action.performed += OnPickup;
+            drop.action.performed += OnDrop;
+    }
+
+    private void OnDisable()
+    {
+        if (pickup != null && pickup.action != null)
+        {
+            pickup.action.performed -= OnPickup;
+        }
+        if (drop != null && drop.action != null)
+        {
+            drop.action.performed -= OnDrop;
+        }
+    }
+
+    private void OnPickup(InputAction.CallbackContext context)
+    {
+        if(heldItem == null)
+        {
+            Pickup();
+        }
+    }
+    private void OnDrop(InputAction.CallbackContext context)
+    {
+        if(heldItem != null)
+        {
+            Drop();
+        }
+    }
+
     private void PromptDisplay()
     {
 
@@ -73,7 +125,7 @@ public class PickupController : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, range))
             {
-                targetedItem = hit.collider.GetComponentInParent<SellableItem>();
+                targetedItem = hit.collider.GetComponentInParent<Item>();
             }
         }
 
@@ -100,7 +152,7 @@ public class PickupController : MonoBehaviour
     {
         if (heldItem == null) return;
 
-        SellableItem itemToMove = heldItem;
+        Item itemToMove = heldItem;
 
         heldItem = null;
         targetedItem = null;

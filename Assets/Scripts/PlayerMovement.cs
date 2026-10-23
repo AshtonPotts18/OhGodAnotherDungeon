@@ -64,28 +64,29 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //Movement();
+        
 
-        //if (cameraLookLocked)
-        //{
-        //    Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //}
-        //else
-        //{
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = false;
-        //}
-
-        if(cameraLookLocked)
+        if (cameraLookLocked)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            return;
         }
-        Movement();
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Movement();
+        }
+
+        //if(cameraLookLocked)
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //    return;
+        //}
+        //Movement();
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
     }
 
 }
