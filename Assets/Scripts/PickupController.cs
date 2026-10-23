@@ -21,6 +21,33 @@ public class PickupController : MonoBehaviour
     public Item HeldItem => heldItem;
 
     // Update is called once per frame
+    private void OnEnable()
+    {
+        if (pickup == null || pickup.action == null)
+        {
+            Debug.LogError("pickup not assigned");
+            return;
+        }
+
+        if (drop == null || drop.action == null)
+        {
+            Debug.LogError("drop not assigned");
+            return;
+        }
+        pickup.action.performed += OnPickup;
+        drop.action.performed += OnDrop;
+    }
+    private void OnDisable()
+    {
+        if (pickup != null && pickup.action != null)
+        {
+            pickup.action.performed -= OnPickup;
+        }
+        if (drop != null && drop.action != null)
+        {
+            drop.action.performed -= OnDrop;
+        }
+    }
     private void Start()
     {
         TextMeshProUGUI[] texts =
@@ -46,7 +73,30 @@ public class PickupController : MonoBehaviour
         Debug.Log("PickupController Update is running");
         PromptDisplay();
     }
+    
+    private void OnPickup(InputAction.CallbackContext context)
+    {
+        if (heldItem == null)
+        {
+            Pickup();
+        }
+    }
+    private void OnDrop(InputAction.CallbackContext context)
+    {
+        if (heldItem != null)
+        {
+            Drop();
+        }
+    }
+    private void Drop()
+    {
+        if (heldItem == null) return;
 
+        heldItem.transform.SetParent(null);
+        heldItem.SetHeld(false);
+
+        heldItem = null;
+    }
     private void Pickup()
     {
         if (targetedItem == null || holdHand == null) return;
@@ -59,61 +109,6 @@ public class PickupController : MonoBehaviour
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.identity;
     }
-
-    private void Drop()
-    {
-        if (heldItem == null) return;
-
-        heldItem.transform.SetParent(null);
-        heldItem.SetHeld(false);
-
-        heldItem = null;
-    }
-
-    private void OnEnable()
-    {
-        if (pickup == null || pickup.action == null)
-        {
-            Debug.LogError("pickup not assigned");
-            return;
-        }
-
-        if (drop == null || drop.action == null)
-        {
-            Debug.LogError("drop not assigned");
-            return;
-        }
-            pickup.action.performed += OnPickup;
-            drop.action.performed += OnDrop;
-    }
-
-    private void OnDisable()
-    {
-        if (pickup != null && pickup.action != null)
-        {
-            pickup.action.performed -= OnPickup;
-        }
-        if (drop != null && drop.action != null)
-        {
-            drop.action.performed -= OnDrop;
-        }
-    }
-
-    private void OnPickup(InputAction.CallbackContext context)
-    {
-        if(heldItem == null)
-        {
-            Pickup();
-        }
-    }
-    private void OnDrop(InputAction.CallbackContext context)
-    {
-        if(heldItem != null)
-        {
-            Drop();
-        }
-    }
-
     private void PromptDisplay()
     {
 
