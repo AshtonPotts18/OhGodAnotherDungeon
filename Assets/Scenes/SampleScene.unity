@@ -1571,7 +1571,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4657423438648326187, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Name
-      value: Text (TMP)
+      value: PickupPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 6934588193616698649, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Pivot.x
