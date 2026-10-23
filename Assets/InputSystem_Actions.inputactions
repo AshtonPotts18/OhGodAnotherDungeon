@@ -40,7 +40,7 @@
                     "name": "Interact",
                     "type": "Button",
                     "id": "852140f2-7766-474d-8707-702459ba45f3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "Hold",
                     "initialStateCheck": false,
@@ -50,7 +50,7 @@
                     "name": "Crouch",
                     "type": "Button",
                     "id": "27c5f898-bc57-4ee1-8800-db469aca5fe3",
-                    "expectedControlType": "",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false,
@@ -99,7 +99,7 @@
                 {
                     "name": "Pickup",
                     "type": "Button",
-                    "id": "f162ed25-0ac4-4f10-9d51-2f08fa95983c",
+                    "id": "85486092-60e4-43db-8898-f020cef0d392",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -109,7 +109,7 @@
                 {
                     "name": "Drop",
                     "type": "Button",
-                    "id": "0f6f52e6-cf72-4b01-8990-6287c773d622",
+                    "id": "9fdde2ff-ff24-4e63-8df7-cf85df4977d0",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -505,7 +505,7 @@
                 },
                 {
                     "name": "",
-                    "id": "03cd0b51-3f5e-43cd-b3f9-d4a66a77b105",
+                    "id": "fb2329d2-fcb6-40fa-a3f2-25b82fdc7802",
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
@@ -516,7 +516,7 @@
                 },
                 {
                     "name": "",
-                    "id": "ea9ab743-9ab1-4368-bd7c-2535c352499b",
+                    "id": "13345438-36df-4cd6-a295-5940b51c47e1",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
