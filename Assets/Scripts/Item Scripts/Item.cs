@@ -3,7 +3,6 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     //References
-    [SerializeField] private InventoryItemDimensions inventoryPrefab;
 
     //fields
     [SerializeField] private string itemName = "item";
@@ -11,9 +10,16 @@ public class Item : MonoBehaviour
     private Rigidbody rb;
 
     //Getters
-    public InventoryItemDimensions InventoryPrefab => inventoryPrefab;
-    public string ItemName => itemName;
-    public int Value => value;
+    //public InventoryItemDimensions InventoryPrefab => inventoryPrefab;
+    public InventoryItemDimensions InventoryPrefab { get; private set; }
+    public string ItemName { get; private set; } = "item";
+    public int Value { get; private set; } = 100;
+
+    Item()
+    {
+        ItemName = itemName;
+        Value = value;
+    }
 
     private void Awake()
     {
