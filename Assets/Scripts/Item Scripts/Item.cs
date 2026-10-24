@@ -7,12 +7,13 @@ public class Item : MonoBehaviour, IInteract
     //fields
     [SerializeField] private string itemName = "item";
     [SerializeField] private int value = 100;
+    [SerializeField] private InventoryItemDimensions inventoryPrefab;
     private Rigidbody rb;
 
     //Getters
-    public InventoryItemDimensions InventoryPrefab { get; private set; }
-    public string ItemName { get; private set; } = "item";
-    public int Value { get; private set; } = 100;
+    public InventoryItemDimensions InventoryPrefab { get; set; }
+    public string ItemName { get; set; } = "item";
+    public int Value { get; set; } = 100;
 
 
     protected virtual void Awake()
@@ -20,6 +21,7 @@ public class Item : MonoBehaviour, IInteract
         rb = GetComponent<Rigidbody>();
         ItemName = itemName;
         Value = value;
+        InventoryPrefab = inventoryPrefab;
     }
 
     public virtual void SetHeld(bool isHeld)
