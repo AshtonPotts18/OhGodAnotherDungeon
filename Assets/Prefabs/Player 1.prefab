@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5725297878230091861}
   - component: {fileID: 7917788734977564086}
   - component: {fileID: 4322497515102470083}
+  - component: {fileID: 7875503735727015195}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -210,7 +211,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
-  pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
+  pickupPrompt: {fileID: 0}
   pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
@@ -277,6 +278,19 @@ MonoBehaviour:
   Stamina: {fileID: 1777930546242449825}
   stamiaDrain: 1
   staminaRegenCooldown: 1.5
+--- !u!114 &7875503735727015195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702544181617325606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0bdfa32b6ce0249ac2f6ac4af22f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
+  inputActions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
 --- !u!1 &4705889974067986637
 GameObject:
   m_ObjectHideFlags: 0

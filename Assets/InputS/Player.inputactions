@@ -57,9 +57,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "UseItem",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "d069fa4b-5160-442b-8a37-501288a1263f",
+                    "id": "25e47c9e-115a-4864-bc4e-6b6f3525af9b",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -125,12 +125,12 @@
                 },
                 {
                     "name": "",
-                    "id": "130d2e34-da02-4764-b680-53c2b55fbe00",
+                    "id": "66b7dd22-55f8-46bd-8bea-8a96a1c107fa",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "UseItem",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
