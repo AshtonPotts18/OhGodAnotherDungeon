@@ -15,14 +15,14 @@ public class Item : MonoBehaviour
     public int Value { get; private set; } = 100;
 
 
-    private void Awake()
+    protected virtual void Awake()
     {
         rb = GetComponent<Rigidbody>();
         ItemName = itemName;
         Value = value;
     }
 
-    public void SetHeld(bool isHeld)
+    public virtual void SetHeld(bool isHeld)
     {
         if (rb != null)
         {
