@@ -10,20 +10,16 @@ public class Item : MonoBehaviour
     private Rigidbody rb;
 
     //Getters
-    //public InventoryItemDimensions InventoryPrefab => inventoryPrefab;
     public InventoryItemDimensions InventoryPrefab { get; private set; }
     public string ItemName { get; private set; } = "item";
     public int Value { get; private set; } = 100;
 
-    Item()
-    {
-        ItemName = itemName;
-        Value = value;
-    }
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        ItemName = itemName;
+        Value = value;
     }
 
     public void SetHeld(bool isHeld)
