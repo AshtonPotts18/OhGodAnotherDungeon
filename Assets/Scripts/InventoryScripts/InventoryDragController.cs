@@ -14,8 +14,10 @@ public class InventoryDragController : MonoBehaviour
     [SerializeField] private LayerMask dropLayer = ~0;
     [SerializeField] private float dropRange = 3f;
 
-    private Item heldItem;
+    //field
+    private InventoryItemDimensions heldItem;
 
+    //getter
     public bool isHolding => heldItem != null;
 
     private Camera UiCamera
@@ -30,7 +32,30 @@ public class InventoryDragController : MonoBehaviour
         }
     }
 
-    public bool PickupItem(Item item)
+    private void Update()
+    {
+        if (heldItem == null)
+        {
+            TryPickUpInventoryItem();
+        }
+
+        if (heldItem == null || Mouse.current == null) return;
+
+        UpdateHeldItemPosition();
+
+        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
+        {
+            heldItem.SetRotation(!heldItem.isRotated);
+            UpdateItemSize();
+        }
+
+        if (Mouse.current.leftButton.wasReleasedThisFrame)
+        {
+            FinishDragging();
+        }
+    }
+
+    public bool PickupItem(InventoryItemDimensions item)
     {
         if(item == null)
         {
@@ -55,7 +80,7 @@ public class InventoryDragController : MonoBehaviour
         return isHolding;
     }
     
-    public void BeginMoveItem(Item item)
+    public void BeginMoveItem(InventoryItemDimensions item)
     {
         if (item == null || isHolding || !item.isPlaced) return;
 
@@ -70,7 +95,7 @@ public class InventoryDragController : MonoBehaviour
         BeginHolding(item);
     }
 
-    private void BeginHolding(Item item)
+    private void BeginHolding(InventoryItemDimensions item)
     {
         if (item == null || inventory == null || itemLayer == null) return;
 
@@ -97,28 +122,6 @@ public class InventoryDragController : MonoBehaviour
         UpdateHeldItemPosition();
     }
 
-    private void Update()
-    {
-        if (heldItem == null)
-        {
-            TryPickUpInventoryItem();
-        }
-
-        if (heldItem == null || Mouse.current == null) return;
-
-        UpdateHeldItemPosition();
-
-        if (Keyboard.current != null && Keyboard.current.rKey.wasPressedThisFrame)
-        {
-            heldItem.SetRotation(!heldItem.isRotated);
-            UpdateItemSize();
-        }
-
-        if (Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            FinishDragging();
-        }
-    }
 
     private void UpdateItemSize()
     {
@@ -238,7 +241,7 @@ public class InventoryDragController : MonoBehaviour
 
         foreach (RaycastResult result in results)
         {
-            Item item = result.gameObject.GetComponentInParent<Item>();
+            InventoryItemDimensions item = result.gameObject.GetComponentInParent<InventoryItemDimensions>();
 
             if (item != null && item.isPlaced)
             {
@@ -249,21 +252,15 @@ public class InventoryDragController : MonoBehaviour
     }
     public void SetInventoryOpen(bool isOpen)
     {
-        //if (cameraLook != null)
-        //{
-        //    cameraLook.cameraLookLocked = isOpen;
-        //}
-
-        cameraLook = FindAnyObjectByType<PlayerMovement>();
+        cameraLook = GameManager.Player.GetComponent<PlayerMovement>();
 
         if (cameraLook == null)
         {
-            Debug.LogError("Could not find the spawned player's PlayerMovement.");
+            Debug.LogError("not found");
             return;
         }
-
+        
         cameraLook.cameraLookLocked = isOpen;
-        Debug.Log($"Inventory open: {isOpen}");
     }
 }
    

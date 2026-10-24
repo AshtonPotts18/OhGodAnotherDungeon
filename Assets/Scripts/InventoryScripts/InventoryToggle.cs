@@ -7,6 +7,7 @@ public class InventoryToggle : MonoBehaviour
     [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private InventoryDragController dragController;
     [SerializeField] private PickupController pickupController;
+    //field
     private bool isOpen = false;
 
     private void Start()
@@ -22,43 +23,30 @@ public class InventoryToggle : MonoBehaviour
 
     private void Update()
     {
-        //if (Keyboard.current != null && Keyboard.current.iKey.wasPressedThisFrame)
-        //{
-        //    if(!isOpen && pickupController != null && pickupController.HeldItem != null)
-        //    {
-        //        StoreHeldItem();
-        //    }
-        //    else
-        //    {
-        //        ToggleInventory();
-        //    }
-        //}
 
         if(Keyboard.current == null || !Keyboard.current.iKey.wasPressedThisFrame)
         {
             return;
         }
+        //remember to impliment.
         GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
-
+        
         if(playerObject != null)
         {
             pickupController = playerObject.GetComponentInChildren<PickupController>();
         }
-
+        
         if(!isOpen && pickupController != null && pickupController.HeldItem != null)
         {
             StoreHeldItem();
         }
-
         else
         {
             ToggleInventory();
         }
     }
-
     public void ToggleInventory()
     {
-
         isOpen = !isOpen;
 
         if (inventoryPanel != null)
@@ -68,55 +56,45 @@ public class InventoryToggle : MonoBehaviour
 
         UpdateCameraLock();
         UpdateCursorState();
-
     }
-    
+
     private void StoreHeldItem()
     {
-        SellableItem worldItem = pickupController.HeldItem;
-    
+        Item worldItem = pickupController.HeldItem;
+
         if (worldItem == null || dragController == null) return;
-    
-        Item prefab = worldItem.InventoryPrefab;
-    
-        if(prefab == null)
+
+        InventoryItemDimensions prefab = worldItem.InventoryPrefab;
+
+        if (prefab == null)
         {
             Debug.LogError("No prefab assinged.");
             return;
         }
-    
-        Item uiItem = Instantiate(prefab);
-    
-        if(!dragController.PickupItem(uiItem))
+
+        InventoryItemDimensions uiItem = Instantiate(prefab);
+
+        if (!dragController.PickupItem(uiItem))
         {
             Destroy(uiItem.gameObject);
             Debug.LogError("Item rejected");
             return;
         }
-    
+
         pickupController.MoveHeldItem();
-    
+
         isOpen = true;
-    
-        if(inventoryPanel != null)
+
+        if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(true);
         }
-    
+
         UpdateCameraLock();
         UpdateCursorState();
-    
+
         Debug.Log("Item fits");
     }
-
-    private void UpdateCameraLock()
-    {
-        if (dragController != null)
-        {
-            dragController.SetInventoryOpen(isOpen);
-        }
-    }
-
     public void CloseInventory()
     {
         isOpen = false;
@@ -128,8 +106,16 @@ public class InventoryToggle : MonoBehaviour
 
         UpdateCameraLock();
         UpdateCursorState();
-
     }
+
+    private void UpdateCameraLock()
+    {
+        if (dragController != null)
+        {
+            dragController.SetInventoryOpen(isOpen);
+        }
+    }
+
     private void UpdateCursorState()
     {
         if (isOpen)
@@ -143,4 +129,5 @@ public class InventoryToggle : MonoBehaviour
             Cursor.visible = false;
         }
     }
+    
 }

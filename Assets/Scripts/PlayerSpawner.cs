@@ -29,8 +29,7 @@ public class PlayerSpawner : MonoBehaviour
             return;
         }
 
-        spawnedPlayer = Instantiate( playerPrefab,
-            playerSpawnPoint.position, playerSpawnPoint.rotation);
+        spawnedPlayer = Instantiate(playerPrefab, playerSpawnPoint.position, playerSpawnPoint.rotation);
         spawnedPlayer.tag = "Player";
     }
 }
