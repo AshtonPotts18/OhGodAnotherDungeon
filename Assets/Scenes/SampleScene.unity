@@ -352,17 +352,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RandomlyGenerateRooms
   roomManager: {fileID: 417664745}
+  hallwayManager: {fileID: 0}
   startingRoom_Prefab: {fileID: 2232350165620360481, guid: 15a6ee824ad9c544e833c53e7d36a46d, type: 3}
   handRoom_Prefab: {fileID: 6936300054181408770, guid: 9e5e6b66f9a92f942bd38355681b1e9b, type: 3}
+  hallway_prefab: {fileID: 4663460709355380625, guid: f016681226bb8f8489da3661baf645ba, type: 3}
   room_prefabs:
   - {fileID: 8919740315219510778, guid: bdd76d0174f08c6418bbd67299b9916c, type: 3}
   - {fileID: 8329556229693097355, guid: a3609881215457d449ca3fc138726ea5, type: 3}
-  hallway_prefab: {fileID: 4663460709355380625, guid: f016681226bb8f8489da3661baf645ba, type: 3}
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 50
   roomCount: 3
   roomOffset: 5
   randomPathChance: 12.3
+  startingRoom: {fileID: 0}
 --- !u!4 &417664747
 Transform:
   m_ObjectHideFlags: 0
@@ -446,7 +448,7 @@ MonoBehaviour:
   canvas: {fileID: 1205710462}
   dropLayer:
     serializedVersion: 2
-    m_Bits: 23
+    m_Bits: 4294967295
   dropRange: 3
 --- !u!114 &502777263
 MonoBehaviour:
@@ -1571,7 +1573,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4657423438648326187, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Name
-      value: Text (TMP)
+      value: PickupPrompt
       objectReference: {fileID: 0}
     - target: {fileID: 6934588193616698649, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
       propertyPath: m_Pivot.x

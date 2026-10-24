@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5736526072607353231}
   - component: {fileID: 8746286306777983444}
   - component: {fileID: 5588875990419844725}
-  - component: {fileID: 6329632065369968180}
+  - component: {fileID: 6982799213211949865}
   m_Layer: 5
   m_Name: InventoryCube
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6329632065369968180
+--- !u!114 &6982799213211949865
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,12 +85,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2904931308273374651}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82fba0c1aa1a1f84d923e9b2a34185d5, type: 3}
+  m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Item
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
   worldPrefab: {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
-  width: 1
-  height: 1
+  width: 2
+  height: 2
   gridX: 0
   gridY: 0
   isRotated: 0

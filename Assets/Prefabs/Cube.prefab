@@ -126,9 +126,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d73c9fce99ba1da4fbb01b72381f4e91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SellableItem
+  inventoryPrefab: {fileID: 6982799213211949865, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
   itemName: item
   value: 100
-  inventoryPrefab: {fileID: 6329632065369968180, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
 --- !u!54 &3909342262859944406
 Rigidbody:
   m_ObjectHideFlags: 0

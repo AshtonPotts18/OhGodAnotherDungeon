@@ -1,11 +1,10 @@
-using NUnit.Framework.Constraints;
 using System.Linq;
 using UnityEngine;
 
 public class RoomInformation : MonoBehaviour
 {
-    public Bounds roomSize = new Bounds(new Vector3(0,0,0), new Vector3 (5,5,5));
-    public Vector2 floorSize = new Vector2(5,5);
+    public Bounds roomSize = new Bounds(new Vector3(0, 0, 0), new Vector3(5, 5, 5));
+    public Vector2 floorSize = new Vector2(5, 5);
     [Header("Doors: Front, Bottom, Left, Right")]
     public bool[] openDoors = new bool[4];
 
@@ -27,7 +26,7 @@ public class RoomInformation : MonoBehaviour
             return;
         }
 
-        Vector3 roomDirection = (room2.transform.position - room1.transform.position)/5; // the difference will indicate what direction room 2 is from room 1
+        Vector3 roomDirection = (room2.transform.position - room1.transform.position) / 5; // the difference will indicate what direction room 2 is from room 1
 
         // connect the rooms
         // all positions are with respect to room 1
@@ -36,7 +35,7 @@ public class RoomInformation : MonoBehaviour
             firstRoomInfo.openDoors[0] = true;
             secondRoomInfo.openDoors[1] = true;
         }
-        else if (roomDirection == Vector3.back) 
+        else if (roomDirection == Vector3.back)
         {
             firstRoomInfo.openDoors[1] = true;
             secondRoomInfo.openDoors[0] = true;

@@ -1,8 +1,7 @@
+
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -29,21 +28,21 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
+    public GameObject startingRoom;
 
-    public GameObject startingRoom = null;
 
-
-    public int GenerateMap()
+    public void GenerateMap()
     {
-        int returnCode = 0;
+        int resultOutput = 0;
         do
         {
             generatedRooms.Clear();
-            returnCode = GenerateRooms();
-        } while (returnCode != 0);
+            resultOutput = GenerateRooms();
+        } while (resultOutput != 0);
 
-        return returnCode;
     }
+
+
     public int GenerateRooms()
     {
 
@@ -62,9 +61,9 @@ public class RandomlyGenerateRooms : MonoBehaviour
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         SpawnRooms(generatedRooms);
-        startingRoom = generatedRooms[new Vector2Int(0, 0)];
+        generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
 
-        List<Edge> path_MST = PrimsMST(new Vector2(0,0), paths);
+        List<Edge> path_MST = PrimsMST(new Vector2(0, 0), paths);
         RandomlyDeletePaths(paths, in path_MST);
         GenerateHallways(paths);
 
@@ -130,7 +129,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
 
         Vector2Int currentPosition2D = Vector2Int.RoundToInt(startPoint);
-            
+
         //RoomInformation.ConnectRooms(generatedRooms[startPoint], generatedRooms[currPosition]); // connects the starting room with the first hallway segment
 
         Vector2Int nextPosition = Vector2Int.RoundToInt(startPoint + randomStartDirection); // the position of the first hallway tile
@@ -142,7 +141,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
             if (!occupiedGridSpaces.Contains(nextPosition3D))
             {
                 SpawnHallway(nextPosition3D, nextPosition);
-                
+
             }
             RoomInformation.ConnectRooms(generatedRooms[currentPosition2D], generatedRooms[nextPosition]);
             currentPosition2D = nextPosition;
@@ -154,12 +153,12 @@ public class RandomlyGenerateRooms : MonoBehaviour
     private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition) // iterates currentPosition2D
     { // separate the hallway creation and the walk
 
-               
+
         Vector3 nextPosition = WalkRandomDirection(currentPosition2D, targetPosition);
         currentPosition2D = new Vector2Int(Mathf.RoundToInt(nextPosition.x), Mathf.RoundToInt(nextPosition.z));
 
         return currentPosition2D; // new currentPosition
-    
+
     }
 
     private void SpawnHallway(Vector3 currentPosition3D, Vector2Int currentPosition2D)
@@ -192,7 +191,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         }
         else if (currentPosition.y == targetPosition.y) // move x axis
         {
-            currentPosition.x = MoveAxisX(currentPosition, distanceFromTarget.x > 0); 
+            currentPosition.x = MoveAxisX(currentPosition, distanceFromTarget.x > 0);
         }
         else if (currentPosition.x == targetPosition.x) // move y Axis
         {
@@ -337,7 +336,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         Vector2 output = new Vector2(snappedX, snappedy);
         Debug.Log("RandomPoint Generated");
-        
+
 
         return output;
     }
