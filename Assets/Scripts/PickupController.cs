@@ -23,7 +23,7 @@ public class PickupController : MonoBehaviour
     // Update is called once per frame
     private void Start()
     {
-        TextMeshProUGUI[] texts =FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
+        TextMeshProUGUI[] texts = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
 
         foreach (TextMeshProUGUI text in texts)
         {
@@ -157,5 +157,41 @@ public class PickupController : MonoBehaviour
         targetedItem = null;
 
         Destroy(itemToMove.gameObject);
+    }
+
+    public bool EquipItem(GameObject prefab)
+    {
+        if (prefab == null || holdHand == null || heldItem != null)
+        {
+            return false;
+        }
+
+        GameObject instance = Instantiate(prefab, holdHand.position, holdHand.rotation);
+
+        Item item = instance.GetComponent<Item>();
+
+        if (item == null)
+        {
+            Debug.LogError("The world prefab need an Item component on its root.", instance);
+
+            Destroy(instance);
+            return false;
+        }
+
+        heldItem = item;
+        heldItem.SetHeld(true);
+
+        heldItem.transform.SetParent(holdHand);
+        heldItem.transform.localPosition = Vector3.zero;
+        heldItem.transform.localRotation = Quaternion.identity;
+
+        targetedItem = null;
+
+        return true;
+    }
+
+    public void DropHeldItem()
+    {
+        Drop();
     }
 }

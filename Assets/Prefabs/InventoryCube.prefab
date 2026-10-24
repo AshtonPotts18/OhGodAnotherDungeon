@@ -89,8 +89,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
   worldPrefab: {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
+  hotkeyAction: {fileID: -9070742130838849308, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   width: 2
-  height: 2
+  height: 1
   gridX: 0
   gridY: 0
   isRotated: 0
