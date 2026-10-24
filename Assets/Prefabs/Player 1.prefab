@@ -143,7 +143,7 @@ MonoBehaviour:
   playerController: {fileID: 3210071393195323531}
   slider: {fileID: 7508006183706755870}
   sprintspeed: 10
-  cameraLookLocked: 0
+  cameraLookLocked: 1
   rotationLocked: 0
 --- !u!143 &3210071393195323531
 CharacterController:
@@ -179,7 +179,7 @@ Rigidbody:
   m_GameObject: {fileID: 4702544181617325606}
   serializedVersion: 5
   m_Mass: 1
-  m_LinearDamping: 0
+  m_LinearDamping: 20
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
