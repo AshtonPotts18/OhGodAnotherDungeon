@@ -252,11 +252,11 @@ public class InventoryDragController : MonoBehaviour
     }
     public void SetInventoryOpen(bool isOpen)
     {
-        cameraLook = GameManager.Player.GetComponent<PlayerMovement>();
+        cameraLook = FindAnyObjectByType<PlayerMovement>();
 
         if (cameraLook == null)
         {
-            Debug.LogError("not found");
+            Debug.LogWarning("cameraLook not found");
             return;
         }
         
