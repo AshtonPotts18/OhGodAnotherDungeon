@@ -209,8 +209,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
-  itemHeldPosition: {fileID: 0}
+  holdHand: {fileID: 6452007730974309547}
   pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
+  pickup: {fileID: 0}
+  drop: {fileID: 0}
   range: 2.5
 --- !u!114 &5725297878230091861
 MonoBehaviour:
