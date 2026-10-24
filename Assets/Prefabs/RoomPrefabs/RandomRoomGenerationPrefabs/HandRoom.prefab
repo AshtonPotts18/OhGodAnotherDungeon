@@ -234,6 +234,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2955976789000335535}
+  - component: {fileID: -7101306776083050316}
   m_Layer: 0
   m_Name: HandRoom
   m_TagString: Untagged
@@ -262,6 +263,29 @@ Transform:
   - {fileID: 4428214023186017492}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-7101306776083050316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4387044445314408371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a1bafce4c1ad5349b05215d7253d9fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RoomInformation
+  roomSize:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 2.5, y: 2.5, z: 2.5}
+  floorSize: {x: 5, y: 5}
+  openDoors: 00000000y
+  walls:
+  - {fileID: 732553495549524982}
+  - {fileID: 6111312370966017483}
+  - {fileID: 7981291387998520598}
+  - {fileID: 5705317669570632808}
+  doors: []
 --- !u!1 &5705317669570632808
 GameObject:
   m_ObjectHideFlags: 0
