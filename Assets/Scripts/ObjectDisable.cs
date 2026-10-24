@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ObjectDisable : MonoBehaviour
 {
@@ -6,19 +7,20 @@ public class ObjectDisable : MonoBehaviour
 
     public void Vanish()
     {
+
+
         foreach (GameObject obj in Objects)
         {
-            if (obj != null)
+            var Sel = obj.GetComponent<Selectable>();
+            if (Sel != null)
             {
-                if(obj.activeSelf)
-                {
-                    obj.SetActive(false);
-                }
-                else
-                {
-                    obj.SetActive(true);
-                }
+                Sel.enabled = !Sel.enabled;
+            }
+            else
+            {
+                obj.SetActive(!obj.activeSelf);
             }
         }
     }
+
 }

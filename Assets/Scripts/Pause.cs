@@ -8,8 +8,11 @@ public class Pause : MonoBehaviour
     [SerializeField] private GameObject PauseMenu;
     [SerializeField] private GameObject OtherUI;
 
+
     [SerializeField] private InputActionAsset ActionMap;
     [SerializeField] private float timer = 1;
+
+    private bool Paused;
 
     private bool tap = true;
     private InputAction Escape;
@@ -30,7 +33,7 @@ public class Pause : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Time.timeScale = 1;
-
+            Paused = false;
         }
         else
         {
@@ -39,6 +42,7 @@ public class Pause : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
             Time.timeScale = 0;
+            Paused = true;
         }
         yield return new WaitForSecondsRealtime(timer);
 
@@ -52,6 +56,12 @@ public class Pause : MonoBehaviour
 
             StartCoroutine(WaitAndDoSomething());
 
+        }
+
+        if(Paused)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 }

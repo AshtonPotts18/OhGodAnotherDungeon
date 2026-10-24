@@ -77,7 +77,7 @@ public class InventoryToggle : MonoBehaviour
     
         if (worldItem == null || dragController == null) return;
     
-        DisplayedInventoryItem prefab = worldItem.InventoryPrefab;
+        Item prefab = worldItem.InventoryPrefab;
     
         if(prefab == null)
         {
@@ -85,7 +85,7 @@ public class InventoryToggle : MonoBehaviour
             return;
         }
     
-        DisplayedInventoryItem uiItem = Instantiate(prefab);
+        Item uiItem = Instantiate(prefab);
     
         if(!dragController.PickupItem(uiItem))
         {

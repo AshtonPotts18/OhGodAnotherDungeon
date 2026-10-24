@@ -11,14 +11,14 @@ public class ItemPlacement : MonoBehaviour
     //references
     [SerializeField] private RectTransform itemLayer;
 
-    private DisplayedInventoryItem[,] fullCells;
+    private Item[,] fullCells;
 
     private void Awake()
     {
         columns = Mathf.Max(1, columns);
         rows = Mathf.Max(1, rows);
 
-        fullCells = new DisplayedInventoryItem[columns, rows];
+        fullCells = new Item[columns, rows];
 
         if (itemLayer == null)
         {
@@ -26,7 +26,7 @@ public class ItemPlacement : MonoBehaviour
         }
     }
 
-    public bool CanPlace(DisplayedInventoryItem item, int x, int y, bool rotated)
+    public bool CanPlace(Item item, int x, int y, bool rotated)
     {
         if (item == null || fullCells == null)
         {
@@ -50,7 +50,7 @@ public class ItemPlacement : MonoBehaviour
         {
             for (int dy = 0; dy < height; dy++)
             {
-                DisplayedInventoryItem occupant = fullCells[x + dx, y + dy];
+                Item occupant = fullCells[x + dx, y + dy];
 
                 if (occupant != null && occupant != item)
                 {
@@ -62,7 +62,7 @@ public class ItemPlacement : MonoBehaviour
         return true;
     }
 
-    public bool PlaceItem(DisplayedInventoryItem item, int x, int y, bool rotated = false)
+    public bool PlaceItem(Item item, int x, int y, bool rotated = false)
     {
         if (item == null || itemLayer == null || fullCells == null)
         {
@@ -116,7 +116,7 @@ public class ItemPlacement : MonoBehaviour
         return true;
     }
 
-    private void ClearItemCells(DisplayedInventoryItem item)
+    private void ClearItemCells(Item item)
     {
         if (item == null || fullCells == null) return;
 
@@ -132,7 +132,7 @@ public class ItemPlacement : MonoBehaviour
         }
     }
 
-    public bool RotatedItem(DisplayedInventoryItem item)
+    public bool RotatedItem(Item item)
     {
         if (item == null || !item.isPlaced)
         {
@@ -142,7 +142,7 @@ public class ItemPlacement : MonoBehaviour
         return PlaceItem(item, item.gridX, item.gridY, !item.isRotated);
     }
 
-    public DisplayedInventoryItem GetItemAt(int x, int y)
+    public Item GetItemAt(int x, int y)
     {
         if (fullCells == null || x < 0 || y < 0 || x >= columns || y >= rows)
         {
@@ -152,7 +152,7 @@ public class ItemPlacement : MonoBehaviour
         return fullCells[x, y];
     }
 
-    public void RemoveItemFromGrid(DisplayedInventoryItem item)
+    public void RemoveItemFromGrid(Item item)
     {
         if (item == null || !item.isPlaced) return;
 
