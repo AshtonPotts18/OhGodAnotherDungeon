@@ -23,17 +23,6 @@ public class MenuNav : MonoBehaviour
     private InputAction up;
     private InputAction down;
 
-    private void OnEnable()
-    {
-        actionmap.FindActionMap("Menu Nav").Enable();
-
-    }
-
-    private void OnDisable()
-    {
-        actionmap.FindActionMap("Menu Nav").Disable();
-
-    }
     private void Awake()
     {
         up = actionmap.FindAction("Up");
