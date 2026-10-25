@@ -14,6 +14,7 @@ public class IfSprint : MonoBehaviour
     private Image Change;
 
     [SerializeField] private float staminaRegenCooldown = 1.5f;
+    private float DelayTime;
 
 
     
@@ -31,17 +32,18 @@ public class IfSprint : MonoBehaviour
     void Start()
     {
         Change = Stamina.GetComponent<Image>();
+        DelayTime = staminaRegenCooldown;
     }
     void FixedUpdate()
     {
-        staminaRegenCooldown = staminaRegenCooldown * Time.deltaTime;
+        //staminaRegenCooldown = staminaRegenCooldown * Time.deltaTime;
         if(Sprint.IsPressed())
         {
             if (slider.value > 0)
             { slider.value -= stamiaDrain; } // perframe stamina drain
             Change.color = new Color(0f, 1, 1);
 
-            staminaRegenCooldown = 1.5f;
+            staminaRegenCooldown = DelayTime;
         }
         else
         {

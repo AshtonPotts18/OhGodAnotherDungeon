@@ -34,7 +34,7 @@ public class HealthandPlus : MonoBehaviour
 
     private void Update()
     {
-        if(slider.value < 0)
+        if(slider.value == 0)
         {
             SceneManager.LoadScene(GameOver);
         }
