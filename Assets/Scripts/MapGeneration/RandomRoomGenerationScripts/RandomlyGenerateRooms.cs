@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -31,14 +32,24 @@ public class RandomlyGenerateRooms : MonoBehaviour
     public GameObject startingRoom;
 
 
-    public void GenerateMap()
+    public List<GameObject> GenerateMap()
     {
         int resultOutput = 0;
+        List<GameObject> outputRooms = new List<GameObject>();
         do
         {
             generatedRooms.Clear();
             resultOutput = GenerateRooms();
         } while (resultOutput != 0);
+
+        foreach (var room in generatedRooms.Values)
+        {
+            if (room.CompareTag("Hallway")) break; // all rooms are generated before the hallways so the first hallway tag is the end of the rooms
+            outputRooms.Add(room);
+            
+        }
+        
+        return outputRooms;
 
     }
 
