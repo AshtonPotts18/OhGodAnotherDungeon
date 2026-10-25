@@ -423,7 +423,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryDragController
   cameraLook: {fileID: 7909069791514087151, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
-  inventory: {fileID: 0}
+  inventory: {fileID: 1780462720}
   itemLayer: {fileID: 2112483340}
   canvas: {fileID: 1780462718}
   dropLayer:
