@@ -1716,6 +1716,8 @@ GameObject:
   - component: {fileID: 5725297878230091861}
   - component: {fileID: 7917788734977564086}
   - component: {fileID: 4322497515102470083}
+  - component: {fileID: -3280684930742015986}
+  - component: {fileID: 4849192754757187439}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -1909,7 +1911,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
-  pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
+  pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
   pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
@@ -1976,6 +1978,35 @@ MonoBehaviour:
   Stamina: {fileID: 1777930546242449825}
   stamiaDrain: 1
   staminaRegenCooldown: 1.5
+--- !u!114 &-3280684930742015986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702544181617325606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0bb3faa721657f342884fddceac5dd68, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HotkeyController
+  pickupController: {fileID: 1190590102167744848}
+  inventory: {fileID: 0}
+  dropAction: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+--- !u!114 &4849192754757187439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702544181617325606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0bdfa32b6ce0249ac2f6ac4af22f2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
+  inputActions: {fileID: 0}
+  interactRange: 2.5
 --- !u!1 &4705889974067986637
 GameObject:
   m_ObjectHideFlags: 0

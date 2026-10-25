@@ -57,9 +57,19 @@
                     "priority": 0
                 },
                 {
-                    "name": "Escape",
+                    "name": "Interact",
                     "type": "Button",
-                    "id": "69eb43a4-e214-4d2d-8e45-612c93304091",
+                    "id": "25e47c9e-115a-4864-bc4e-6b6f3525af9b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
+                    "name": "UseItem",
+                    "type": "Button",
+                    "id": "cebd81e0-9c4b-4eca-8dc9-e736bead1393",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -125,12 +135,23 @@
                 },
                 {
                     "name": "",
-                    "id": "6d8f65eb-a822-4678-94d6-4578d01deb1f",
-                    "path": "<Keyboard>/escape",
+                    "id": "66b7dd22-55f8-46bd-8bea-8a96a1c107fa",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Escape",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "083dce79-fb9b-4d28-900c-8a2454df98d9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UseItem",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -12,7 +12,20 @@ public class ItemPlacement : MonoBehaviour
     [SerializeField] private RectTransform itemLayer;
 
     private InventoryItemDimensions[,] fullCells;
+    public static ItemPlacement Instance { get; private set; }
 
+    private void OnEnable()
+    {
+        Instance = this;
+    }
+
+    private void OnDisable()
+    {
+        if (Instance == this)
+        {
+            Instance = null;
+        }
+    }
     private void Awake()
     {
         columns = Mathf.Max(1, columns);
@@ -169,5 +182,39 @@ public class ItemPlacement : MonoBehaviour
         }
 
         return RectTransformUtility.RectangleContainsScreenPoint(itemLayer,screenPosition,uiCamera);
+    }
+
+    public bool TryReturnItemToGrid(InventoryItemDimensions item)
+    {
+        if (item == null)
+        {
+            return false;
+        }
+
+        if (CanPlace(item, item.gridX, item.gridY, item.isRotated))
+        {
+            if (PlaceItem(item, item.gridX, item.gridY, item.isRotated))
+            {
+                item.gameObject.SetActive(true);
+                return true;
+            }
+        }
+
+        for (int y = 0; y < rows; y++)
+        {
+            for (int x = 0; x < columns; x++)
+            {
+                if (CanPlace(item, x, y, item.isRotated))
+                {
+                    if (PlaceItem(item, x, y, item.isRotated))
+                    {
+                        item.gameObject.SetActive(true);
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }

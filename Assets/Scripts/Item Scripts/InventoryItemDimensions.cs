@@ -1,8 +1,10 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InventoryItemDimensions : MonoBehaviour
 {
     [SerializeField] public GameObject worldPrefab;
+    [SerializeField] private InputActionReference hotkeyAction;
 
     //Item size
     [SerializeField, Min(1)] public int width = 2;
@@ -17,6 +19,7 @@ public class InventoryItemDimensions : MonoBehaviour
     //Getters
     public int Width => isRotated ? height : width;
     public int Height => isRotated ? width : height;
+    public InputActionReference HotkeyAction => hotkeyAction;
 
     public RectTransform RectTransform { get; private set; }
 

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 4629448722559154871}
   - component: {fileID: 6578528917200641731}
   - component: {fileID: 3332180666212813915}
-  - component: {fileID: 5714635240614915669}
   - component: {fileID: 6713833044930787818}
+  - component: {fileID: 8884185001295412974}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -114,20 +114,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &5714635240614915669
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4421293615949454883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d73c9fce99ba1da4fbb01b72381f4e91, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SellableItem
-  itemName: Brick
-  value: 65
 --- !u!54 &6713833044930787818
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -155,3 +141,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8884185001295412974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4421293615949454883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d73c9fce99ba1da4fbb01b72381f4e91, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemName: item
+  value: 100
+  inventoryPrefab: {fileID: 6982799213211949865, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
