@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        StartGame();
+        
         SpawnPlayer();
         
         Console.Write("Map Generated");
