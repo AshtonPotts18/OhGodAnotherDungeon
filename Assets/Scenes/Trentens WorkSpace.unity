@@ -687,6 +687,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   mapGenerator: {fileID: 772621832}
   player: {fileID: 4702544181617325606, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
+  itemGenerator: {fileID: 1601139456}
+  itemPool:
+  - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
+  - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
 --- !u!1 &883107657
 GameObject:
   m_ObjectHideFlags: 0

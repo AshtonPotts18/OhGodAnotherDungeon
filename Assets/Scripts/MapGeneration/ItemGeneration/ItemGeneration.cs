@@ -2,49 +2,61 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemGeneration
+public class ItemGeneration : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> itemPool_prefab;
-    [SerializeField] private List<Transform> itemSpawnLocations;
+    public List<GameObject> ItemPool_prefab { get; set; }
+    public List<Transform> ItemSpawnLocations { get; set; }
 
-    //private int quota;
+
     private int targetValue = 0;
     private int currentMapItemValue = 0;
 
 
-    public List<Item> GenerateItems(int quota)
+    public List<GameObject> GenerateItems(int quota)
     {
-        targetValue = Mathf.RoundToInt(quota * 0.10f);
+        targetValue = quota + Mathf.RoundToInt(quota * 0.10f);
+        List<GameObject> spawnedItems = new List<GameObject>();
 
-        do
+        do // this generates all items. Breaks out of loop if there are not enought item spawn location
         {
             GameObject item = GetRandomItemFromPool(out Item itemComponent);
             Transform spawnLocation = GetRandomSpawnLocation();
 
-            SpawnItem(item, itemComponent, spawnLocation);
-            
+            item = SpawnItem(item, itemComponent, spawnLocation); //removes the item spawn location from valid spawn locations
+            spawnedItems.Add(item);
 
+            if (ItemSpawnLocations.Count < 0)
+            {
+                Debug.Log("No More Valid Spawn Locations");
+                break;
+            }
 
-
-
+            Console.Write(item + " Spawned at " + item.transform.position);
         } while (targetValue >= currentMapItemValue);
 
-        return new List<Item>();
+
+        return spawnedItems;
     }
 
 
-    private void SpawnItem(GameObject _item, Item _itemComponent, Transform _spawnLocation)
+    private GameObject SpawnItem(GameObject _item, Item _itemComponent, Transform _spawnLocation)
     {
-        //GameObject item = Instantiate();
+        _item = GameObject.Instantiate(_item, _spawnLocation);
+        _item.transform.SetParent(transform, true);
+        _item.name = _itemComponent.name;
+
+        ItemSpawnLocations.Remove(_spawnLocation);
+
+        return _item;
     }
     private Transform GetRandomSpawnLocation()
     {
-        return itemSpawnLocations[UnityEngine.Random.Range(0, itemSpawnLocations.Count)];
+        return ItemSpawnLocations[UnityEngine.Random.Range(0, ItemSpawnLocations.Count)];
     }
 
     private GameObject GetRandomItemFromPool(out Item itemComponent)
     {
-        GameObject outputItem = itemPool_prefab[UnityEngine.Random.Range(0, itemPool_prefab.Count)];
+        GameObject outputItem = ItemPool_prefab[UnityEngine.Random.Range(0, ItemPool_prefab.Count)];
         itemComponent = outputItem.GetComponent<Item>();
         return outputItem;
     }

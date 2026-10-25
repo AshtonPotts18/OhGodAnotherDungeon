@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -6,19 +7,38 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get; private set; }
     [SerializeField] RandomlyGenerateRooms mapGenerator;
     [SerializeField] GameObject player;
+    [SerializeField] ItemGeneration itemGenerator;
+    [SerializeField] List<GameObject> itemPool;
     public static GameObject Player {get; private set; } // put prefab here to be instantiated in start
     private Transform playerSpawnPoint;
     public static Camera PlayerCamera { get; private set; }
+
+    private List<GameObject> roomsList = new List<GameObject>();
+    private List<GameObject> spawnedItemList = new List<GameObject>();
 
 
 
     private void Awake()
     {
         CheckInstance();
-
         Player = player;
-        mapGenerator.GenerateMap();
+    }
+    private void Start()
+    {
+        StartGame();
+    }
+    public void StartGame()
+    {
+        roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
+
+        SpawnPlayer();
+
+        itemGenerator.ItemPool_prefab = itemPool;
+        
+        spawnedItemList = itemGenerator.GenerateItems(100);
+
+        PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
     }
 
     private void CheckInstance()
@@ -33,18 +53,8 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        SpawnPlayer();
-        PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 
     private void SpawnPlayer()
     {
