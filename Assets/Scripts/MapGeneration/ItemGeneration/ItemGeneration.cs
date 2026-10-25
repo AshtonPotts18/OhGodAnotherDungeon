@@ -6,15 +6,15 @@ public class ItemGeneration : MonoBehaviour
 {
     public List<GameObject> ItemPool_prefab { get; set; }
     public List<Transform> ItemSpawnLocations { get; set; }
-
+    [SerializeField] private float quotaBuffer = 0.10f;
 
     private int targetValue = 0;
     private int currentMapItemValue = 0;
-
+    
 
     public List<GameObject> GenerateItems(int quota)
     {
-        targetValue = quota + Mathf.RoundToInt(quota * 0.10f);
+        targetValue = quota + Mathf.RoundToInt(quota * quotaBuffer);
         List<GameObject> spawnedItems = new List<GameObject>();
 
         do // this generates all items. Breaks out of loop if there are not enought item spawn location
