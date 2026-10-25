@@ -1,40 +1,37 @@
 using System;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Scroll_FireBall : Item
+public class Scroll_Fireball : UsableItem
 {
+    [SerializeField] private GameObject fireBall_prefab;
+    [SerializeField] private float distanceFromObject = 1f;
+    [SerializeField] private float fireballSpeed = 0;
 
-    [SerializeField] InputActionMap inputMap = new InputActionMap();
-    private InputAction useItem = new InputAction();
-
-    public void OnUseItem(InputAction.CallbackContext context)
-    {
-        FireBall();
-    }
-
-
-    protected override void Awake()
-    {
-        base.Awake();
-        useItem = inputMap.FindAction("UseItem");
-    }
+    //public override void OnUseItem(InputValue value)
+    //{
+    //    UseItem();
+    //}
 
 
     public override void SetHeld(bool isHeld)
     {
         base.SetHeld(isHeld);
-        Debug.Log(name + " " + isHeld + "<--ScrollFireball");
+        Debug.Log(name + " " + isHeld + "<--Scroll");
     }
-    private void FireBall()
+    public override void UseItem()
     {
-        Debug.Log(name + " Use Item <--ScrollFireball");
+        Vector3 forceDirection = GameManager.Player.transform.forward;
+
+        GameObject fireball = Instantiate(fireBall_prefab, transform.position + (transform.forward * distanceFromObject), Quaternion.identity);
+        //fireball.transform.SetParent(transform, true);
+        Rigidbody rb = fireball.GetComponent<Rigidbody>();
+        rb.AddForce(transform.forward * fireballSpeed, ForceMode.Impulse);
 
 
-
+        Debug.Log("Use Fireball");
 
     }
-
-
-
 }

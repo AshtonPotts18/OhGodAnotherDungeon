@@ -15,6 +15,8 @@ public class Item : MonoBehaviour, IInteract
     public string ItemName { get; set; } = "item";
     public int Value { get; set; } = 100;
 
+    public Item()
+    {}
 
     protected virtual void Awake()
     {
@@ -30,5 +32,9 @@ public class Item : MonoBehaviour, IInteract
         {
             rb.isKinematic = isHeld;
         }
+    }
+    public virtual void UseItem()
+    {
+        Debug.Log("Not a useable item");
     }
 }
