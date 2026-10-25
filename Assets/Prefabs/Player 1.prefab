@@ -306,7 +306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0bdfa32b6ce0249ac2f6ac4af22f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
-  inputActions: {fileID: 0}
+  inputActions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   interactRange: 2.5
 --- !u!1 &4705889974067986637
 GameObject:
