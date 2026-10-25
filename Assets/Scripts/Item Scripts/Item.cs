@@ -17,6 +17,7 @@ public class Item : MonoBehaviour
 
     private void Awake()
     {
+        InventoryPrefab = GetComponent<InventoryItemDimensions>();
         rb = GetComponent<Rigidbody>();
         ItemName = itemName;
         Value = value;
