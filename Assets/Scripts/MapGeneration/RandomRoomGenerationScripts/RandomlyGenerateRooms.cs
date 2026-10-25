@@ -46,15 +46,14 @@ public class RandomlyGenerateRooms : MonoBehaviour
             resultOutput = GenerateRooms();
         } while (resultOutput != 0);
 
-<<<<<<< HEAD
+
         //Temp
         if (navMeshSurface == null)
         {
             Debug.LogError("RandomlyGenerateRooms: NavMeshSurface is not assigned.", this);
-            return;
         }
         navMeshSurface.BuildNavMesh();
-=======
+
         foreach (var room in generatedRooms.Values)
         {
             if (room.CompareTag("Hallway")) break; // all rooms are generated before the hallways so the first hallway tag is the end of the rooms
@@ -64,7 +63,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
         
         return outputRooms;
 
->>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
     }
 
 
@@ -146,7 +144,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         Vector2 startPoint = _path.a;
         Vector2 endPoint = _path.b;
-        //Debug.Log("HallwayStartingPoint" + startPoint);
 
         Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
         //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
