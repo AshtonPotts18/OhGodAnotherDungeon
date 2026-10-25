@@ -24,6 +24,8 @@ public class HealthandPlus : MonoBehaviour
         {
             slider.value -= 5;
             clock = InvincFrames;
+            string objectName = other.gameObject.name;
+            PlayerPrefs.SetString("LastTouched", objectName);
         }
         else
         {

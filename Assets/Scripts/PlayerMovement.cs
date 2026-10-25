@@ -15,6 +15,9 @@ public class PlayerMovement : MonoBehaviour
 
     public float sprintspeed = 1.25f;
 
+    public AudioSource RunAudio;
+    public AudioSource WalkAudio;
+
     private InputAction move;
     private InputAction look;
     private float cameraPitch = 0f;
@@ -31,6 +34,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
+        if (move == null || look == null || playerController == null)
+        {
+            WalkAudio.Stop();
+            RunAudio.Stop();
+        }
         if (move == null || look == null || playerController == null) return;
 
         Vector2 dir = move.ReadValue<Vector2>();
@@ -42,6 +50,14 @@ public class PlayerMovement : MonoBehaviour
         {
             movement.x *= sprintspeed;
             movement.z *= sprintspeed;
+            RunningSound();
+        }
+        else
+        {
+            if (!WalkAudio.isPlaying)
+            {
+                WalkAudio.Play();
+            }
         }
 
 
@@ -79,6 +95,14 @@ public class PlayerMovement : MonoBehaviour
         }
 
         
+    }
+
+    void RunningSound()
+    {
+        if(!RunAudio.isPlaying)
+        { 
+            RunAudio.Play();
+        }
     }
 
 }
