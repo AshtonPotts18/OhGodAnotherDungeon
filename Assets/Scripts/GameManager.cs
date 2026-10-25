@@ -27,16 +27,27 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartGame();
-    }
-    public void StartGame()
-    {
-        InitiateMap();
         SpawnPlayer();
-        InitiateItemGenerator();
-        
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
+        Console.Write("Map Generated");
     }
 
+    
+    public void StartGame()
+    {
+        GenerateLevel();
+        InitiateItemGenerator();     
+
+    }
+    public void EndGame()
+    {
+        ClearRooms();
+        ClearHallways();
+        ClearItems();
+        Console.Write("Map Cleared");
+    }
+
+    
     private void CheckInstance()
     {
         if (Instance != null && Instance != this)
@@ -49,15 +60,43 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void ClearItems()
+    {
+        Transform parent = transform.Find("ItemManager");
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(parent.GetChild(i).gameObject);
+        }
+    }
+
+    private void ClearHallways()
+    {
+        Transform parent = transform.Find("MapManager").transform.Find("HallwayManager");
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(parent.GetChild(i).gameObject);
+        }
+    }
+
+    private void ClearRooms()
+    {
+        Transform parent = transform.Find("MapManager").transform.Find("RoomManager");
+        for (int i = parent.childCount - 1; i >= 0; i--)
+        {
+            GameObject.Destroy(parent.GetChild(i).gameObject);
+        }
+    }
+
+
     private void InitiateItemGenerator()
     {
         itemGenerator.ItemPool_prefab = itemPool;
         itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
-        spawnedItemList = itemGenerator.GenerateItems(100); // replace 100 with quota from shop
+        spawnedItemList = itemGenerator.GenerateItems(300); // replace 100 with quota from shop
     }
 
-    private void InitiateMap()
+    private void GenerateLevel()
     {
         roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
