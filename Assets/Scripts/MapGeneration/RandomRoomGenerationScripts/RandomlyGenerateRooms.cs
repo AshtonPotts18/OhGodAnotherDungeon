@@ -46,15 +46,15 @@ public class RandomlyGenerateRooms : MonoBehaviour
             resultOutput = GenerateRooms();
         } while (resultOutput != 0);
 
-<<<<<<< HEAD
+
         //Temp
         if (navMeshSurface == null)
         {
             Debug.LogError("RandomlyGenerateRooms: NavMeshSurface is not assigned.", this);
-            return;
+            //return;
         }
         navMeshSurface.BuildNavMesh();
-=======
+
         foreach (var room in generatedRooms.Values)
         {
             if (room.CompareTag("Hallway")) break; // all rooms are generated before the hallways so the first hallway tag is the end of the rooms
@@ -64,7 +64,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
         
         return outputRooms;
 
->>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
     }
 
 
