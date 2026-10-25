@@ -136,7 +136,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Player = Instantiate(Player,
+        Player = Instantiate(player,
             playerSpawnPoint.position, playerSpawnPoint.rotation, transform);
         Player.tag = "Player";
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();

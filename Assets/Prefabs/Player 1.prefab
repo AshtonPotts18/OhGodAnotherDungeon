@@ -2046,7 +2046,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
+<<<<<<< HEAD
+  pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
+=======
   pickupPrompt: {fileID: 0}
+>>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
   pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5

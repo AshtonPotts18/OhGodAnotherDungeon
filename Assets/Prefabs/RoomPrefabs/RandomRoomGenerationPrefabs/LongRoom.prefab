@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 7122863347754950993}
   - component: {fileID: 5306275685527533231}
   - component: {fileID: 7866278804341447160}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FrontWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1989874951753051613}
   - component: {fileID: 5473703752196249096}
   - component: {fileID: 4299190938723997452}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -249,12 +249,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2569238056542821017}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 2.5, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5623762009002205243}
+  m_Father: {fileID: 8330816199139981723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &7539182717502976931
 BoxCollider:
@@ -318,6 +318,7 @@ Transform:
   - {fileID: 5059916723513348257}
   - {fileID: 2980203111913146594}
   - {fileID: 8150534231630822031}
+  - {fileID: 8453588761219559577}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &-1020785513217244944
@@ -343,6 +344,8 @@ MonoBehaviour:
   - {fileID: 6247954129271217123}
   - {fileID: 5772229507842992501}
   doors: []
+<<<<<<< HEAD
+=======
 --- !u!1 &3682808902073413572
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,6 +440,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8330816199139981723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+>>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
 --- !u!1 &4829812950713298639
 GameObject:
   m_ObjectHideFlags: 0
@@ -449,7 +453,7 @@ GameObject:
   - component: {fileID: 5815763130945806222}
   - component: {fileID: 7746560400436602603}
   - component: {fileID: 6775468809475359322}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -561,7 +565,7 @@ GameObject:
   - component: {fileID: 5488276521260009307}
   - component: {fileID: 687566675219262516}
   - component: {fileID: 1571811464129008844}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightWall (Door)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +708,7 @@ GameObject:
   - component: {fileID: 8473407854411722910}
   - component: {fileID: 4710003368607181153}
   - component: {fileID: 2727959325858254696}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftWall (Door)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -816,7 +820,7 @@ GameObject:
   - component: {fileID: 4867281328536848411}
   - component: {fileID: 1134136516492531708}
   - component: {fileID: 255937497222873590}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BackWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -928,7 +932,6 @@ GameObject:
   - component: {fileID: 6800233886231484635}
   - component: {fileID: 3649923718895543470}
   - component: {fileID: 7400661686431564442}
-  - component: {fileID: 7036321242992803757}
   m_Layer: 0
   m_Name: RoomFloor
   m_TagString: Untagged
@@ -948,8 +951,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 2.5}
   m_LocalScale: {x: 5, y: 0.2, z: 10}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5623762009002205243}
+  m_Children: []
   m_Father: {fileID: 8330816199139981723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6800233886231484635
@@ -1030,38 +1032,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7036321242992803757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7902347946311186150}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 358412f59c0dbaa4ea40261c5c0b12e6, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &8435402845064681528
 GameObject:
   m_ObjectHideFlags: 0
