@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     {
         StartGame();
         SpawnPlayer();
-        PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
+        
         Console.Write("Map Generated");
     }
 
@@ -139,6 +139,7 @@ public class GameManager : MonoBehaviour
         Player = Instantiate(Player,
             playerSpawnPoint.position, playerSpawnPoint.rotation, transform);
         Player.tag = "Player";
+        PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
     }
 }
 
