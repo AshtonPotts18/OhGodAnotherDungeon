@@ -1197,6 +1197,7 @@ GameObject:
   - component: {fileID: 733198418}
   - component: {fileID: 733198417}
   - component: {fileID: 733198416}
+  - component: {fileID: 733198419}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -1280,6 +1281,18 @@ MonoBehaviour:
           m_StringArgument: SampleScene
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 733198419}
+        m_TargetAssemblyTypeName: Start, Assembly-CSharp
+        m_MethodName: Startup
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &733198417
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1318,6 +1331,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 733198414}
   m_CullTransparentMesh: 1
+--- !u!114 &733198419
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 733198414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5361861f004f94e478faad9c6b05721a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Start
 --- !u!1 &741768056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1897,7 +1922,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 720229635}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 0.5
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

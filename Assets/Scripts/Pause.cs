@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class Pause : MonoBehaviour
 {
@@ -12,9 +13,10 @@ public class Pause : MonoBehaviour
     [SerializeField] private InputActionAsset ActionMap;
     [SerializeField] private float timer = 1;
 
-    private bool Paused;
+    [SerializeField] private bool Paused;
 
     private bool tap = true;
+    private float falsesafe; // this is for the quit when so the Pause won't always be false in the update;
     private InputAction Escape;
 
     private void Awake()
@@ -63,5 +65,35 @@ public class Pause : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
+
+        if (PlayerPrefs.HasKey("Pausing"))
+        {
+            float val = PlayerPrefs.GetFloat("Pausing");
+
+            falsesafe = val;
+        }
+        else
+        {
+
+        }
+
+        if(falsesafe == 0)
+        {
+            Paused = false;
+            PlayerPrefs.SetFloat("Pausing", 1);
+            Time.timeScale = 1;
+
+        }
+
     }
+
+
+    public void ClickPause()
+    {
+        PauseMenu.SetActive(false);
+        OtherUI.SetActive(true);
+        falsesafe = 0;
+    }
+
+    
 }
