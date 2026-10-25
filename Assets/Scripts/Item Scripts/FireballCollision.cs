@@ -2,10 +2,26 @@ using UnityEngine;
 
 public class FireballCollision : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    public void OnCollisionEnter(Collision collision)
+    [SerializeField] private float damage = 30f;
+
+    private bool hasHit;
+
+    private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log(gameObject + " Destroyed on Collsion");
+        if(hasHit) { return; }
+        hasHit = true;
+
+        MonoBehaviour[] components = collision.collider.GetComponentsInParent<MonoBehaviour>();
+
+        foreach(MonoBehaviour component in components)
+        {
+            if(component is DamagingEnemy.IDamageable damageable)
+            {
+                damageable.TakeDamage(damage);
+                break;
+            }
+        }
         Destroy(gameObject);
     }
+
 }

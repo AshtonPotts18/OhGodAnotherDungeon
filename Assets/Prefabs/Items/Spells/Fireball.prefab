@@ -153,3 +153,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f6ed990f0d7c53c469695e588271e8bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireballCollision
+  damage: 30

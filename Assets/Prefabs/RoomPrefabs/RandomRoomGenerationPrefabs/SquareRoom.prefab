@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3432551813989569655}
   - component: {fileID: 2333823953609557637}
   - component: {fileID: 8238226164996535837}
-  - component: {fileID: 3777957304640679424}
   m_Layer: 0
   m_Name: SquareFloor
   m_TagString: Untagged
@@ -32,8 +31,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 5, y: 0.2, z: 5}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 7293844076645650690}
+  m_Children: []
   m_Father: {fileID: 476682930752765862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3432551813989569655
@@ -114,38 +112,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3777957304640679424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2427459900068956721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 46b0ad4fca5f88f46b683e64e3af8dbb, type: 2}
-  m_BuildHeightMesh: 0
 --- !u!1 &4182928351215832265
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +124,7 @@ GameObject:
   - component: {fileID: 6709127211595191241}
   - component: {fileID: 7170463643542494818}
   - component: {fileID: 7886778079780169500}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -258,38 +224,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &4417310595327699903
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7293844076645650690}
-  m_Layer: 0
-  m_Name: RoomsRoot
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7293844076645650690
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4417310595327699903}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.2, y: 5, z: 0.2}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6628766965148160787}
-  m_Father: {fileID: 4885096300933849292}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4977043007701260144
 GameObject:
   m_ObjectHideFlags: 0
@@ -320,7 +254,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7293844076645650690}
+  m_Father: {fileID: 476682930752765862}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8455199127384634498
 BoxCollider:
@@ -379,6 +313,7 @@ Transform:
   - {fileID: 4596689598019237241}
   - {fileID: 8339923082711527025}
   - {fileID: 3338988691195752788}
+  - {fileID: 6628766965148160787}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3544546286386790799
@@ -532,7 +467,7 @@ GameObject:
   - component: {fileID: 3181875684425475536}
   - component: {fileID: 4096254467150891696}
   - component: {fileID: 5097068125736689110}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: BackWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +579,7 @@ GameObject:
   - component: {fileID: 8292971499472586211}
   - component: {fileID: 1949882704501228441}
   - component: {fileID: 7261370502473105177}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -756,7 +691,7 @@ GameObject:
   - component: {fileID: 2293432590541170879}
   - component: {fileID: 5865009471397762274}
   - component: {fileID: 4783440516875005549}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FrontWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

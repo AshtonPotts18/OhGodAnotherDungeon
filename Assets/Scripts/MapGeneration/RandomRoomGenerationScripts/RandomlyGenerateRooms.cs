@@ -3,7 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-
+//Temp
+using Unity.AI.Navigation;
+using Unity.Properties;
 
 public class RandomlyGenerateRooms : MonoBehaviour
 {
@@ -18,6 +20,8 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField] private GameObject[] room_prefabs;
 
     [Header("Map Generation")]
+    //Temp
+    [SerializeField] private NavMeshSurface navMeshSurface;
     [SerializeField] private Vector2Int roomRange;
     [SerializeField] private int roomSpawnRadius;
 
@@ -40,6 +44,13 @@ public class RandomlyGenerateRooms : MonoBehaviour
             resultOutput = GenerateRooms();
         } while (resultOutput != 0);
 
+        //Temp
+        if (navMeshSurface == null)
+        {
+            Debug.LogError("RandomlyGenerateRooms: NavMeshSurface is not assigned.", this);
+            return;
+        }
+        navMeshSurface.BuildNavMesh();
     }
 
 
@@ -121,7 +132,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         Vector2 startPoint = _path.a;
         Vector2 endPoint = _path.b;
-        Debug.Log("HallwayStartingPoint" + startPoint);
+        //Debug.Log("HallwayStartingPoint" + startPoint);
 
         Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
         //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
@@ -147,7 +158,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
             currentPosition2D = nextPosition;
             nextPosition = RandHallwayWalk(currentPosition2D, endPoint); // function call instanates the hallway
         }
-        Debug.Log("HallwayEndingPoint" + endPoint);
+        //Debug.Log("HallwayEndingPoint" + endPoint);
     }
 
     private Vector2Int RandHallwayWalk(Vector2Int currentPosition2D, Vector2 targetPosition) // iterates currentPosition2D
@@ -263,7 +274,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
             validRoomPosition = CheckBounds(new Bounds(new Vector3(roomPosition.x, 0, roomPosition.y), roomScale), _generatedRooms);
 
-            Debug.Log("Loading Room " + AttemptLog);
+            //Debug.Log("Loading Room " + AttemptLog);
             AttemptLog++;
             if (AttemptLog == roomSpawnAttemptCap)
             {
@@ -282,7 +293,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         for (int i = 0; i < roomCount; i++)
         {
             GenerateRoom(_generatedRooms);
-            Debug.Log("All rooms generated");
+            //Debug.Log("All rooms generated");
         }
     }
 
@@ -302,7 +313,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
             validRoomPosition = CheckBounds(new Bounds(new Vector3(roomPosition.x, 0, roomPosition.y), roomScale), _generatedRooms);
 
 
-            Debug.Log("Loading Room " + AttemptLog);
+            //Debug.Log("Loading Room " + AttemptLog);
             AttemptLog++;
             if (AttemptLog == roomSpawnAttemptCap)
             {
@@ -335,7 +346,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         int snappedy = Mathf.RoundToInt(randomLocation.y / roomOffset) * roomOffset;
 
         Vector2 output = new Vector2(snappedX, snappedy);
-        Debug.Log("RandomPoint Generated");
+        //Debug.Log("RandomPoint Generated");
 
 
         return output;
