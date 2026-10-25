@@ -51,6 +51,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         if (navMeshSurface == null)
         {
             Debug.LogError("RandomlyGenerateRooms: NavMeshSurface is not assigned.", this);
+            //return;
         }
         navMeshSurface.BuildNavMesh();
 
