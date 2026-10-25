@@ -89,6 +89,7 @@ public class Pause : MonoBehaviour
 
     public void ClickPause()
     {
+        GameManager.Instance.EndGame();
         PauseMenu.SetActive(false);
         OtherUI.SetActive(true);
         falsesafe = 0;

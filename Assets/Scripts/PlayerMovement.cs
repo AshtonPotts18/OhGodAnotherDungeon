@@ -34,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Movement()
     {
-        if (move == null || look == null || playerController == null)
+        if (!move.IsPressed())
         {
             WalkAudio.Stop();
             RunAudio.Stop();
@@ -51,11 +51,13 @@ public class PlayerMovement : MonoBehaviour
             movement.x *= sprintspeed;
             movement.z *= sprintspeed;
             RunningSound();
+            WalkAudio.Stop();
         }
-        else
+        else if(move.IsPressed() && !Keyboard.current.shiftKey.isPressed)
         {
             if (!WalkAudio.isPlaying)
             {
+                RunAudio.Stop();
                 WalkAudio.Play();
             }
         }
