@@ -145,7 +145,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         Vector2 startPoint = _path.a;
         Vector2 endPoint = _path.b;
-        //Debug.Log("HallwayStartingPoint" + startPoint);
 
         Vector2 randomStartDirection = Direction2D.GetRandomDirection() * 5; // 5 is grid / size all rooms are divisable by
         //randomStartDirection the direction that gets added to the starting room. This creates the position of the first hall tile
