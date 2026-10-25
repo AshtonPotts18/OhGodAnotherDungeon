@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6578528917200641731}
   - component: {fileID: 3332180666212813915}
   - component: {fileID: 6713833044930787818}
-  - component: {fileID: 8884185001295412974}
+  - component: {fileID: -3859324729614497616}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -141,7 +141,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8884185001295412974
+--- !u!114 &-3859324729614497616
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -150,7 +150,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4421293615949454883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d73c9fce99ba1da4fbb01b72381f4e91, type: 3}
+  m_Script: {fileID: 11500000, guid: 1da365744bcfe2e40ba423937e7ef099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: item

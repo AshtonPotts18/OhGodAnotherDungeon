@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2135260955353499408}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.16293, y: 1.5, z: -1.3387}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.05, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -155,7 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Scroll_Fireball
   itemName: Fire Ball Scroll
   value: 110
-  inventoryPrefab: {fileID: 6982799213211949865, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
+  inventoryPrefab: {fileID: 8004627547221998, guid: e7dc8cf324f6a56458fa2a880aa28ee7, type: 3}
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   fireBall_prefab: {fileID: 3863065172375043055, guid: 2515071447665fc42ba40b10692c5d78, type: 3}
   distanceFromObject: 1

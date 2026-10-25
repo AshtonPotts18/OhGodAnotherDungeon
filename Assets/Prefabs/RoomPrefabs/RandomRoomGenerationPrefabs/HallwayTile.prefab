@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 1137346786724104934}
   m_Layer: 0
   m_Name: HallwayTile
-  m_TagString: Untagged
+  m_TagString: Hallway
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -1278,12 +1278,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 800, y: 800}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1911,7 +1911,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
+<<<<<<< HEAD
   pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
+=======
+  pickupPrompt: {fileID: 0}
+>>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
   pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
@@ -2005,7 +2009,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c0bdfa32b6ce0249ac2f6ac4af22f2d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
-  inputActions: {fileID: 0}
+  inputActions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   interactRange: 2.5
 --- !u!1 &4705889974067986637
 GameObject:
@@ -3740,6 +3744,22 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_UiScaleMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ReferenceResolution.x
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ReferenceResolution.y
+      value: 800
+      objectReference: {fileID: 0}
     - target: {fileID: 1820511773043910128, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -4034,14 +4054,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionId
-      value: 69eb43a4-e214-4d2d-8e45-612c93304091
+      value: 25e47c9e-115a-4864-bc4e-6b6f3525af9b
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: cebd81e0-9c4b-4eca-8dc9-e736bead1393
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: c64c5c58-9ef8-4fdf-ab87-3638d93f73d1
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: 'MoveMent/Interact[/Mouse/leftButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: 'MoveMent/UseItem[/Keyboard/e]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
       value: 'MoveMent/Escape[/Keyboard/escape]'
       objectReference: {fileID: 0}
     - target: {fileID: 9105496418332718649, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}

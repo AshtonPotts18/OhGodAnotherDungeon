@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 //Temp
 using Unity.AI.Navigation;
@@ -35,15 +36,17 @@ public class RandomlyGenerateRooms : MonoBehaviour
     public GameObject startingRoom;
 
 
-    public void GenerateMap()
+    public List<GameObject> GenerateMap()
     {
         int resultOutput = 0;
+        List<GameObject> outputRooms = new List<GameObject>();
         do
         {
             generatedRooms.Clear();
             resultOutput = GenerateRooms();
         } while (resultOutput != 0);
 
+<<<<<<< HEAD
         //Temp
         if (navMeshSurface == null)
         {
@@ -51,6 +54,17 @@ public class RandomlyGenerateRooms : MonoBehaviour
             return;
         }
         navMeshSurface.BuildNavMesh();
+=======
+        foreach (var room in generatedRooms.Values)
+        {
+            if (room.CompareTag("Hallway")) break; // all rooms are generated before the hallways so the first hallway tag is the end of the rooms
+            outputRooms.Add(room);
+            
+        }
+        
+        return outputRooms;
+
+>>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
     }
 
 
