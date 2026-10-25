@@ -82,7 +82,6 @@ public class Pause : MonoBehaviour
             Paused = false;
             PlayerPrefs.SetFloat("Pausing", 1);
             Time.timeScale = 1;
-
         }
 
     }
@@ -95,5 +94,14 @@ public class Pause : MonoBehaviour
         falsesafe = 0;
     }
 
-    
+
+    public void Resume()
+    {
+        PlayerPrefs.SetFloat("Pausing", 1);
+        PauseMenu.SetActive(false);
+        OtherUI.SetActive(true);
+        Paused = false;
+        Time.timeScale = 1;
+    }
+
 }
