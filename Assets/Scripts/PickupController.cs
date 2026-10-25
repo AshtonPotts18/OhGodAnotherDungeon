@@ -69,7 +69,7 @@ public class PickupController : MonoBehaviour
     }
     private void Update()
     {
-        Debug.Log("PickupController Update is running");
+        //Debug.Log("PickupController Update is running");
         PromptDisplay();
     }
     
