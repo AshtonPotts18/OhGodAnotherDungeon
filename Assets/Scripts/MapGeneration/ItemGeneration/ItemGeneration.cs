@@ -24,6 +24,7 @@ public class ItemGeneration : MonoBehaviour
 
             item = SpawnItem(item, itemComponent, spawnLocation); //removes the item spawn location from valid spawn locations
             spawnedItems.Add(item);
+            currentMapItemValue += itemComponent.Value;
 
             if (ItemSpawnLocations.Count < 0)
             {
@@ -49,9 +50,13 @@ public class ItemGeneration : MonoBehaviour
 
         return _item;
     }
+
+
+
     private Transform GetRandomSpawnLocation()
     {
-        return ItemSpawnLocations[UnityEngine.Random.Range(0, ItemSpawnLocations.Count)];
+        if (ItemSpawnLocations == null) throw new Exception("ItemSpawnLocation is null");
+        return ItemSpawnLocations[UnityEngine.Random.Range(0, ItemSpawnLocations.Count - 1)];
     }
 
     private GameObject GetRandomItemFromPool(out Item itemComponent)

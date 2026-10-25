@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Rendering.CameraUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,15 +30,10 @@ public class GameManager : MonoBehaviour
     }
     public void StartGame()
     {
-        roomsList = mapGenerator.GenerateMap();
-        playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
-
+        InitiateMap();
         SpawnPlayer();
-
-        itemGenerator.ItemPool_prefab = itemPool;
+        InitiateItemGenerator();
         
-        spawnedItemList = itemGenerator.GenerateItems(100);
-
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
     }
 
@@ -53,9 +49,40 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void InitiateItemGenerator()
+    {
+        itemGenerator.ItemPool_prefab = itemPool;
+        itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
+        spawnedItemList = itemGenerator.GenerateItems(100); // replace 100 with quota from shop
+    }
 
+    private void InitiateMap()
+    {
+        roomsList = mapGenerator.GenerateMap();
+        playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
+    }
+    private List<Transform> GetRoomItemSpawnPoints(List<GameObject> _spawnedRooms)
+    {
+        List<Transform> output = new List<Transform>(); // list of spawn points withing all rooms
+        
+        foreach (var room in _spawnedRooms)
+        {
+            CheckRoomForSpawnPoints(output, room); // if the ItemSpawnPoint is present in the children the transform is added to the output
+        }
+        return output;
+    }
 
+    private void CheckRoomForSpawnPoints(List<Transform> _listOfSpawnPoints, GameObject _room)
+    {
+        foreach (Transform child in _room.transform) // gets the childred of the room
+        {
+            if (child.CompareTag("ItemSpawnPoint"))
+            {
+                _listOfSpawnPoints.Add(child);
+            }
+        }
+    }
     private void SpawnPlayer()
     {
         if (Player == null)
