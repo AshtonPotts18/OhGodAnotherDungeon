@@ -2046,7 +2046,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PickupController
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
-  pickupPrompt: {fileID: 243368855325677327, guid: 98fdb5aa6f2e3ba4a8d2e57586334da3, type: 3}
+  pickupPrompt: {fileID: 0}
   pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
@@ -4014,7 +4014,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ReferenceResolution.x
-      value: 800.4
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 702617934709644004, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ReferenceResolution.y
@@ -4314,14 +4314,30 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.size
-      value: 6
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionId
-      value: 69eb43a4-e214-4d2d-8e45-612c93304091
+      value: 25e47c9e-115a-4864-bc4e-6b6f3525af9b
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: cebd81e0-9c4b-4eca-8dc9-e736bead1393
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: c64c5c58-9ef8-4fdf-ab87-3638d93f73d1
       objectReference: {fileID: 0}
     - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: 'MoveMent/Interact[/Mouse/leftButton]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: 'MoveMent/UseItem[/Keyboard/e]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 9077141923005030877, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
       value: 'MoveMent/Escape[/Keyboard/escape]'
       objectReference: {fileID: 0}
     - target: {fileID: 9105496418332718649, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}

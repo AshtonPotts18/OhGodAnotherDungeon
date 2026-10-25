@@ -9,14 +9,7 @@ public class PlayerInterator : MonoBehaviour
     private InputAction interactAction;
     [SerializeField] float interactRange = 2.5f;
 
-    private void OnEnable()
-    {
-        inputActions.FindActionMap("Player").Enable();
-    }
-    //private void OnDisable()
-    //{
-    //    inputActions.FindActionMap("Player").Disable();
-    //}
+
     private void Awake()
     {
         interactAction = inputActions.FindAction("Interact");
