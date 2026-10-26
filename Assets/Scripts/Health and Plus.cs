@@ -38,6 +38,7 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable
     {
         if(slider.value == 0)
         {
+            GameManager.Instance.EndGame();
             SceneManager.LoadScene(GameOver);
         }
     }

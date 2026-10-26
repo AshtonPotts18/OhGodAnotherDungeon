@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        Destroy(Player);
         ClearRooms();
         ClearHallways();
         ClearItems();
