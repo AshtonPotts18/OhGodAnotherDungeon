@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Threading.Tasks;
 
 public class BuyStation : MonoBehaviour
 {
@@ -50,9 +51,10 @@ public class BuyStation : MonoBehaviour
 
     private void Start()
     {
+        Task.Delay(100);
         if (playerCamera == null)
         {
-            playerCamera = Camera.main;
+            playerCamera = GameObject.FindWithTag("MainCamera").GetComponent<Camera>();
         }
 
         if (playerCamera == null)
