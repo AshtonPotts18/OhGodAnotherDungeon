@@ -20,6 +20,7 @@ public class Item : MonoBehaviour, IInteract
 
     protected virtual void Awake()
     {
+        InventoryPrefab = GetComponent<InventoryItemDimensions>();
         rb = GetComponent<Rigidbody>();
         ItemName = itemName;
         Value = value;
