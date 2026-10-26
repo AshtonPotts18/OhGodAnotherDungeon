@@ -422,6 +422,7 @@ GameObject:
   - component: {fileID: 1063213056}
   - component: {fileID: 1063213055}
   - component: {fileID: 1063213054}
+  - component: {fileID: 1063213058}
   m_Layer: 5
   m_Name: Restart Button
   m_TagString: Untagged
@@ -476,6 +477,18 @@ MonoBehaviour:
       - m_Target: {fileID: 1104736329}
         m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
         m_MethodName: PlayThenSwitch
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1063213058}
+        m_TargetAssemblyTypeName: Start, Assembly-CSharp
+        m_MethodName: Startup
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -543,6 +556,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 175}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1063213058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1063213053}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5361861f004f94e478faad9c6b05721a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Start
 --- !u!1 &1104736328
 GameObject:
   m_ObjectHideFlags: 0
