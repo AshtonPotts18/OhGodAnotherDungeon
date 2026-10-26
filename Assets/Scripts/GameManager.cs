@@ -26,7 +26,8 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        
+        StartGame();
+
         Console.Write("Map Generated");
     }
 
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
-        Destroy(Player);
+        //Destroy(Player);
         ClearRooms();
         ClearHallways();
         ClearItems();
