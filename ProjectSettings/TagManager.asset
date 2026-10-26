@@ -4,15 +4,18 @@
 TagManager:
   serializedVersion: 3
   tags:
+  - Room
+  - Hallway
   - Enemy
+  - ItemSpawnPoint
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Obstacle
   - Water
   - UI
-  - 
+  - PlayerUI
   - 
   - 
   - 

@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
-public class HealthandPlus : MonoBehaviour
+public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable
 {
 
     public Slider slider;
@@ -24,6 +24,8 @@ public class HealthandPlus : MonoBehaviour
         {
             slider.value -= 5;
             clock = InvincFrames;
+            string objectName = other.gameObject.name;
+            PlayerPrefs.SetString("LastTouched", objectName);
         }
         else
         {
@@ -34,7 +36,7 @@ public class HealthandPlus : MonoBehaviour
 
     private void Update()
     {
-        if(slider.value < 0)
+        if(slider.value == 0)
         {
             SceneManager.LoadScene(GameOver);
         }
@@ -49,6 +51,14 @@ public class HealthandPlus : MonoBehaviour
     public void SetHealth(int health)
     {
         slider.value = health;
+    }
+
+    public void TakeDamage(float amount)
+    {
+        if (slider == null || amount <= 0f)
+            return;
+
+        slider.value = Mathf.Max(0f, slider.value - amount);
     }
 
 
