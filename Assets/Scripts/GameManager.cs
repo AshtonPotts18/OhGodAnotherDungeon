@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Rendering.CameraUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,7 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] ItemGeneration itemGenerator;
     [SerializeField] List<GameObject> itemPool;
-    public static GameObject Player {get; private set; } // put prefab here to be instantiated in start
+    public static GameObject Player {get; set; } // put prefab here to be instantiated in start
     private Transform playerSpawnPoint;
     public static Camera PlayerCamera { get; private set; }
 
@@ -135,7 +134,7 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Player = Instantiate(player,
+        Player = Instantiate(Player,
             playerSpawnPoint.position, playerSpawnPoint.rotation, transform);
         Player.tag = "Player";
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
