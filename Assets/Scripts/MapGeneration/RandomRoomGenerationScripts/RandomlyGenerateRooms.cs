@@ -36,6 +36,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
     public GameObject startingRoom;
 
 
+    //Start of new Fields
+    DungeonGrid dungeonGrid = new DungeonGrid();
+    List<DungeonRoom> dungeonRooms = new List<DungeonRoom>();
+
+
     public List<GameObject> GenerateMap()
     {
         int resultOutput = 0;
@@ -78,7 +83,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
         List<Edge> paths = new List<Edge>();
 
-        TrianglesToPaths(triangles, paths);
+        TrianglesToPaths(triangles, paths); //adds triangles to paths
 
         if (triangles.Count == 0) return -1; // error not enough triangles in map
 
@@ -257,9 +262,16 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     private void GenerateStartingRoom(Dictionary<Vector2, GameObject> _generatedRooms)
     {
-        Vector2Int roomPosition = new Vector2Int(0, 0);
-        _generatedRooms.Add(roomPosition, startingRoom_Prefab);
-        occupiedGridSpaces.Add(new Vector3(roomPosition.x, 0, roomPosition.y));
+        Vector2Int startingRoomPos = new Vector2Int(0, 0);
+
+        dungeonGrid.ReserveRoom(startingRoomPos, new Vector2Int(1, 1)); // adjust to be dynamic later
+
+        _generatedRooms.Add(startingRoomPos, startingRoom_Prefab);
+        occupiedGridSpaces.Add(new Vector3(startingRoomPos.x, 0, startingRoomPos.y));
+
+        //DungeonGrid
+        //DungeonRoom startingRoom = new DungeonRoom(startingRoomPos, new Vector2Int (1,1), startingRoom_Prefab);
+        dungeonRooms.Add(new DungeonRoom(startingRoomPos, new Vector2Int(1, 1), startingRoom_Prefab));
     }
     private void GenerateHandRooms(Dictionary<Vector2, GameObject> _generatedRooms)
     {
@@ -271,6 +283,10 @@ public class RandomlyGenerateRooms : MonoBehaviour
             roomPosition = FindValidHandRoomPosition(_generatedRooms);
             _generatedRooms.Add(roomPosition, handRoom_Prefab);
             occupiedGridSpaces.Add(new Vector3(roomPosition.x, 0, roomPosition.y));
+
+
+            dungeonGrid.ReserveRoom(Vector2Int.RoundToInt(roomPosition), new Vector2Int(1, 1));
+            dungeonRooms.Add(new DungeonRoom(Vector2Int.RoundToInt(roomPosition), new Vector2Int(1,1), handRoom_Prefab));
         }
     }
     private Vector2 FindValidHandRoomPosition(Dictionary<Vector2, GameObject> _generatedRooms)
@@ -446,8 +462,8 @@ public class Direction2D
 
 public class DungeonGrid
 {
-    HashSet<Vector2Int> roomCells; // cells containing rooms
-    HashSet<Vector2Int> hallwayCells;
+    HashSet<Vector2Int> roomCells = new HashSet<Vector2Int>(); // cells containing rooms
+    HashSet<Vector2Int> hallwayCells = new HashSet<Vector2Int>();
 
     bool IsRoomOccupied(Vector2Int _cell)
     {
@@ -477,7 +493,7 @@ public class DungeonGrid
         return true;
     }
 
-    void ReserveRoom(Vector2Int _anchor, Vector2Int _size)
+    public void ReserveRoom(Vector2Int _anchor, Vector2Int _size)
     {
         if(!CanPlaceRoom(_anchor, _size))
         {
@@ -515,14 +531,24 @@ public class DungeonGrid
 
 public class DungeonRoom
 {
-    Vector2Int anchor; // this is the center of the room
-    Vector2Int size; // long room would be (2,1)
-
-    GameObject prefab = null;
+    public Vector2Int anchor; // this is the inital point of the room (3,4). a long room occupy (3,4) & (4,4) for example
+    public Vector2Int size; // long room would be (2,1)
+    public GameObject prefab = null;
     public GameObject roomInstance = null;
-    Vector2 CenterCell => anchor + new Vector2((size.x - 1) * 0.5f, (size.y - 1) * 0.5f);
+    public Vector2 CenterCell => anchor + new Vector2((size.x - 1) * 0.5f, (size.y - 1) * 0.5f);
+     
+    public HashSet<Vector2Int> doorPositions;
+    public DungeonRoom()
+    {
 
-    HashSet<Vector2Int> doorPositions;
+    }
+
+    public DungeonRoom(Vector2Int _anchor,  Vector2Int _size,  GameObject _prefab = null)
+    {
+        anchor = _anchor;
+        size = _size; 
+        prefab = _prefab;
+    }
 
     Vector3 GridToCellPosition()
     {
