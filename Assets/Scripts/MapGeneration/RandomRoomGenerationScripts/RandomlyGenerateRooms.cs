@@ -586,6 +586,7 @@ public class DungeonGrid
 {
     HashSet<Vector2Int> roomCells = new HashSet<Vector2Int>(); // cells containing rooms
     HashSet<Vector2Int> hallwayCells = new HashSet<Vector2Int>();
+    int cellSize = 5;
 
     bool IsRoomOccupied(Vector2Int _cell)
     {
@@ -662,6 +663,10 @@ public class DungeonGrid
 
     }
 
+    Vector3 GridToWorldSpace(Vector2 _roomCenter)
+    {
+        return new Vector3(_roomCenter.x, 0, _roomCenter.y) * 5;
+    }
 
 }
 
