@@ -1253,7 +1253,7 @@ Canvas:
   m_GameObject: {fileID: 2703134534771688084}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 8505865405342430525}
   m_PlaneDistance: 0.37
   m_PixelPerfect: 0
@@ -1897,6 +1897,7 @@ GameObject:
   - component: {fileID: 4322497515102470083}
   - component: {fileID: -3280684930742015986}
   - component: {fileID: 4849192754757187439}
+  - component: {fileID: 2576386962948693580}
   m_Layer: 0
   m_Name: Player 1
   m_TagString: Player
@@ -2190,6 +2191,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
   inputActions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   interactRange: 2.5
+--- !u!114 &2576386962948693580
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4702544181617325606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbe687e43d87c914dacc2561e6f54e29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  SceneChangeTo: SampleScene
+  Audio: {fileID: 5661856951690876812}
 --- !u!1 &4705889974067986637
 GameObject:
   m_ObjectHideFlags: 0
@@ -4493,6 +4508,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 8505865405342430525}
+    - target: {fileID: 7964341293122508526, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
+      propertyPath: m_RenderMode
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7964341293122508526, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_SortingOrder
       value: 810

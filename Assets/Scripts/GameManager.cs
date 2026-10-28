@@ -32,13 +32,16 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        //Player.SetActive(true);
+
         GenerateLevel();
         InitiateItemGenerator();     
         SpawnPlayer();
+
     }
     public void EndGame()
     {
-        //Destroy(Player);
+        //Player.SetActive(false);
         ClearRooms();
         ClearHallways();
         ClearItems();
@@ -139,5 +142,6 @@ public class GameManager : MonoBehaviour
         Player.tag = "Player";
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
     }
+
 }
 
