@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour
         spawnedItemList = itemGenerator.GenerateItems(300); // replace 100 with quota from shop
     }
 
-    private void GenerateLevel()
+    public void GenerateLevel()
     {
         roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");

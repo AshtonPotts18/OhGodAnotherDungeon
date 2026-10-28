@@ -444,4 +444,22 @@ public class Direction2D
     }
 }
 
+public class DungeonGrid
+{
+    HashSet<Vector2Int> roomCells; // cells containing rooms
+    HashSet<Vector2Int> hallwayCells;
 
+    bool IsRoomOccupied(Vector2Int _cell)
+    {
+        return roomCells.Contains(_cell);
+    }
+    bool IsHallwayOccupied(Vector2Int _cell)
+    {
+        return hallwayCells.Contains(_cell);
+    }
+    bool IsOccupied(Vector2Int _cell)
+    {
+        return roomCells.Contains(_cell) || hallwayCells.Contains(_cell);
+    }
+
+}

@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Main Menu.unity
     guid: 32d8b05233a97b24085c39ea724f3133
   - enabled: 1
+    path: Assets/Scenes/Trentens WorkSpace.unity
+    guid: 29f90dfd33e0a6941872c3279539fc1e
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Game Over.unity
     guid: 1f817854e3362c14e996c1ab55ce6e76
   m_configObjects:
