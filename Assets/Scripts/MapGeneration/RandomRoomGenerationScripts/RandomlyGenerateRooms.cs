@@ -462,4 +462,73 @@ public class DungeonGrid
         return roomCells.Contains(_cell) || hallwayCells.Contains(_cell);
     }
 
+    bool CanPlaceRoom(Vector2Int _anchor, Vector2Int _size)
+    {
+        for (int row = 0; row < _size.x; row++) // iterates through every space the room would occupy to see if any grid is already occupied
+        {
+            for (int column = 0; column < _size.y; column++)
+            {
+                Vector2Int cell = _anchor + new Vector2Int(row, column);
+
+                if (IsOccupied(cell))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    void ReserveRoom(Vector2Int _anchor, Vector2Int _size)
+    {
+        if(!CanPlaceRoom(_anchor, _size))
+        {
+            Debug.Log("Room Overlap Found");
+            return;
+        }
+
+        for (int row = 0; row < _size.x; row++)
+        {
+            for (int column = 0; column < _size.y; column++)
+            {
+                roomCells.Add(_anchor + new Vector2Int(row, column));
+            }
+        }
+
+    }
+
+    bool CanPlaceHallway(Vector2Int _cell)
+    {
+        return !roomCells.Contains(_cell);
+    }
+
+    void ReserveHallway(Vector2Int _cell)
+    {
+        if (CanPlaceHallway(_cell))
+        {
+            hallwayCells.Add(_cell);
+        }
+    }
+
+
+
+
+}
+
+public class DungeonRoom
+{
+    Vector2Int anchor; // this is the center of the room
+    Vector2Int size; // long room would be (2,1)
+
+    GameObject prefab = null;
+    public GameObject roomInstance = null;
+    Vector2 CenterCell => anchor + new Vector2((size.x - 1) * 0.5f, (size.y - 1) * 0.5f);
+
+    HashSet<Vector2Int> doorPositions;
+
+    Vector3 GridToCellPosition()
+    {
+        return new Vector3(CenterCell.x, 0, CenterCell.y);
+    }
+
+
+
 }
