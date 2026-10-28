@@ -89,6 +89,10 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
+
+
+
+
         SpawnRooms(generatedRooms);
         generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
 
@@ -330,17 +334,31 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
 
         int roomPrefabIndex = GetRandomPrefabPosition();
+
+        Vector2Int roomPrefabSize = room_prefabs[roomPrefabIndex].GetComponent<RoomInformation>().floorSize;
+
         Int16 AttemptLog = 0;
         Vector2 roomPosition;
         bool validRoomPosition = false;
+        DungeonRoom room = new DungeonRoom(new Vector2Int(0,0), roomPrefabSize, room_prefabs[roomPrefabIndex]);
 
         do
         {
+
             roomPosition = GetRandomRoomPosition();
             Vector3 roomScale = room_prefabs[roomPrefabIndex].transform.localScale;
 
             validRoomPosition = CheckBounds(new Bounds(new Vector3(roomPosition.x, 0, roomPosition.y), roomScale), _generatedRooms);
 
+            room.anchor = Vector2Int.RoundToInt(roomPosition);
+            
+            if(dungeonGrid.CanPlaceRoom(room.anchor, room.size))
+            {
+                dungeonGrid.ReserveRoom(room.anchor, room.size);
+                dungeonRooms.Add(room);
+
+            }
+            
 
             //Debug.Log("Loading Room " + AttemptLog);
             AttemptLog++;
@@ -478,7 +496,7 @@ public class DungeonGrid
         return roomCells.Contains(_cell) || hallwayCells.Contains(_cell);
     }
 
-    bool CanPlaceRoom(Vector2Int _anchor, Vector2Int _size)
+    public bool CanPlaceRoom(Vector2Int _anchor, Vector2Int _size)
     {
         for (int row = 0; row < _size.x; row++) // iterates through every space the room would occupy to see if any grid is already occupied
         {
