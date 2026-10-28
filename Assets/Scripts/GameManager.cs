@@ -23,9 +23,9 @@ public class GameManager : MonoBehaviour
         CheckInstance();
         Player = player;
     }
-    private void Start()
+    public void Start()
     {
-        StartGame();
+        //StartGame();
         Console.Write("Map Generated");
     }
 
