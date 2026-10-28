@@ -19,6 +19,10 @@ public class Pause : MonoBehaviour
     private float falsesafe; // this is for the quit when so the Pause won't always be false in the update;
     private InputAction Escape;
 
+    private void OnEnable()
+    {
+        ActionMap.FindAction("Escape").Enable();
+    }
     private void Awake()
     {
         Escape = ActionMap.FindAction("Escape");

@@ -26,9 +26,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        
-        SpawnPlayer();
-        
+        StartGame();
         Console.Write("Map Generated");
     }
 
@@ -37,10 +35,11 @@ public class GameManager : MonoBehaviour
     {
         GenerateLevel();
         InitiateItemGenerator();     
-
+        SpawnPlayer();
     }
     public void EndGame()
     {
+        //Destroy(Player);
         ClearRooms();
         ClearHallways();
         ClearItems();

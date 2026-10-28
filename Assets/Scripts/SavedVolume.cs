@@ -20,10 +20,12 @@ public class SavedVolume : MonoBehaviour
         {
 
         }
+
     }
 
     public void OnSliderValueChanged(float v)
     {
         PlayerPrefs.SetFloat(SavedVolumeName, v);
     }
+
 }

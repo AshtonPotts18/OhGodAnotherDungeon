@@ -79,11 +79,7 @@
                 {
                     "name": "Escape",
                     "type": "Button",
-<<<<<<< HEAD
-                    "id": "1f27910e-c06f-4c87-ac6c-6eec6bffefc7",
-=======
                     "id": "c64c5c58-9ef8-4fdf-ab87-3638d93f73d1",
->>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -171,11 +167,7 @@
                 },
                 {
                     "name": "",
-<<<<<<< HEAD
-                    "id": "f06f6b7e-c5ae-4d87-8c9d-4b9656c85624",
-=======
                     "id": "f4c2b4d5-ecf1-4888-9b03-84929cb3bb14",
->>>>>>> 50859dd65f309dd62e1f6b4ba76f44c05fe90d38
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
