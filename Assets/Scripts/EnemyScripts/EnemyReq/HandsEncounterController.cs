@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+//
 public class HandEncounterController : MonoBehaviour
 {
     [Header("Scene References")]
