@@ -303,11 +303,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
         bool yAxisPossible = (currentPosition.y != targetPosition.y);
         Vector2 distanceFromTarget = targetPosition - currentPosition;
 
-        if (currentPosition.y == targetPosition.y) // move x axis // if y not possible
+        if (!yAxisPossible) // move x axis // if y not possible
         {
             currentPosition.x = DungeonGridMoveAxisX(currentPosition, distanceFromTarget.x > 0);
         }
-        else if (currentPosition.x == targetPosition.x) // move y Axis // if x not possible
+        else if (!xAxisPossible) // move y Axis // if x not possible
         {
             currentPosition.y = DungeonGridMoveAxisY(currentPosition, distanceFromTarget.y > 0);
         }
@@ -372,7 +372,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         }
         else if (xAxisPossible && yAxisPossible)
         {
-            output = (Convert.ToBoolean(UnityEngine.Random.Range(0, 1)));
+            output = UnityEngine.Random.value > 0.5f;
         }
 
         return output;
