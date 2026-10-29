@@ -85,7 +85,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
         List<Edge> paths = new List<Edge>();
 
         TrianglesToPaths(triangles, paths); //adds triangles to paths
-
         if (triangles.Count == 0)
         {
             dungeonGrid = new DungeonGrid();
@@ -94,29 +93,32 @@ public class RandomlyGenerateRooms : MonoBehaviour
             return -1; // error not enough triangles in map
         }
 
+
+
+        SpawnDungeonRooms(dungeonRooms);
+
+
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         GenerateHallways(paths);
 
-        foreach (KeyValuePair<Vector2Int, DungeonRoom> room in dungeonRooms)
-        {
-            room.Value.InstantiateRoom(transform);
-        }
+        //foreach (KeyValuePair<Vector2Int, DungeonRoom> room in dungeonRooms)
+        //{
+        //    room.Value.InstantiateRoom(transform);
+        //}
         
 
 
 
-
-
-        //SpawnRooms(generatedRooms);
-        //generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
-
-        //List<Edge> path_MST = PrimsMST(new Vector2(0, 0), paths);
-        //RandomlyDeletePaths(paths, in path_MST);
-        //SpawnHallways(paths);
-
-
         return 0;
+    }
+
+    private void SpawnDungeonRooms(Dictionary<Vector2Int, DungeonRoom> dungeonRooms)
+    {
+        foreach(KeyValuePair<Vector2Int, DungeonRoom> room in dungeonRooms)
+        {
+            room.Value.InstantiateRoom(roomManager.transform);
+        }
     }
 
     private List<Vector2> ConvertListToVector2Int(List<Vector2Int> vector2Ints)
@@ -177,7 +179,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     private void GenerateHallways(List<Edge> _paths)
     {
         RoomInformation hallwayInformation = hallway_prefab.GetComponent<RoomInformation>();
-        DungeonRoom hallway = new DungeonRoom(new Vector2Int(0, 0), hallwayInformation.floorSize, hallway_prefab);
+        //DungeonRoom hallway = new DungeonRoom(new Vector2Int(0, 0), hallwayInformation.floorSize, hallway_prefab);
 
         Queue<Vector2Int> walkedPath = new Queue<Vector2Int>();
 
@@ -192,15 +194,12 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
             do
             {
-                hallway.anchor = currentPosition;
-                if (!dungeonGrid.CanPlaceRoom(hallway.anchor, hallway.size))
+                if (dungeonGrid.CanPlaceRoom(currentPosition, hallwayInformation.floorSize)) // prevents hallway from being placed in the same place as a room but not a hallway
                 {
-
-                }
-                if (dungeonGrid.CanPlaceRoom(hallway.anchor, hallway.size)) // prevents hallway from being placed in the same place as a room but not a hallway
-                {
+                    DungeonRoom hallway = new DungeonRoom(currentPosition, hallwayInformation.floorSize, hallway_prefab);
+                    hallway.InstantiateRoom(hallwayManager.transform);
                     dungeonGrid.ReserveHallway(hallway.anchor);
-                    dungeonRooms.Add(hallway.anchor, new DungeonRoom(hallway));
+                    dungeonRooms.Add(hallway.anchor, hallway);
                 }
 
                 walkedPath.Enqueue(currentPosition);
@@ -210,6 +209,18 @@ public class RandomlyGenerateRooms : MonoBehaviour
             } while (currentPosition != targetPoint);
 
             // connect rooms here
+
+            while (walkedPath.Count > 0)
+            {
+                Vector2Int firstRoom_delAfterLoop = walkedPath.Dequeue();
+                Vector2Int secondRoom;
+
+                if (walkedPath.TryPeek(out secondRoom))
+                {
+                    RoomInformation.ConnectRooms(dungeonRooms[firstRoom_delAfterLoop].roomInstance, dungeonRooms[secondRoom].roomInstance);
+                }
+
+            }
 
         }
     }
