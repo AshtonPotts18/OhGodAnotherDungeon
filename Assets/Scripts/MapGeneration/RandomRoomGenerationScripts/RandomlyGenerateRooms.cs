@@ -31,7 +31,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     [SerializeField] private int roomOffset = 5;
     [SerializeField] const int roomSpawnAttemptCap = 50;
 
-    [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 12.3f;
+    [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 100f;
     private Dictionary<Vector2, GameObject> generatedRooms = new Dictionary<Vector2, GameObject>(); // starting room // hand room 1 // hand room 2
     private HashSet<Vector3> occupiedGridSpaces = new HashSet<Vector3>();
     public GameObject startingRoom;
@@ -86,20 +86,34 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         TrianglesToPaths(triangles, paths); //adds triangles to paths
 
-        if (triangles.Count == 0) return -1; // error not enough triangles in map
+        if (triangles.Count == 0)
+        {
+            dungeonGrid = new DungeonGrid();
+            dungeonRooms.Clear();
+        
+            return -1; // error not enough triangles in map
+        }
 
         // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
 
         GenerateHallways(paths);
 
+        foreach (KeyValuePair<Vector2Int, DungeonRoom> room in dungeonRooms)
+        {
+            room.Value.InstantiateRoom(transform);
+        }
+        
 
 
-        SpawnRooms(generatedRooms);
-        generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
 
-        List<Edge> path_MST = PrimsMST(new Vector2(0, 0), paths);
-        RandomlyDeletePaths(paths, in path_MST);
-        SpawnHallways(paths);
+
+
+        //SpawnRooms(generatedRooms);
+        //generatedRooms.TryGetValue(new Vector2Int(0, 0), out startingRoom); // get the starting room
+
+        //List<Edge> path_MST = PrimsMST(new Vector2(0, 0), paths);
+        //RandomlyDeletePaths(paths, in path_MST);
+        //SpawnHallways(paths);
 
 
         return 0;
@@ -179,10 +193,14 @@ public class RandomlyGenerateRooms : MonoBehaviour
             do
             {
                 hallway.anchor = currentPosition;
+                if (!dungeonGrid.CanPlaceRoom(hallway.anchor, hallway.size))
+                {
+
+                }
                 if (dungeonGrid.CanPlaceRoom(hallway.anchor, hallway.size)) // prevents hallway from being placed in the same place as a room but not a hallway
                 {
                     dungeonGrid.ReserveHallway(hallway.anchor);
-                    dungeonRooms.Add(hallway.anchor, hallway);
+                    dungeonRooms.Add(hallway.anchor, new DungeonRoom(hallway));
                 }
 
                 walkedPath.Enqueue(currentPosition);
@@ -191,6 +209,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
             } while (currentPosition != targetPoint);
 
+            // connect rooms here
 
         }
     }
@@ -376,7 +395,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     {
         Vector2 roomPosition;
         RoomInformation handRoomInfo = handRoom_Prefab.GetComponent<RoomInformation>();
-        DungeonRoom handRoom = new DungeonRoom(new Vector2Int(), handRoomInfo.floorSize);
+        DungeonRoom handRoom = new DungeonRoom(new Vector2Int(), handRoomInfo.floorSize, handRoom_Prefab);
 
         for (int i = 0; i < 2; i++)
         {
@@ -458,6 +477,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
             
             if(dungeonGrid.CanPlaceRoom(room.anchor, room.size))
             {
+                //room.AddRoomDoors();
                 dungeonGrid.ReserveRoom(room.anchor, room.size);
                 dungeonRooms.Add(room.anchor,new DungeonRoom(room));
 
@@ -497,7 +517,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
         int snappedy = Mathf.RoundToInt(randomLocation.y / roomOffset) * roomOffset;
 
         Vector2 output = new Vector2(snappedX, snappedy);
-        //Debug.Log("RandomPoint Generated");
 
 
         return output;
@@ -663,7 +682,7 @@ public class DungeonGrid
 
     }
 
-    Vector3 GridToWorldSpace(Vector2 _roomCenter)
+    public static Vector3 GridToWorldSpace(Vector2 _roomCenter)
     {
         return new Vector3(_roomCenter.x, 0, _roomCenter.y) * 5;
     }
@@ -697,7 +716,14 @@ public class DungeonRoom
         anchor = _other.anchor;
         size = _other.size;
         prefab = _other.prefab;
-        doorPositions = _other.doorPositions;
+        //doorPositions = _other.doorPositions;
+        if (anchor != null || size != null)
+            AddRoomDoors();
+    }
+
+    public void InstantiateRoom(Transform parent = null)
+    {
+        roomInstance = GameObject.Instantiate(prefab, DungeonGrid.GridToWorldSpace(CenterCell), Quaternion.identity, parent);
     }
 
     Vector3 GridToCellPosition()
@@ -705,13 +731,14 @@ public class DungeonRoom
         return new Vector3(CenterCell.x, 0, CenterCell.y);
     }
 
+    
     public void AddRoomDoors()
     {
         //Vector2Int doorLocation = new Vector2Int(0, anchor.y + (size.y / 2));
-        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(0, CenterCell.y + (size.y / 2)))); // front
-        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(0, CenterCell.y - (size.y / 2)))); // back
-        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x - (size.x / 2), 0))); // left
-        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x + (size.x / 2), 0))); // right
+        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x, CenterCell.y + (size.y / 2)))); // front
+        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x, CenterCell.y - (size.y / 2)))); // back
+        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x - (size.x / 2), CenterCell.y))); // left
+        doorPositions.Add(Vector2Int.FloorToInt(new Vector2(CenterCell.x + (size.x / 2), CenterCell.y))); // right
     }
 
     public Vector2Int ClosestDoor(Vector2Int _targetPosition)
