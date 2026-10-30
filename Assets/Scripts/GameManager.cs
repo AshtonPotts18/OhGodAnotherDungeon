@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] ItemGeneration itemGenerator;
     [SerializeField] List<GameObject> itemPool;
+    [SerializeField] BuyStation station;
     public static GameObject Player {get; set; } // put prefab here to be instantiated in start
     private Transform playerSpawnPoint;
     public static Camera PlayerCamera { get; private set; }
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour
     private List<GameObject> roomsList = new List<GameObject>();
     private List<GameObject> spawnedItemList = new List<GameObject>();
 
+    private BuyStation StationObject;
 
 
     private void Awake()
@@ -35,6 +37,7 @@ public class GameManager : MonoBehaviour
         GenerateLevel();
         InitiateItemGenerator();     
         SpawnPlayer();
+        StartShop();
     }
     public void EndGame()
     {
@@ -138,6 +141,12 @@ public class GameManager : MonoBehaviour
             playerSpawnPoint.position, playerSpawnPoint.rotation, transform);
         Player.tag = "Player";
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
+    }
+
+    private void StartShop()
+    {
+        StationObject = station;
+        StationObject.StartBuyStation();
     }
 }
 
