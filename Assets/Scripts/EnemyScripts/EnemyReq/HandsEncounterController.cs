@@ -17,16 +17,18 @@ public class HandEncounterController : MonoBehaviour
     [Header("Encounter Timing")]
     [SerializeField, Min(0f)] private float delayAfterPlayerAppears = 60f;
 
-    [Header("Jazz Hand Timing")]
-    [SerializeField, Min(0f)] private float jazzHandDelayAfterSnap = 2f;
-
     [Header("Spawn Search")]
     [SerializeField, Min(0.1f)] private float navMeshSampleRadius = 3f;
     [SerializeField, Min(1)] private int attemptsPerRoom = 20;
     [SerializeField, Min(1)] private int jazzSpawnTrials = 10;
 
+    [Header("Paired Hand Kill")]
+    [SerializeField, Min(0f)] private float killDistance = 1.5f;
+
     private Collider snapHandRoom;
-    private bool jazzSpawnStarted;
+    private Transform snapHandTransform;
+    private Transform jazzHandTransform;
+    private bool hasKilledPlayer;
 
     private IEnumerator Start()
     {
@@ -35,28 +37,23 @@ public class HandEncounterController : MonoBehaviour
             Debug.LogError(
                 $"{name}: assign the outer RoomManager to Rooms Root.",
                 this);
-
             yield break;
         }
 
         if (snapHandPrefab == null || jazzHandPrefab == null)
         {
             Debug.LogError($"{name}: assign both hand prefabs.", this);
-
             yield break;
         }
 
-        // Start the minute-long timer when the player first appears.
         while (player == null)
         {
             FindPlayer();
-
             yield return new WaitForSeconds(0.25f);
         }
 
         float handsActivateAt = Time.time + delayAfterPlayerAppears;
 
-        // Wait while the map finishes generating in the background.
         while (Time.time < handsActivateAt)
         {
             if (player == null)
@@ -65,14 +62,12 @@ public class HandEncounterController : MonoBehaviour
             yield return null;
         }
 
-        // If map generation takes longer than a minute, wait for its RoomBounds.
         List<Collider> roomAreas = GetRoomAreas();
 
         while (player == null || roomAreas.Count < 2)
         {
             FindPlayer();
             roomAreas = GetRoomAreas();
-
             yield return new WaitForSeconds(0.25f);
         }
 
@@ -87,7 +82,6 @@ public class HandEncounterController : MonoBehaviour
             Debug.LogError(
                 $"{name}: couldn't find a Snap Hand spawn point outside the player's room.",
                 this);
-
             yield break;
         }
 
@@ -108,17 +102,19 @@ public class HandEncounterController : MonoBehaviour
             yield break;
         }
 
-        // Subscribe before initialization so the controller receives the snap event.
-        snapAI.Snapped += HandleSnap;
-
         if (!InitializeHand(snapHand, roomAreas.ToArray()))
         {
             Destroy(snapHand);
             yield break;
         }
 
+        snapHandTransform = snapHand.transform;
         Debug.Log($"{snapHand.name}: spawned and is patrolling.", snapHand);
+
+        // Spawn Jazz during this same encounter start.
+        yield return StartCoroutine(SpawnJazzHand());
     }
+
 
     private void FindPlayer()
     {
@@ -140,18 +136,9 @@ public class HandEncounterController : MonoBehaviour
         }
     }
 
-    private void HandleSnap(SnapHandAI snapHand)
+    //snap delay needs to get replaced
+    private IEnumerator SpawnJazzHand()
     {
-        if (jazzSpawnStarted) { return; }
-
-        jazzSpawnStarted = true;
-        StartCoroutine(SpawnJazzHandAfterDelay());
-    }
-
-    private IEnumerator SpawnJazzHandAfterDelay()
-    {
-        yield return new WaitForSeconds(jazzHandDelayAfterSnap);
-
         FindPlayer();
 
         if (player == null)
@@ -163,19 +150,16 @@ public class HandEncounterController : MonoBehaviour
         }
 
         List<Collider> roomAreas = GetRoomAreas();
-        Collider playerRoom =
-            FindRoomContainingOrNearest(player.position, roomAreas);
+
+        Collider playerRoom = FindRoomContainingOrNearest(player.position, roomAreas);
 
         for (int trial = 0; trial < jazzSpawnTrials; trial++)
         {
-            // Prefer a room different from both the player and Snap Hand.
             bool foundSpawn = TryFindSpawnPoint(
                 roomAreas, playerRoom,
                 snapHandRoom, out _,
                 out Vector3 jazzPosition);
 
-            // If the map has too few rooms, allow the Snap Hand's room,
-            // while still keeping the Jazz Hand out of the player's room.
             if (!foundSpawn)
             {
                 foundSpawn = TryFindSpawnPoint(
@@ -188,40 +172,40 @@ public class HandEncounterController : MonoBehaviour
                 break;
 
             GameObject jazzHand = Instantiate(
-                jazzHandPrefab, jazzPosition,
+                jazzHandPrefab,
+                jazzPosition,
                 jazzHandPrefab.transform.rotation);
 
             SetEnemyTag(jazzHand);
 
-            JazzHandAI jazzAI = jazzHand.GetComponentInChildren<JazzHandAI>();
+            JazzHandAI jazzAI =
+                jazzHand.GetComponentInChildren<JazzHandAI>();
 
             if (jazzAI == null)
             {
                 Debug.LogError(
-                $"{jazzHand.name}: JazzHandAI is missing.", jazzHand);
-
+                    $"{jazzHand.name}: JazzHandAI is missing.",
+                    jazzHand);
                 Destroy(jazzHand);
-
                 yield break;
             }
 
             if (!InitializeHand(jazzHand, roomAreas.ToArray()))
             {
                 Destroy(jazzHand);
-
                 yield break;
             }
 
             if (jazzAI.IsReady)
             {
-                Debug.Log(
-                    $"{jazzHand.name}: spawned and is pursuing the player.",
-                    jazzHand);
+                jazzHandTransform = jazzHand.transform;
 
+                Debug.Log(
+                    $"{jazzHand.name}: spawned alongside Snap and is pursuing the player.",
+                    jazzHand);
                 yield break;
             }
 
-            // This spawn had no complete path; try a different room/point.
             Destroy(jazzHand);
             yield return null;
         }
@@ -398,5 +382,25 @@ public class HandEncounterController : MonoBehaviour
                 "The 'Enemy' tag does not exist. Add it in Tags and Layers.",
                 hand);
         }
+    }
+
+    private void Update()
+    {
+        if (hasKilledPlayer || player == null ||
+        snapHandTransform == null || jazzHandTransform == null)
+        {
+            return;
+        }
+
+        float snapDistance = Vector3.Distance(snapHandTransform.position, player.position);
+        float jazzDistance = Vector3.Distance(jazzHandTransform.position, player.position);
+
+        if(snapDistance > killDistance || jazzDistance > killDistance) { return; }
+
+        hasKilledPlayer = true;
+
+        Debug.Log($"Both hands reached player; destroying {player.name}.", jazzHandTransform);
+
+        Destroy(player.gameObject);
     }
 }

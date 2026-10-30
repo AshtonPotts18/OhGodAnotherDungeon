@@ -15,7 +15,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Min(1)] private int currentLevel = 1;
     [SerializeField, Min(1)] private int enemiesAtLevelOne = 1;
     [SerializeField, Min(1)] private int extraEnemiesPerLevel = 1;
-    [SerializeField, Min(1)] private int maxEnemyLimit = 10;
+    [SerializeField, Min(1)] private int maxEnemyLimit = 20;
 
     [Header("Spawn Timing")]
     [SerializeField, Min(0f)] private float initialSpawnDelay = 3f;
@@ -246,6 +246,8 @@ public class EnemySpawner : MonoBehaviour
             spawnPosition, prefabToSpawn.transform.rotation );
 
             enemy.tag = "Enemy";
+
+            enemy.name = enemy.name.Replace("(Clone)", "");
 
             Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 

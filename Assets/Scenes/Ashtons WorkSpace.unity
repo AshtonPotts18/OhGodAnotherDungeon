@@ -2370,7 +2370,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
   additionalEnemyPrefabs: []
   currentLevel: 1
-  enemiesAtLevelOne: 1
+  enemiesAtLevelOne: 3
   extraEnemiesPerLevel: 1
   maxEnemyLimit: 10
   initialSpawnDelay: 3
