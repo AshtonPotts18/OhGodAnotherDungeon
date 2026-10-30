@@ -7,6 +7,7 @@ public class SoundSettings : MonoBehaviour
     [SerializeField] private string[] SavedVolumeName;
     public Slider EnemySlider; // This is for the Slider so the player can change the volume;
 
+    public Slider MusicSlider;
     public Slider SFXSlider;
 
     public Slider MasterSlider;
@@ -50,6 +51,24 @@ public class SoundSettings : MonoBehaviour
         }
     }
 
+    public void SetVolumeForMusic() //Depending on the Tag of the GameObject it will change all sounds for all the tags with a sound.
+    {
+
+        GameObject[] ObjectVolume = GameObject.FindGameObjectsWithTag(TagName[2]);
+
+        foreach (GameObject Object in ObjectVolume)
+        {
+
+            AudioSource sound = Object.GetComponent<AudioSource>();
+
+            if (sound != null)
+            {
+                PlayerPrefs.SetFloat(SavedVolumeName[2], MusicSlider.value);
+                sound.volume = MusicSlider.value;
+            }
+        }
+    }
+
     public void MasterVolume()
     {
         PlayerPrefs.SetFloat("MasterVolume", MasterSlider.value);
@@ -65,6 +84,11 @@ public class SoundSettings : MonoBehaviour
     public void OnSFXVolValueChanged(float v)
     {
         SetVolumeForSFX();
+    }
+
+    public void OnMusicVolValueChanged(float v)
+    {
+        SetVolumeForMusic();
     }
 
     public void OnMasterVolValueChanged(float v)

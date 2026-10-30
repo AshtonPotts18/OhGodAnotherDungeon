@@ -8,9 +8,9 @@ public interface IVisitable
     void Accept(IVisitor visitor);
 }
 
-public interface IVisitor
+public interface IVisitor // for the visitor function here I want the player info to be put into this so it can visit the scripts
 {
-    void Visit(HealthandPlus Health);
+    void VisitHealth(HealthandPlus Health);
 }
 
 public class SaveData : MonoBehaviour, IVisitor
@@ -21,37 +21,27 @@ public class SaveData : MonoBehaviour, IVisitor
     GameData Player = new GameData();
 
     //This is the Way PlayerHP gets saved to Player Game Data
-    public void Visit(HealthandPlus Health)
+    public void VisitHealth(HealthandPlus Health)
     {
         Player.PlayerHP = Health.slider.value;
     }
 
-    IEnumerator DelayedAction()
+    IEnumerator DelayedAction() //This delays the function so it can be saved correctly
     {
         
         yield return new WaitForSeconds(0.5f); // Waits for 0.5 seconds
         SavingData(Player);
     }
 
-    public void SavingData(GameData PlayerData)
+    public void SavingData(GameData PlayerData) //This saves whatever is in the GameData class
     {
         string path_of_file = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
         Debug.Log(path_of_file);
         File.WriteAllText(path_of_file, JsonUtility.ToJson(PlayerData));
-        Debug.Log(LoadingData().PlayerHP);
     }
 
 
-    public GameData LoadingData()
-    {
-        string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
-        if (File.Exists(Path_Of_File))
-        {
-            string json_file = File.ReadAllText(Path_Of_File);
-            return JsonUtility.FromJson<GameData>(json_file); // returns the GameData
-        }
-        return null;
-    }
+    
 
     
     void Start()

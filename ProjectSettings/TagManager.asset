@@ -8,6 +8,8 @@ TagManager:
   - Hallway
   - Enemy
   - ItemSpawnPoint
+  - Button
+  - Music
   layers:
   - Default
   - TransparentFX

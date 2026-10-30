@@ -20,7 +20,7 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
 
     //public void Accept(IVisitor visitor) //This is for SaveData and brings it to function to save the players Health
     //{
-    //    visitor.Visit(this);
+    //    visitor.VisitHealth(this);
     //}
 
     //public void Start()
