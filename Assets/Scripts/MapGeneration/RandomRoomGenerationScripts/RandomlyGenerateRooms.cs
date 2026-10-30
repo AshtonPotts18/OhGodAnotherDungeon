@@ -107,7 +107,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         //    room.Value.InstantiateRoom(transform);
         //}
         
-
+        startingRoom = dungeonRooms[new Vector2Int(0, 0)].roomInstance;
 
 
         return 0;
