@@ -813,7 +813,7 @@ MonoBehaviour:
   roomSize:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 5, y: 5, z: 5}
-  floorSize: {x: 0, y: 0}
+  floorSize: {x: 1, y: 1}
   openDoors: 00000000y
   walls:
   - {fileID: 4880811412297703244}

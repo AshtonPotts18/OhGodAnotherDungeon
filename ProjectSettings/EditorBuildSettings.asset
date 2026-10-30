@@ -9,9 +9,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Main Menu.unity
     guid: 32d8b05233a97b24085c39ea724f3133
   - enabled: 1
+    path: Assets/Scenes/Trentens WorkSpace.unity
+    guid: 29f90dfd33e0a6941872c3279539fc1e
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/Normans WorkSpace.unity
     guid: be7b403aa85af1d478f3f8f37af15b32
   - enabled: 1
