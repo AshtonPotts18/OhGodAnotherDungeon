@@ -42,6 +42,7 @@ public class GameManager : MonoBehaviour
         ClearRooms();
         ClearHallways();
         ClearItems();
+        mapGenerator.ClearMap();
         Console.Write("Map Cleared");
     }
 
