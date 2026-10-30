@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Unity.VisualScripting;
 
 public class BuyStation : MonoBehaviour
 {
@@ -48,11 +49,11 @@ public class BuyStation : MonoBehaviour
         }
     }
 
-    public void StartBuyArea()
+    public void StartBuyStation()
     {
         if (playerCamera == null)
         {
-            playerCamera = GameManager.PlayerCamera;
+            playerCamera = Camera.main;
         }
 
         if (playerCamera == null)
@@ -90,8 +91,7 @@ public class BuyStation : MonoBehaviour
 
         currentItem = null;
 
-        if (playerCamera == null)
-            return;
+        if (playerCamera == null) return;
 
         Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
@@ -219,7 +219,7 @@ public class BuyStation : MonoBehaviour
 
         int price = Mathf.Max(0, currentItem.Value);
 
-        if (!Shop.Instance.BuyItem(price))
+        if (Shop.Instance.BuyItem(price) == false)
         {
             Debug.Log("Not enough gold!");
             return;
