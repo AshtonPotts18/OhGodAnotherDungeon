@@ -41,6 +41,12 @@ public class ScrollFireball : UsableItem
 
         rb.AddForce(transform.forward * fireballSpeed, ForceMode.Impulse);
 
+        numOfUses--;
+        if (numOfUses == 0)
+        {
+            Destroy(gameObject); // add length of the audio clip here to prevent it from being cut off early
+        }
+
         //GameObject fireball = Instantiate(fireBall_prefab, transform.position + (transform.forward * distanceFromObject), Quaternion.identity);
         ////fireball.transform.SetParent(transform, true);
         //Rigidbody rb = fireball.GetComponent<Rigidbody>();

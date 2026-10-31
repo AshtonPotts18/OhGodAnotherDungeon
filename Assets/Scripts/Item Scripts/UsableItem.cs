@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,6 +8,7 @@ public class UsableItem : Item
 
     [SerializeField] InputActionAsset inputMap = null;
     private InputAction useItem = new InputAction();
+     [SerializeField] protected int numOfUses = 1;
 
     //public virtual void OnUseItem(InputValue value)
     //{

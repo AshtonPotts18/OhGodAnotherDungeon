@@ -157,6 +157,7 @@ MonoBehaviour:
   value: 110
   inventoryPrefab: {fileID: 8004627547221998, guid: e7dc8cf324f6a56458fa2a880aa28ee7, type: 3}
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
+  numOfUses: 2
   fireBall_prefab: {fileID: 3863065172375043055, guid: 2515071447665fc42ba40b10692c5d78, type: 3}
   distanceFromObject: 1
   fireballSpeed: 10
