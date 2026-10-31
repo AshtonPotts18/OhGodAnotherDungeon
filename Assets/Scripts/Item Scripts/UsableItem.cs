@@ -20,15 +20,6 @@ public class UsableItem : Item
     {
         inputMap.FindAction("UseItem").Enable();
     }
-    private void OnDisable()
-    {
-        inputMap.FindAction("UseItem").Disable();
-    }
-    protected override void Awake()
-    {
-        base.Awake();
-        useItem = inputMap.FindAction("UseItem");
-    }
 
 
     public override void SetHeld(bool isHeld)

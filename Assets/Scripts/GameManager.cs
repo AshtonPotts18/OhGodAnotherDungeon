@@ -34,6 +34,8 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        //Player.SetActive(true);
+
         GenerateLevel();
         InitiateItemGenerator();     
         SpawnPlayer();
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
-        //Destroy(Player);
+        //Player.SetActive(false);
         ClearRooms();
         ClearHallways();
         ClearItems();

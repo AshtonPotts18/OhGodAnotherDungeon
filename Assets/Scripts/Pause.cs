@@ -40,6 +40,7 @@ public class Pause : MonoBehaviour
             Cursor.visible = false;
             Time.timeScale = 1;
             Paused = false;
+            PlayerPrefs.SetFloat("Pausing", 1);
         }
         else
         {
