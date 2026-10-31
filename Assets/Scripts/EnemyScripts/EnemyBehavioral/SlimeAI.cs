@@ -14,6 +14,7 @@ public class SlimeAI : EnemyBehavior
     [SerializeField, Min(0f)] private float damagePerTick = 2f;
     [SerializeField, Min(0.05f)] private float damageInterval = 0.75f;
     [SerializeField, Min(0f)] private float damageStartDelay = 0.4f;
+    [SerializeField, Min(0f)] private float poisonDuration = 4f;
 
     [Header("Events")]
     [SerializeField] private UnityEvent onAttackStarted;
@@ -30,6 +31,8 @@ public class SlimeAI : EnemyBehavior
     private bool warnedMissingHealth;
     private float originalAgentSpeed;
     private float nextDamageTime;
+    private bool poisonActive;
+    private float poisonExpiresAt;
 
     public override void Initialize(Transform target, Detection detector, Enemy_Movement mover)
     {
@@ -57,20 +60,48 @@ public class SlimeAI : EnemyBehavior
     }
     private void Update()
     {
-        if (!initialized || player == null || detection == null || movement == null)
-           { return; }
+        if (!initialized || player == null || detection == null || movement == null) { return; }
 
         bool inAttackRange = detection.PlayerDetected && IsPlayerInAttackRange();
 
         movement.SetAttacking(inAttackRange);
 
-        if (!inAttackRange)
+        if (inAttackRange)
         {
-            if (isAttacking) { FinishAttack(); }
-            return;
+            if (!isAttacking) { BeginAttack(); }
+
+            ApplyOrRefreshPoison();
+        }
+        else if (isAttacking)
+        {
+            FinishAttack();
         }
 
-        if (!isAttacking) { BeginAttack(); }
+        // Poison keeps ticking even after the player leaves attack range.
+        TickPoison();
+    }
+
+    private void ApplyOrRefreshPoison()
+    {
+        if (!poisonActive)
+        {
+            poisonActive = true;
+            nextDamageTime = Time.time + damageStartDelay;
+        }
+
+        // Hitting again refreshes the duration; it does not stack another poison.
+        poisonExpiresAt = Time.time + poisonDuration;
+    }
+
+    private void TickPoison()
+    {
+        if (!poisonActive) { return; }
+
+        if (Time.time >= poisonExpiresAt)
+        {
+            poisonActive = false;
+            return;
+        }
 
         if (Time.time < nextDamageTime) { return; }
 

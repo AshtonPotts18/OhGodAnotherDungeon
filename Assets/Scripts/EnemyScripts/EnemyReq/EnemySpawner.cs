@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private GameObject[] additionalEnemyPrefabs;
 
     [Header("Level Scaling")]
-    [SerializeField, Min(1)] private int currentLevel = 1;
+    [SerializeField, Min(1)] public int currentLevel = 1;
     [SerializeField, Min(1)] private int enemiesAtLevelOne = 1;
     [SerializeField, Min(1)] private int extraEnemiesPerLevel = 1;
     [SerializeField, Min(1)] private int maxEnemyLimit = 20;
@@ -200,16 +200,6 @@ public class EnemySpawner : MonoBehaviour
 
         Collider occupiedRoom = FindPlayerRoom();
 
-        if (occupiedRoom == null)
-        {
-            Debug.LogWarning(
-                $"{name}: Couldn't determine the player's room. No enemy was spawned.",
-                this
-            );
-
-            return false;
-        }
-
         List<Collider> eligibleRooms = new List<Collider>();
 
         foreach (Collider roomArea in roomAreas)
@@ -221,9 +211,8 @@ public class EnemySpawner : MonoBehaviour
         if (eligibleRooms.Count == 0)
         {
             Debug.LogWarning(
-                $"{name}: No unoccupied room is available for spawning.",
-                this
-            );
+                $"{name}: No unoccupied room or hallway area is available for spawning.",
+                this);
 
             return false;
         }

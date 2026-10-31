@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> roomsList = new List<GameObject>();
     private List<GameObject> spawnedItemList = new List<GameObject>();
 
+    private float levelStartTime;
+    public float LevelElapsedSeconds => Time.time - levelStartTime;
 
 
     private void Awake()
@@ -33,6 +35,7 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
+        levelStartTime = Time.time;
         GenerateLevel();
         InitiateItemGenerator();     
         SpawnPlayer();
