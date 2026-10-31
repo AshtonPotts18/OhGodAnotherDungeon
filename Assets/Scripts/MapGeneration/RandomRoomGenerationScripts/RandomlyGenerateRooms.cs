@@ -216,8 +216,9 @@ public class RandomlyGenerateRooms : MonoBehaviour
             {
                 Vector2Int firstRoom_delAfterLoop = walkedPath.Dequeue();
                 Vector2Int secondRoom;
+                walkedPath.TryPeek(out secondRoom);
 
-                if (dungeonRooms.ContainsKey(firstRoom_delAfterLoop) && walkedPath.TryPeek(out secondRoom))
+                if (dungeonRooms.ContainsKey(firstRoom_delAfterLoop) && dungeonRooms.ContainsKey(secondRoom))
                 {
                     RoomInformation.ConnectRooms(dungeonRooms[firstRoom_delAfterLoop].roomInstance, dungeonRooms[secondRoom].roomInstance);
                 }
