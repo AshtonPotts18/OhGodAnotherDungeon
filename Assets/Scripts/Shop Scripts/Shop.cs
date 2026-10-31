@@ -73,12 +73,14 @@ public class Shop : MonoBehaviour
 
     public bool BuyItem(int cost)
     {
-        if (cost < 0 || partyMoney < 0)
+        if (cost < 0 || partyMoney < 0 || cost > partyMoney)
         {
             return false;
         }
-
-        partyMoney -= cost;
+        else if (partyMoney >= cost)
+        {
+            partyMoney -= cost;
+        }
 
         Debug.Log($"Purchased item for ${cost}");
         Debug.Log($"Remaining Money: ${partyMoney}");
