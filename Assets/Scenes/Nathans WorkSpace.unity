@@ -759,7 +759,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameMusic
   MusicSource: {fileID: 0}
-  MusicForLevel: []
+  MusicForLevel:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!4 &1128115293
 Transform:
   m_ObjectHideFlags: 0
