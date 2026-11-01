@@ -10,6 +10,8 @@ TagManager:
   - ItemSpawnPoint
   - Button
   - Music
+  - Projectile
+  - ShopHighlight
   layers:
   - Default
   - TransparentFX

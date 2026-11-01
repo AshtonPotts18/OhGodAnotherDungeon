@@ -131,12 +131,13 @@ MonoBehaviour:
   itemName: item
   value: 100
   inventoryPrefab: {fileID: 6219769198402500448, guid: c5c44d969e2adf64d999f335379cdf2e, type: 3}
-  inputMap: {fileID: 0}
+  inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 0}
   playerCamera: {fileID: 0}
   detectionDistance: 20
   detectionRadius: 8
+  MirrorText: {fileID: 0}
   scanningRange: 2
 --- !u!54 &-2193694558011168440
 Rigidbody:
