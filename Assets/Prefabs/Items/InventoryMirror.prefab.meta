@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/Items/InventoryMirror.prefab.meta
 guid: c5c44d969e2adf64d999f335379cdf2e
+========
+guid: 4158a1bcf2befef4d84739a7dfd88985
+>>>>>>>> 704c9b6e0400d68e49f1f70cfc82291b88f67c01:Assets/Prefabs/Mimic.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

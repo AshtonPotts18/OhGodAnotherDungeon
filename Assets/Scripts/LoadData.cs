@@ -16,6 +16,12 @@ public class LoadData : MonoBehaviour, IVisitor
         new WaitForSeconds(0.5f);
         Health.slider.value = PlayerSaved.PlayerHP;
     }
+
+    public void VisitShop(Shop shop) // With Norman Make a Load Money Method
+    {
+        new WaitForSeconds(0.5f);
+        //shop.PartyMoney = PlayerSaved.PlayerMoney;
+    }
     public GameData LoadingData() //This loads whatever is in the GameData class
     {
         string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file

@@ -11,6 +11,7 @@ public interface IVisitable
 public interface IVisitor // for the visitor function here I want the player info to be put into this so it can visit the scripts
 {
     void VisitHealth(HealthandPlus Health);
+    void VisitShop(Shop Shop);
 }
 
 public class SaveData : MonoBehaviour, IVisitor
@@ -24,6 +25,11 @@ public class SaveData : MonoBehaviour, IVisitor
     public void VisitHealth(HealthandPlus Health)
     {
         Player.PlayerHP = Health.slider.value;
+    }
+
+    public void VisitShop(Shop Shop)
+    {
+        Player.PlayerMoney = Shop.PartyMoney;
     }
 
     IEnumerator DelayedAction() //This delays the function so it can be saved correctly
@@ -47,8 +53,6 @@ public class SaveData : MonoBehaviour, IVisitor
     void Start()
     {
         Player.SavedLevel = 0;
-
-        Player.PlayerMoney = 100;
 
         StartCoroutine(DelayedAction());
     }
