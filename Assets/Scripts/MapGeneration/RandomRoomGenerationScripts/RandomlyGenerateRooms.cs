@@ -40,6 +40,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
     //Start of new Fields
     DungeonGrid dungeonGrid = new DungeonGrid();
     Dictionary<Vector2Int, DungeonRoom> dungeonRooms = new Dictionary<Vector2Int, DungeonRoom>();
+    List<GameObject > roomList = new List<GameObject>();
 
 
     public List<GameObject> GenerateMap()
@@ -59,22 +60,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
             //return;
         }
 
-        List<GameObject> outputRooms = GetRooms();
 
         navMeshSurface.BuildNavMesh();
         
-        return outputRooms;
+        return roomList;
 
-    }
-
-    private List<GameObject> GetRooms()
-    {
-        List<GameObject> roomsList = new List<GameObject>();
-        foreach(var rooms in dungeonRooms)
-        {
-            roomsList.Add(rooms.Value.roomInstance);
-        }
-        return roomsList;
     }
 
     public void ClearMap()
@@ -94,30 +84,25 @@ public class RandomlyGenerateRooms : MonoBehaviour
         List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
         List<Edge> paths = new List<Edge>();
 
-
         if (triangles.Count == 0)
         {
             dungeonGrid = new DungeonGrid();
             dungeonRooms.Clear();
         
             return -1; // error not enough triangles in map
-        }
+        }        
 
         TrianglesToPaths(triangles, paths); //adds triangles to paths
 
-        //List<Edge> mst = PrimsMST(new Vector2Int(0, 0), paths);
-        //RandomlyDeletePaths(paths, mst);
-
-
         SpawnDungeonRooms(dungeonRooms);
-
-
-        // At this point paths has all generated edges the delaunay triangles created. Still need to create edged for the remaining points
+        foreach (KeyValuePair<Vector2Int, DungeonRoom> room in dungeonRooms)
+        {
+            roomList.Add(room.Value.roomInstance);
+        }
 
         GenerateHallways(paths);
         
         startingRoom = dungeonRooms[new Vector2Int(0, 0)].roomInstance;
-
 
         return 0;
     }

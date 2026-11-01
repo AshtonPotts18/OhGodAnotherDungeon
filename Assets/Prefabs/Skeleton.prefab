@@ -176,8 +176,8 @@ MonoBehaviour:
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   visionPoint: {fileID: 3305270691199599296}
   enemy: {fileID: 8302768253781775313}
-  viewDistance: 10
-  viewAngle: 90
+  viewDistance: 50
+  viewAngle: 220
   obstacleMask:
     serializedVersion: 2
     m_Bits: 8

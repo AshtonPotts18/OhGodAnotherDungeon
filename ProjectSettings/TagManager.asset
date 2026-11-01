@@ -10,6 +10,7 @@ TagManager:
   - ItemSpawnPoint
   - Button
   - Music
+  - Door
   layers:
   - Default
   - TransparentFX
