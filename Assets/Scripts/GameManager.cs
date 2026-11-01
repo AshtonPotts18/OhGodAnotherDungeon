@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Rendering.CameraUI;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,25 +9,26 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject player;
     [SerializeField] ItemGeneration itemGenerator;
     [SerializeField] List<GameObject> itemPool;
-    public static GameObject Player {get; private set; } // put prefab here to be instantiated in start
+    [SerializeField] BuyStation station;
+    public static GameObject Player {get; set; } // put prefab here to be instantiated in start
     private Transform playerSpawnPoint;
     public static Camera PlayerCamera { get; private set; }
 
     private List<GameObject> roomsList = new List<GameObject>();
     private List<GameObject> spawnedItemList = new List<GameObject>();
 
-    private float levelStartTime;
+    private BuyStation StationObject;
     public float LevelElapsedSeconds => Time.time - levelStartTime;
-
+	public float levelStartTime;
 
     private void Awake()
     {
         CheckInstance();
         Player = player;
     }
-    private void Start()
+    public void Start()
     {
-        StartGame();
+        //StartGame();
         Console.Write("Map Generated");
     }
 
@@ -36,16 +36,19 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         levelStartTime = Time.time;
+
         GenerateLevel();
         InitiateItemGenerator();     
         SpawnPlayer();
+        StartShop();
     }
     public void EndGame()
     {
-        //Destroy(Player);
+        //Player.SetActive(false);
         ClearRooms();
         ClearHallways();
         ClearItems();
+        mapGenerator.ClearMap();
         Console.Write("Map Cleared");
     }
 
@@ -98,7 +101,7 @@ public class GameManager : MonoBehaviour
         spawnedItemList = itemGenerator.GenerateItems(300); // replace 100 with quota from shop
     }
 
-    private void GenerateLevel()
+    public void GenerateLevel()
     {
         roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
@@ -138,10 +141,16 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        Player = Instantiate(player,
+        Player = Instantiate(Player,
             playerSpawnPoint.position, playerSpawnPoint.rotation, transform);
         Player.tag = "Player";
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
+    }
+
+    private void StartShop()
+    {
+        StationObject = station;
+        StationObject.StartBuyStation();
     }
 }
 

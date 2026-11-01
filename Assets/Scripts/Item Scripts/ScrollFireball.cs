@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ScrollFireball : UsableItem
@@ -5,6 +6,8 @@ public class ScrollFireball : UsableItem
     [SerializeField] private GameObject fireBall_prefab;
     [SerializeField] private float distanceFromObject = 1f;
     [SerializeField] private float fireballSpeed = 15f;
+
+    
 
     public override void SetHeld(bool isHeld)
     {
@@ -40,6 +43,13 @@ public class ScrollFireball : UsableItem
         }
 
         rb.AddForce(transform.forward * fireballSpeed, ForceMode.Impulse);
+
+        numOfUses--;
+        itemUseSound.Play();
+        if (numOfUses == 0)
+        {
+            Destroy(gameObject, itemUseSound.clip.length); // add length of the audio clip here to prevent it from being cut off early
+        }
 
         //GameObject fireball = Instantiate(fireBall_prefab, transform.position + (transform.forward * distanceFromObject), Quaternion.identity);
         ////fireball.transform.SetParent(transform, true);

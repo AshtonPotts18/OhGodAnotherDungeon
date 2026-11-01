@@ -4,7 +4,7 @@ using UnityEngine;
 public class RoomInformation : MonoBehaviour
 {
     public Bounds roomSize = new Bounds(new Vector3(0, 0, 0), new Vector3(5, 5, 5));
-    public Vector2 floorSize = new Vector2(5, 5);
+    public Vector2Int floorSize = new Vector2Int(5, 5);
     [Header("Doors: Front, Bottom, Left, Right")]
     public bool[] openDoors = new bool[4];
 
