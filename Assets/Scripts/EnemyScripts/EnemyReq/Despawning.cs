@@ -4,7 +4,7 @@ public class EnemyDespawn : MonoBehaviour
 {
     [Header("Despawn Settings")]
     [SerializeField, Min(0f)] private float lifetimeSeconds = 180f;
-    [SerializeField, Min(0f)] private float maxDistanceFromPlayer = 60f;
+    [SerializeField, Min(0f)] private float maxDistanceFromPlayer = 100f;
 
     private Transform player;
     private float spawnedAt;
@@ -24,7 +24,8 @@ public class EnemyDespawn : MonoBehaviour
 
     private void Update()
     {
-        if (despawned) { return; }
+        if (despawned)
+            return;
 
         if (lifetimeSeconds > 0f &&
             Time.time - spawnedAt >= lifetimeSeconds)
@@ -33,16 +34,24 @@ public class EnemyDespawn : MonoBehaviour
             return;
         }
 
-        if (player != null && maxDistanceFromPlayer > 0f)
+        if (player == null ||
+            !player.gameObject.activeInHierarchy ||
+            maxDistanceFromPlayer <= 0f)
         {
-            float maxDistanceSquared =
-                maxDistanceFromPlayer * maxDistanceFromPlayer;
+            return;
+        }
 
-            if ((transform.position - player.position).sqrMagnitude >
-                maxDistanceSquared)
-            {
-                Despawn("too far from the player");
-            }
+        float distanceSquared =
+            (transform.position - player.position).sqrMagnitude;
+        float maxDistanceSquared =
+            maxDistanceFromPlayer * maxDistanceFromPlayer;
+
+        if (distanceSquared > maxDistanceSquared)
+        {
+            float distance = Mathf.Sqrt(distanceSquared);
+            Despawn(
+                $"too far from the player " +
+                $"(distance {distance:0.0}, limit {maxDistanceFromPlayer:0.0})");
         }
     }
 

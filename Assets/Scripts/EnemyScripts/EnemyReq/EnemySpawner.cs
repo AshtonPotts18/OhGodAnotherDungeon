@@ -10,6 +10,8 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField] private string roomBoundsObjectName = "RoomBounds";
     [SerializeField] private GameObject enemyPrefab;
     [SerializeField] private GameObject[] additionalEnemyPrefabs;
+    [SerializeField] private Transform hallwaysRoot;
+    [SerializeField] private string hallwayBoundsObjectName = "HallwayBounds";
 
     [Header("Level Scaling")]
     [SerializeField, Min(1)] public int currentLevel = 1;
@@ -25,6 +27,7 @@ public class EnemySpawner : MonoBehaviour
     [Header("Spawn Validation")]
     [SerializeField, Min(0.1f)] private float navMeshSampleRadius = 2f;
     [SerializeField, Min(1)] private int spawnAttemptsPerRoom = 24;
+    [SerializeField, Min(1f)] private float maximumSpawnDistanceFromPlayer = 40f;
     [SerializeField] private int navMeshAreaMask = NavMesh.AllAreas;
     [SerializeField, Min(0.05f)] private float clearanceRadius = 0.4f;
     [SerializeField, Min(0.2f)] private float clearanceHeight = 1.8f;
@@ -49,7 +52,7 @@ public class EnemySpawner : MonoBehaviour
         }
 
         nextSpawnTime = Time.time + Mathf.Max(0f, initialSpawnDelay);
-            
+
     }
 
     private void Update()
@@ -94,27 +97,37 @@ public class EnemySpawner : MonoBehaviour
         currentLevel = Mathf.Max(1, level);
     }
 
-    public void RefreshRoom()
+    private void RefreshRoom()
     {
         roomAreas.Clear();
 
-        if (roomsRoot == null) { return; }
+        AddBoundsUnderRoot(roomsRoot, roomBoundsObjectName);
+        AddBoundsUnderRoot(hallwaysRoot, hallwayBoundsObjectName);
+    }
 
-        Collider[] colliders =
-            roomsRoot.GetComponentsInChildren<Collider>(true);
+    private void AddBoundsUnderRoot(Transform root, string boundsName)
+    {
+        if (root == null)
+            return;
+
+        Collider[] colliders = root.GetComponentsInChildren<Collider>(true);
 
         foreach (Collider roomCollider in colliders)
         {
-            if (roomCollider != null &&
-                roomCollider.enabled &&
-                roomCollider.gameObject.activeInHierarchy &&
-                roomCollider.isTrigger &&
-                roomCollider.gameObject.name == roomBoundsObjectName)
+            if (roomCollider == null ||
+                !roomCollider.enabled ||
+                !roomCollider.gameObject.activeInHierarchy ||
+                !roomCollider.isTrigger ||
+                roomCollider.gameObject.name != boundsName)
             {
-                roomAreas.Add(roomCollider);
+                continue;
             }
+
+            if (!roomAreas.Contains(roomCollider))
+                roomAreas.Add(roomCollider);
         }
     }
+
 
     public void SpawnNow()
     {
@@ -129,7 +142,7 @@ public class EnemySpawner : MonoBehaviour
 
     private int GetEnemyLimit()
     {
-        int scaledLimit = enemiesAtLevelOne + (currentLevel - 1) 
+        int scaledLimit = enemiesAtLevelOne + (currentLevel - 1)
             * extraEnemiesPerLevel;
 
         return Mathf.Clamp(scaledLimit, 0, maxEnemyLimit);
@@ -140,7 +153,7 @@ public class EnemySpawner : MonoBehaviour
         int count = enemyPrefab != null ? 1 : 0;
 
         if (additionalEnemyPrefabs == null)
-            { return count; }
+        { return count; }
 
         foreach (GameObject prefab in additionalEnemyPrefabs)
         {
@@ -181,121 +194,183 @@ public class EnemySpawner : MonoBehaviour
     private bool TrySpawnEnemy()
     {
         Debug.Log("TrySpawnEnemy was reached.", this);
-        GameObject prefabToSpawn = GetRandomEnemyPrefab();
 
-        if (prefabToSpawn == null) { return false; }
+        GameObject prefabToSpawn = GetRandomEnemyPrefab();
+        if (prefabToSpawn == null)
+            return false;
 
         RefreshRoom();
 
         if (roomAreas.Count == 0)
         {
             Debug.LogWarning(
-                $"{name}: No trigger colliders named '{roomBoundsObjectName}' " +
-                "found under Rooms Root.",
-                this
-            );
-
+                $"{name}: No room or hallway bounds were found.",
+                this);
             return false;
         }
 
-        Collider occupiedRoom = FindPlayerRoom();
+        Collider occupiedArea = FindPlayerArea();
 
-        List<Collider> eligibleRooms = new List<Collider>();
+        List<Collider> eligibleAreas = new List<Collider>();
 
-        foreach (Collider roomArea in roomAreas)
+        foreach (Collider area in roomAreas)
         {
-            if (roomArea != occupiedRoom)
-                eligibleRooms.Add(roomArea);
+            if (area == null ||
+                area == occupiedArea ||
+                IsPlayerSpawnerArea(area))
+            {
+                continue;
+            }
+
+            eligibleAreas.Add(area);
         }
 
-        if (eligibleRooms.Count == 0)
+        if (eligibleAreas.Count == 0)
         {
             Debug.LogWarning(
                 $"{name}: No unoccupied room or hallway area is available for spawning.",
                 this);
-
             return false;
         }
 
-        // Shuffle eligible rooms so the first usable room varies.
-        for (int i = eligibleRooms.Count - 1; i > 0; i--)
+        // Shuffle the candidates so spawns don't always favor the same area.
+        for (int i = eligibleAreas.Count - 1; i > 0; i--)
         {
             int swapIndex = Random.Range(0, i + 1);
-            Collider temporary = eligibleRooms[i];
-            eligibleRooms[i] = eligibleRooms[swapIndex];
-            eligibleRooms[swapIndex] = temporary;
+            Collider temporary = eligibleAreas[i];
+            eligibleAreas[i] = eligibleAreas[swapIndex];
+            eligibleAreas[swapIndex] = temporary;
         }
 
-        foreach (Collider roomArea in eligibleRooms)
+        foreach (Collider area in eligibleAreas)
         {
-            if (!TryGetSpawnPoint(roomArea, out Vector3 spawnPosition))
-            { continue; }
+            if (!TryGetSpawnPoint(area, out Vector3 spawnPosition))
+                continue;
 
-            GameObject enemy = Instantiate(prefabToSpawn,
-            spawnPosition, prefabToSpawn.transform.rotation );
+            GameObject enemy = Instantiate(
+                prefabToSpawn,
+                spawnPosition,
+                prefabToSpawn.transform.rotation);
 
             enemy.tag = "Enemy";
-
-            enemy.name = enemy.name.Replace("(Clone)", "");
-
             Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 
             EnemyDespawn despawn = enemy.GetComponent<EnemyDespawn>();
-
-            if (despawn == null) { despawn = enemy.AddComponent<EnemyDespawn>(); }
+            if (despawn == null)
+                despawn = enemy.AddComponent<EnemyDespawn>();
 
             despawn.Initialize(player);
 
-            // Movement is the only script that sets NavMesh destinations.
             Enemy_Movement movement =
-            enemy.GetComponentInChildren<Enemy_Movement>();
+                enemy.GetComponentInChildren<Enemy_Movement>();
 
             if (movement != null)
-            { movement.Initialize(roomAreas.ToArray(), player); }
-            else
             {
-                Debug.LogError( $"{enemy.name}: Enemy_Movement component not found.",
-                enemy);
+                movement.Initialize(roomAreas.ToArray(), player);
             }
-
-            Detection detection = enemy.GetComponentInChildren<Detection>();
-
-            if (detection != null)
-            { detection.Initialize(player, movement); }
-            else
-            {
-                Debug.LogError($"{enemy.name}: Detection component not found.",
-                enemy);
-            }
-
-            EnemyBehavior behavior = enemy.GetComponentInChildren<EnemyBehavior>();
-
-            if (behavior != null)
-            { behavior.Initialize(player, detection, movement); }
             else
             {
                 Debug.LogError(
-                    $"{enemy.name}: No EnemyBehavior component found. " +
-                    "Add a behavior script derived from EnemyBehavior.",
-                    enemy );
+                    $"{enemy.name}: Enemy_Movement component not found.",
+                    enemy);
+            }
+
+            Detection detection = enemy.GetComponentInChildren<Detection>();
+            if (detection != null)
+            {
+                detection.Initialize(player, movement);
+            }
+            else
+            {
+                Debug.LogError(
+                    $"{enemy.name}: Detection component not found.",
+                    enemy);
+            }
+
+            EnemyBehavior behavior =
+                enemy.GetComponentInChildren<EnemyBehavior>();
+
+            if (behavior != null)
+            {
+                behavior.Initialize(player, detection, movement);
+            }
+            else
+            {
+                Debug.LogError(
+                    $"{enemy.name}: No EnemyBehavior component found.",
+                    enemy);
             }
 
             spawnedEnemies.Add(enemy);
             return true;
         }
 
-        Debug.LogWarning( $"{name}: No clear NavMesh spawn point " +
-            $"found in the eligible rooms.",this );
+        Debug.LogWarning(
+            $"{name}: Couldn't find a clear NavMesh spawn point in any eligible room or hallway.",
+            this);
 
         return false;
     }
 
-    private Collider FindPlayerRoom()
+    private Collider FindPlayerArea()
     {
-        if (player == null || !player.gameObject.activeInHierarchy)
-        { return null; }
+        if (player == null)
+        {
+            Debug.LogError($"{name}: Player reference is null.", this);
+            return null;
+        }
 
-        return FindRoomContaining(player.position);
+        if (!player.gameObject.activeInHierarchy)
+        {
+            Debug.LogError($"{name}: Player '{player.name}' is inactive.", player);
+            return null;
+        }
+
+        Vector3 position = player.position;
+        Debug.Log(
+            $"{name}: Player={player.name}, position={position}, " +
+            $"collected areas={roomAreas.Count}",
+            player);
+
+        foreach (Collider area in roomAreas)
+        {
+            if (area == null)
+                continue;
+
+            bool containsPlayer = IsInsideAreaXZ(area, position);
+            Debug.Log(
+                $"Area={area.name}, parent={area.transform.parent?.name}, " +
+                $"center={area.bounds.center}, size={area.bounds.size}, " +
+                $"containsPlayer={containsPlayer}",
+                area);
+
+            if (containsPlayer)
+                return area;
+        }
+
+        return null;
+    }
+
+    private bool IsPlayerSpawnerArea(Collider area)
+    {
+        if (area == null || roomsRoot == null)
+            return false;
+
+        Transform areaParent = area.transform.parent;
+
+        return areaParent != null &&
+               areaParent.name == "RoomsRoot" &&
+               (areaParent == roomsRoot || areaParent.IsChildOf(roomsRoot));
+    }
+
+    private bool IsInsideAreaXZ(Collider area, Vector3 position)
+    {
+        Bounds bounds = area.bounds;
+
+        return position.x >= bounds.min.x &&
+               position.x <= bounds.max.x &&
+               position.z >= bounds.min.z &&
+               position.z <= bounds.max.z;
     }
 
     private Collider FindRoomContaining(Vector3 position)
@@ -329,7 +404,9 @@ public class EnemySpawner : MonoBehaviour
             { continue; }
 
             if (!IsPointInside(roomArea, hit.position) ||
-                IsSpawnBlocked(hit.position))
+            IsSpawnBlocked(hit.position) ||
+            Vector3.Distance(player.position, hit.position) >
+            maximumSpawnDistanceFromPlayer)
             { continue; }
 
             spawnPosition = hit.position;
@@ -358,7 +435,7 @@ public class EnemySpawner : MonoBehaviour
         Vector3 lowerPoint = position + Vector3.up * radius;
         Vector3 upperPoint = position + Vector3.up * (height - radius);
 
-        return Physics.CheckCapsule( lowerPoint, upperPoint, radius,
+        return Physics.CheckCapsule(lowerPoint, upperPoint, radius,
             blockingLayers, QueryTriggerInteraction.Ignore);
     }
 
@@ -370,4 +447,5 @@ public class EnemySpawner : MonoBehaviour
                 spawnedEnemies.RemoveAt(i);
         }
     }
+
 }
