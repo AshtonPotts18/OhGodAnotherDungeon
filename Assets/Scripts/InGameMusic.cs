@@ -18,7 +18,8 @@ public class InGameMusic : MonoBehaviour
         int index = SceneManager.GetActiveScene().buildIndex;
         if (index < MusicForLevel.Length)
         {
-            MusicSource.Stop();
+            if(MusicSource.isPlaying)
+            { MusicSource.Stop(); }
             MusicSource.clip = MusicForLevel[index];
             MusicSource.loop = true;
             MusicSource.Play();
