@@ -2264,6 +2264,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HealthandPlus
   slider: {fileID: 6024281192401027574}
   GameOver: Game Over
+  Pause: {fileID: 1829447767210381701}
   TagName: Enemy
   InvincFrames: 0.35
 --- !u!114 &4322497515102470083
