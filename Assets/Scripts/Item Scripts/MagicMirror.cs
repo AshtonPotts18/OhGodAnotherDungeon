@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MagicMirror : UsableItem
 {
@@ -10,11 +11,21 @@ public class MagicMirror : UsableItem
     [SerializeField] private float detectionDistance = 20f;
     [SerializeField] private float detectionRadius = 8f;
 
+    //Ui
+    [SerializeField] private Text MirrorText;
     //Scanning settings
     [SerializeField] private float scanningRange = 2f;
 
     //Scanned enemies
     private HashSet<GameObject> scannedEnemies = new HashSet<GameObject>();
+
+    private void Start()
+    {
+        if(MirrorText != null)
+        {
+            MirrorText.gameObject.SetActive(false);
+        }
+    }
 
     public override void UseItem()
     {
@@ -32,26 +43,29 @@ public class MagicMirror : UsableItem
 
         if(enemy == null)
         {
-            Debug.LogWarning("No enemies detetcted");
+            DisplayMessage("No enemies detected");
             return;
         }
 
         float distance = Vector3.Distance(playerCamera.transform.position, enemy.transform.position);
-        if(scannedEnemies.Contains(enemy))
+
+        DisplayMessage("Enemy detected!\nDistance: " + distance.ToString("F1") + " meters");
+
+        if (scannedEnemies.Contains(enemy))
         {
-            Debug.Log("Enemy Already scanned");
+            DisplayMessage("Enemy Already scanned");
             return;
         }
 
-        if(distance >scanningRange)
+        if(distance > scanningRange)
         {
-            Debug.Log("Enemy detected, but too far away to scan");
+            DisplayMessage("Enemy too far to scan!\nDistance: " + distance.ToString("F1") + " meters");
             return;
         }
 
         scannedEnemies.Add(enemy);
 
-        Debug.Log("Successfully scanned: " + enemy.name);
+        DisplayMessage("Successfully scanned: " + enemy.name);
     }
 
     private GameObject DetectEnemy()
@@ -69,11 +83,12 @@ public class MagicMirror : UsableItem
         Collider[] nearbyObjects = Physics.OverlapSphere(playerCamera.transform.position, detectionRadius);
 
         GameObject closestEnemy = null;
+
         float closestDistance = float.MaxValue;
 
         foreach (Collider col in nearbyObjects)
         {
-            GameObject enemy = col.transform.root.CompareTag("Enemy") ? col.transform.root.gameObject : col.CompareTag("Enemy") ? col.gameObject : null;
+            GameObject enemy = GetEnemy(col);
 
             if (enemy == null) continue;
 
@@ -86,5 +101,33 @@ public class MagicMirror : UsableItem
             }
         }
         return closestEnemy;
+    }
+
+    private GameObject GetEnemy(Collider col)
+    {
+        if(col.CompareTag("Enemy"))
+        {
+            return col.gameObject;
+        }
+
+        Transform root = col.transform.root;
+
+        if (col.CompareTag("Enemy"))
+        {
+            return root.gameObject;
+        }
+
+        return null;
+    }
+
+    private void DisplayMessage(string message)
+    {
+        Debug.Log(message);
+
+        if(MirrorText != null)
+        {
+            MirrorText.text = message;
+            MirrorText.gameObject.SetActive(true);
+        }
     }
 }
