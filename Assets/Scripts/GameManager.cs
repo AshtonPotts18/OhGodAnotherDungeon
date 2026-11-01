@@ -49,10 +49,16 @@ public class GameManager : MonoBehaviour
         ClearHallways();
         ClearItems();
         mapGenerator.ClearMap();
+        DespawnPlayer();
         Console.Write("Map Cleared");
     }
 
-    
+    private void DespawnPlayer()
+    {
+        Destroy(Player);
+        Player = player;
+    }
+
     private void CheckInstance()
     {
         if (Instance != null && Instance != this)
@@ -72,6 +78,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Destroy(parent.GetChild(i).gameObject);
         }
+        spawnedItemList.Clear();
     }
 
     private void ClearHallways()
@@ -90,6 +97,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Destroy(parent.GetChild(i).gameObject);
         }
+        roomsList.Clear();
     }
 
 
@@ -104,6 +112,7 @@ public class GameManager : MonoBehaviour
 
     public void GenerateLevel()
     {
+        roomsList?.Clear();
         roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
     }
