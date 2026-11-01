@@ -99,7 +99,7 @@ public class GameManager : MonoBehaviour
         itemGenerator.ItemSpawnLocations?.Clear();
         itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
-        spawnedItemList = itemGenerator.GenerateItems(500); // replace 100 with quota from shop
+        spawnedItemList = itemGenerator.GenerateItems(Shop.Instance.QuotaTarget); // replace 100 with quota from shop
     }
 
     public void GenerateLevel()
