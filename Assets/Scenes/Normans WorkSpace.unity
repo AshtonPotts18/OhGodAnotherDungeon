@@ -1116,7 +1116,7 @@ MonoBehaviour:
   itemPool:
   - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
   - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
-  station: {fileID: 0}
+  station: {fileID: 1630751920}
 --- !u!4 &940685461
 Transform:
   m_ObjectHideFlags: 0
@@ -2724,6 +2724,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
+      propertyPath: inputMap
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
     - target: {fileID: 8159682550374518258, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
       propertyPath: m_Name
       value: f
