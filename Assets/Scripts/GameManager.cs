@@ -18,7 +18,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> spawnedItemList = new List<GameObject>();
 
     private BuyStation StationObject;
-
+    public float LevelElapsedSeconds => Time.time - levelStartTime;
+	public float levelStartTime;
 
     private void Awake()
     {
@@ -34,7 +35,7 @@ public class GameManager : MonoBehaviour
     
     public void StartGame()
     {
-        //Player.SetActive(true);
+        levelStartTime = Time.time;
 
         GenerateLevel();
         InitiateItemGenerator();     
