@@ -74,7 +74,7 @@ public class MenuNav : MonoBehaviour
         }
         else
         {
-            timer -= Time.deltaTime;
+            if(timer >= 0){ timer -= Time.deltaTime; }
         }
 
     }
