@@ -1551,10 +1551,10 @@ MonoBehaviour:
   jazzHandPrefab: {fileID: 3885886568819446642, guid: 722145f47be52354b9b915e2db2d903d, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
-  jazzHandDelayAfterSnap: 2
   navMeshSampleRadius: 3
   attemptsPerRoom: 20
   jazzSpawnTrials: 10
+  killDistance: 1.5
 --- !u!114 &1178532820
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1571,7 +1571,9 @@ MonoBehaviour:
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   roomBoundsObjectName: RoomBounds
   enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
-  additionalEnemyPrefabs: []
+  additionalEnemyPrefabs:
+  - {fileID: 2750581035878607396, guid: 6a8645e7fff83e54caab0ec2ce1bbe46, type: 3}
+  - {fileID: 5879135865306032889, guid: 4158a1bcf2befef4d84739a7dfd88985, type: 3}
   currentLevel: 1
   enemiesAtLevelOne: 1
   extraEnemiesPerLevel: 1
@@ -1605,6 +1607,8 @@ MonoBehaviour:
   itemPool:
   - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
   - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
+  station: {fileID: 0}
+  levelStartTime: 0
 --- !u!4 &1178532822
 Transform:
   m_ObjectHideFlags: 0

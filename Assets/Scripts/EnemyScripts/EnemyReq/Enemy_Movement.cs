@@ -22,6 +22,7 @@ public class Enemy_Movement : MonoBehaviour
     private bool playerVisible;
     private bool isAttacking;
     private bool hasDestination;
+    private bool searchingAtLastKnownPosition;
     private Vector3 lastKnownPlayerPosition;
     private float waitUntil;
     private float searchUntil;
@@ -47,6 +48,8 @@ public class Enemy_Movement : MonoBehaviour
 
         hasDestination = false;
 
+        searchingAtLastKnownPosition = false;
+
         waitUntil = 0f;
 
         searchUntil = 0f;
@@ -55,6 +58,7 @@ public class Enemy_Movement : MonoBehaviour
             $"On NavMesh={agent.isOnNavMesh}", this);
     }
 
+    //Changed
     public void SetPlayerVisible(bool visible, Transform target)
     {
         if (target != null) { playerTarget = target; }
@@ -66,13 +70,16 @@ public class Enemy_Movement : MonoBehaviour
             playerVisible = true;
             isChasing = true;
             lastKnownPlayerPosition = playerTarget.position;
+            searchingAtLastKnownPosition = false;
+            searchUntil = 0f;
 
             if (justSpottedPlayer) { nextDestinationUpdate = 0f; }
         }
         else if (playerVisible)
         {
             playerVisible = false;
-            searchUntil = Time.time + lostPlayerSearchTime;
+            searchingAtLastKnownPosition = false;
+            searchUntil = 0f;
             nextDestinationUpdate = 0f;
         }
     }
@@ -92,12 +99,13 @@ public class Enemy_Movement : MonoBehaviour
         UpdatePatrol();
     }
 
+    //changed
     private void UpdateChase()
     {
         agent.isStopped = false;
 
         Vector3 destination = playerVisible && playerTarget != null
-                ? playerTarget.position : lastKnownPlayerPosition;
+            ? playerTarget.position : lastKnownPlayerPosition;
 
         if (Time.time >= nextDestinationUpdate)
         {
@@ -105,12 +113,24 @@ public class Enemy_Movement : MonoBehaviour
             nextDestinationUpdate = Time.time + destinationRefreshRate;
         }
 
-        if (!playerVisible &&
-            (Time.time >= searchUntil || ReachedDestination()))
+        if (!playerVisible && ReachedDestination())
         {
-            isChasing = false;
-            hasDestination = false;
-            waitUntil = 0f;
+            if (!searchingAtLastKnownPosition)
+            {
+                searchingAtLastKnownPosition = true;
+                searchUntil = Time.time + lostPlayerSearchTime;
+                Debug.Log($"{name} reached the last known position; starting the search timer.", this);
+
+            }
+            else if (Time.time >= searchUntil)
+            {
+                Debug.Log($"{name} search timer ended; resuming patrol.", this);
+                isChasing = false;
+                hasDestination = false;
+                searchingAtLastKnownPosition = false;
+                searchUntil = 0f;
+                waitUntil = 0f;
+            }
         }
     }
 
