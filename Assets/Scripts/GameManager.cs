@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     private void InitiateItemGenerator()
     {
         itemGenerator.ItemPool_prefab = itemPool;
-        if (itemGenerator.ItemSpawnLocations != null) itemGenerator.ItemSpawnLocations.Clear();
+        itemGenerator.ItemSpawnLocations?.Clear();
         itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
         spawnedItemList = itemGenerator.GenerateItems(500); // replace 100 with quota from shop
