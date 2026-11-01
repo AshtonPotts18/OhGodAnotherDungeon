@@ -9,7 +9,15 @@ public class RoomInformation : MonoBehaviour
     public bool[] openDoors = new bool[4];
 
     [SerializeField] GameObject[] walls = new GameObject[4];
-    [SerializeField] GameObject[] doors = new GameObject[0];
+    [SerializeField] private GameObject[] doors = new GameObject[4];
+
+    public void Awake()
+    {
+        foreach (GameObject door in doors)
+        {
+            door.SetActive(false);
+        }
+    }
 
     static public void ConnectRooms(GameObject room1, GameObject room2)
     {
@@ -33,22 +41,30 @@ public class RoomInformation : MonoBehaviour
         if (roomDirection == Vector3.forward)
         {
             firstRoomInfo.openDoors[0] = true;
+            firstRoomInfo.TryActivateDoor(0);
             secondRoomInfo.openDoors[1] = true;
+            secondRoomInfo.TryActivateDoor(1);
         }
         else if (roomDirection == Vector3.back)
         {
             firstRoomInfo.openDoors[1] = true;
+            firstRoomInfo.TryActivateDoor(1);
             secondRoomInfo.openDoors[0] = true;
+            secondRoomInfo.TryActivateDoor(0);
         }
         else if (roomDirection == Vector3.left)
         {
             firstRoomInfo.openDoors[2] = true;
+            firstRoomInfo.TryActivateDoor(2);
             secondRoomInfo.openDoors[3] = true;
+            secondRoomInfo.TryActivateDoor(3);
         }
         else if (roomDirection == Vector3.right)
         {
             firstRoomInfo.openDoors[3] = true;
+            firstRoomInfo.TryActivateDoor(3);
             secondRoomInfo.openDoors[2] = true;
+            firstRoomInfo.TryActivateDoor(2);
         }
 
         //update the prefabs
@@ -64,6 +80,14 @@ public class RoomInformation : MonoBehaviour
             {
                 walls[wallCount].SetActive(!openDoors[wallCount]);
             }
+        }
+    }
+    private void TryActivateDoor(int index)
+    {
+        if (doors.Length > index && doors[index].activeInHierarchy == false)
+        {
+            if (doors[index] != null) 
+                doors[index].SetActive(true);
         }
     }
 }
