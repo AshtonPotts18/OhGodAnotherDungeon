@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -27,13 +26,10 @@ public class PlayerInterator : MonoBehaviour
         {
 
             //first check if something is in player's hand
-            if (GameManager.Player.TryGetComponent<PickupController>(out PickupController pickup)) // first check if there is an item in the player hands, if so then use it
+            if (GameManager.Player.TryGetComponent<PickupController>(out PickupController pickup) && pickup.HeldItem != null) // first check if there is an item in the player hands, if so then use it
             {
-                if (pickup.HeldItem != null)
-                {
-                    Debug.Log(pickup.HeldItem.GetType());
-                    pickup.HeldItem.UseItem();
-                }
+                Debug.Log(pickup.HeldItem.GetType());
+                pickup.HeldItem.UseItem();
                 // use item
             }
             else
@@ -43,7 +39,7 @@ public class PlayerInterator : MonoBehaviour
                 if (Physics.Raycast(playerLookDirection, out RaycastHit hitInfo, interactRange))
                 {
                     IInteract interatableObject = hitInfo.collider.GetComponent<IInteract>();
-                    interatableObject.Interact();
+                    interatableObject?.Interact(); // checks if he interactable object is null
                 }
             }
 
