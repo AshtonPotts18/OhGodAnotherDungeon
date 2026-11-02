@@ -599,7 +599,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
   Audio: {fileID: 1104736330}
-  PrefName: Button
   scene: SampleScene
   delay: 0.5
 --- !u!82 &1104736330
@@ -1621,7 +1620,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
   Audio: {fileID: 1104736330}
-  PrefName: Button
   scene: Main Menu
   delay: 0.5
 --- !u!4 &1970276731

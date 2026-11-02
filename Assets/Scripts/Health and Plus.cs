@@ -12,8 +12,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
 
     public string GameOver;
 
-    public Pause Pause;
-
     [SerializeField] private string TagName;
 
     [SerializeField] private float InvincFrames = 0.25f;
@@ -38,13 +36,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);
-            if (slider.value == 0)
-            {
-                Pause.ClickPause();
-                GameManager.Instance.EndGame();
-
-                SceneManager.LoadScene(GameOver);
-            }
         }
         else
         {
@@ -53,13 +44,17 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
     }
 
 
-    //private void Update()
-    //{
+    private void Update()
+    {
+        if(slider.value == 0)
+        {
+            GameManager.Instance.EndGame();
+            SceneManager.LoadScene(GameOver);
+        }
+        //var Health = gameObject.GetComponent<IVisitable>();  //Needs set condition to not be recorded every second!!
+        //Health.Accept(PlayerSave);                           // This row as well.
         
-    //    //var Health = gameObject.GetComponent<IVisitable>();  //Needs set condition to not be recorded every second!!
-    //    //Health.Accept(PlayerSave);                           // This row as well.
-        
-    //}
+    }
 
 
     public void SetMax(int Max)

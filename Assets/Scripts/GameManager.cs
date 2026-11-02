@@ -49,16 +49,10 @@ public class GameManager : MonoBehaviour
         ClearHallways();
         ClearItems();
         mapGenerator.ClearMap();
-        DespawnPlayer();
         Console.Write("Map Cleared");
     }
 
-    private void DespawnPlayer()
-    {
-        Destroy(Player);
-        Player = player;
-    }
-
+    
     private void CheckInstance()
     {
         if (Instance != null && Instance != this)
@@ -78,7 +72,6 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Destroy(parent.GetChild(i).gameObject);
         }
-        spawnedItemList.Clear();
     }
 
     private void ClearHallways()
@@ -97,22 +90,19 @@ public class GameManager : MonoBehaviour
         {
             GameObject.Destroy(parent.GetChild(i).gameObject);
         }
-        roomsList.Clear();
     }
 
 
     private void InitiateItemGenerator()
     {
         itemGenerator.ItemPool_prefab = itemPool;
-        itemGenerator.ItemSpawnLocations?.Clear();
         itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
-        spawnedItemList = itemGenerator.GenerateItems(Shop.Instance.QuotaTarget); // replace 100 with quota from shop
+        spawnedItemList = itemGenerator.GenerateItems(300); // replace 100 with quota from shop
     }
 
     public void GenerateLevel()
     {
-        roomsList?.Clear();
         roomsList = mapGenerator.GenerateMap();
         playerSpawnPoint = mapGenerator.startingRoom.transform.Find("SpawnPoint");
     }

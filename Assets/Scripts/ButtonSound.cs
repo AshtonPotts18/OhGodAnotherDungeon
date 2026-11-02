@@ -7,22 +7,9 @@ public class ButtonSound : MonoBehaviour
 {
     public AudioSource Audio;
 
-    public string PrefName;
-
     public string scene;
 
     public float delay = 0.5f;
-
-
-    void Start()
-    {
-        if (PlayerPrefs.HasKey(PrefName))
-        {
-            float val = PlayerPrefs.GetFloat(PrefName);
-
-            Audio.volume = val;
-        }
-    }
 
     IEnumerator WaitAndDoSomething()
     {

@@ -5,7 +5,7 @@ public class Shop : MonoBehaviour
     public static Shop Instance { get; private set; }
 
     //Qouta
-    [SerializeField] private int quotaTarget = 500;
+    [SerializeField] private int quotaTarget = 100;
     [SerializeField] private int quotaProgress = 0;
 
     //Party Savings
