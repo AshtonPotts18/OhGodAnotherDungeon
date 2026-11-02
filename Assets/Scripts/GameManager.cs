@@ -49,10 +49,16 @@ public class GameManager : MonoBehaviour
         ClearHallways();
         ClearItems();
         mapGenerator.ClearMap();
+        DespawnPlayer();
         Console.Write("Map Cleared");
     }
 
-    
+    private void DespawnPlayer()
+    {
+        Destroy(Player);
+        Player = player;
+    }
+
     private void CheckInstance()
     {
         if (Instance != null && Instance != this)
@@ -98,7 +104,7 @@ public class GameManager : MonoBehaviour
         itemGenerator.ItemPool_prefab = itemPool;
         itemGenerator.ItemSpawnLocations = GetRoomItemSpawnPoints(roomsList);
 
-        spawnedItemList = itemGenerator.GenerateItems(300); // replace 100 with quota from shop
+        spawnedItemList = itemGenerator.GenerateItems(500); // replace 100 with quota from shop
     }
 
     public void GenerateLevel()

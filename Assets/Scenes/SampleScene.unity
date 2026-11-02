@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 354, y: 202.00003}
+  m_AnchoredPosition: {x: 263.25, y: 118.25003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &106376514
@@ -2657,7 +2657,7 @@ MonoBehaviour:
   - {fileID: 5861500948527349197, guid: 7ed7e384ea494f64d8be5c577bdc4d3c, type: 3}
   navMeshSurface: {fileID: 1995259123}
   roomRange: {x: 0, y: 0}
-  roomSpawnRadius: 50
+  roomSpawnRadius: 25
   roomCount: 3
   roomOffset: 5
   randomPathChance: 100
