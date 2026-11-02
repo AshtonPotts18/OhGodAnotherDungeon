@@ -36,6 +36,11 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);
+            if (slider.value == 0)
+            {
+                GameManager.Instance.EndGame();
+                SceneManager.LoadScene(GameOver);
+            }
         }
         else
         {
@@ -46,11 +51,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
 
     private void Update()
     {
-        if(slider.value == 0)
-        {
-            GameManager.Instance.EndGame();
-            SceneManager.LoadScene(GameOver);
-        }
         //var Health = gameObject.GetComponent<IVisitable>();  //Needs set condition to not be recorded every second!!
         //Health.Accept(PlayerSave);                           // This row as well.
         
