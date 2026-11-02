@@ -22,10 +22,12 @@ public class InventoryItemDimensions : MonoBehaviour
     public InputActionReference HotkeyAction => hotkeyAction;
 
     public RectTransform RectTransform { get; private set; }
+    public InventoryItemDimensions instance { get; private set; }
 
     void Awake()
     {
         RectTransform = GetComponent<RectTransform>();
+        instance = this;
     }
 
     void OnValidate()
