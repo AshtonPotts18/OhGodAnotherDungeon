@@ -27,13 +27,13 @@ public class LevelExit : MonoBehaviour, IInteract
 
     private void Update()
     {
-        if (playerNearby &&
-            Keyboard.current != null &&
-            Keyboard.current.fKey.wasPressedThisFrame)
-        {
-            Interact();
-            return;
-        }
+        //if (playerNearby &&
+        //    Keyboard.current != null &&
+        //    Keyboard.current.fKey.wasPressedThisFrame)
+        //{
+        //    Interact();
+        //    return;
+        //}
 
         if (!playerNearby || promptText == null)
             return;
@@ -127,5 +127,8 @@ public class LevelExit : MonoBehaviour, IInteract
         });
 
         SceneManager.LoadScene(transitionSceneName);
+        GameManager.Instance.EndGame();
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 }

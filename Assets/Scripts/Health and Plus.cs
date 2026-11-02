@@ -17,6 +17,7 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
     [SerializeField] private float InvincFrames = 0.25f;
 
     private float clock = 0;
+    private int limit = 0;
 
     //public void Accept(IVisitor visitor) //This is for SaveData and brings it to function to save the players Health
     //{
@@ -36,6 +37,14 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);
+
+            if(slider.value == 0)
+            {
+                GameManager.Instance.EndGame();
+                SceneManager.LoadScene("Game Over");
+                
+            }
+
         }
         else
         {
@@ -46,11 +55,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
 
     private void Update()
     {
-        if(slider.value == 0)
-        {
-            GameManager.Instance.EndGame();
-            SceneManager.LoadScene(GameOver);
-        }
         //var Health = gameObject.GetComponent<IVisitable>();  //Needs set condition to not be recorded every second!!
         //Health.Accept(PlayerSave);                           // This row as well.
         
