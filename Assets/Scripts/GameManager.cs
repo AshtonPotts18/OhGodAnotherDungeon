@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
         ClearHallways();
         ClearItems();
         mapGenerator.ClearMap();
+        Shop.Instance.ResetQuotaProgress();
         Console.Write("Map Cleared");
         DespawnPlayer();
     }
