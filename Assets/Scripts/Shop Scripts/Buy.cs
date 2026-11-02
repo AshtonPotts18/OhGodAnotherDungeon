@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
-using Unity.VisualScripting;
 
 public class BuyStation : MonoBehaviour
 {
@@ -26,7 +25,6 @@ public class BuyStation : MonoBehaviour
     [SerializeField] private InputActionReference interactAction;
 
     [SerializeField] private StockEntry[] stock;
-
     [SerializeField] private Transform purchaseSpawnPoint;
 
     [SerializeField] private GameObject promptObject;
@@ -34,10 +32,16 @@ public class BuyStation : MonoBehaviour
     [SerializeField] private GameObject shopMoneyObject;
     [SerializeField] private TMP_Text shopMoneyText;
 
+    //Shop Feedback
+    [SerializeField] private AudioSource shopAudio;
+    [SerializeField] private AudioClip LookAtSound;
+    [SerializeField] private AudioClip buySound;
+
     private readonly Dictionary<Item, StockEntry> availableItems = new Dictionary<Item, StockEntry>();
 
     private readonly HashSet<Collider> playerColliders = new HashSet<Collider>();
 
+    private Item highlightedItem;
     private Item currentItem;
     private bool playerNearby;
 
@@ -46,6 +50,10 @@ public class BuyStation : MonoBehaviour
         if (promptObject != null)
         {
             promptObject.SetActive(false);
+        }
+        if (shopMoneyObject != null)
+        {
+            shopMoneyObject.SetActive(false);
         }
     }
 
@@ -83,6 +91,8 @@ public class BuyStation : MonoBehaviour
         {
             interactAction.action.started -= OnInteract;
         }
+
+        UpdateItemHighlight(null);
     }
 
     private void Update()
@@ -91,20 +101,23 @@ public class BuyStation : MonoBehaviour
 
         currentItem = null;
 
-        if (playerCamera == null) return;
-
-        Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-
-        if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
+        if (playerCamera != null && playerNearby)
         {
-            Item hitItem = hit.collider.GetComponentInParent<Item>();
+            Ray ray = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-            if (hitItem != null && availableItems.ContainsKey(hitItem))
+            if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance))
             {
-                currentItem = hitItem;
-                Debug.Log("Looking at shop item: " + hitItem.ItemName);
+                Item hitItem = hit.collider.GetComponentInParent<Item>();
+
+                if (hitItem != null && availableItems.ContainsKey(hitItem))
+                {
+                    currentItem = hitItem;
+                    Debug.Log("Looking at shop item: " + hitItem.ItemName);
+                }
             }
         }
+        
+        UpdateItemHighlight(currentItem);
 
         bool showPrompt = playerNearby && currentItem != null;
 
@@ -189,12 +202,15 @@ public class BuyStation : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+
         playerColliders.Remove(other);
         playerNearby = playerColliders.Count > 0;
 
         if (!playerNearby)
         {
             currentItem = null;
+
+            UpdateItemHighlight(null);
 
             if (promptObject != null)
             {
@@ -227,6 +243,13 @@ public class BuyStation : MonoBehaviour
 
         string purchasedName = currentItem.ItemName;
         Item purchasedDisplay = currentItem;
+
+        if (shopAudio != null && buySound != null)
+        {
+            shopAudio.PlayOneShot(buySound);
+        }
+
+        UpdateItemHighlight(null);
 
         availableItems.Remove(purchasedDisplay);
         currentItem = null;
@@ -261,6 +284,38 @@ public class BuyStation : MonoBehaviour
         if (playerNearby && Shop.Instance != null)
         {
             shopMoneyText.text = $"Money: ${Shop.Instance.PartyMoney}";
+        }
+    }
+
+    private void UpdateItemHighlight(Item item)
+    {
+        if(highlightedItem == item) return;
+
+        if(highlightedItem != null)
+        {
+            ItemHighLight oldHighlight = highlightedItem.GetComponent<ItemHighLight>();
+
+            if (oldHighlight != null)
+            {
+                oldHighlight.SetHighLighted(false);
+            }
+        }
+
+        highlightedItem = item;
+
+        if(highlightedItem != null)
+        {
+            ItemHighLight newHighlight = highlightedItem.GetComponent<ItemHighLight>();
+
+            if(newHighlight != null)
+            {
+                newHighlight.SetHighLighted(true);
+            }
+
+            if (shopAudio != null && LookAtSound != null)
+            {
+                shopAudio.PlayOneShot(LookAtSound);
+            }
         }
     }
 }

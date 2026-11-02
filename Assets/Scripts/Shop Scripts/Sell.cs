@@ -10,7 +10,14 @@ public class Sell : MonoBehaviour
 
     [SerializeField] private GameObject promptObject;
     [SerializeField] private TMP_Text promptText;
+
+    [SerializeField] private AudioSource sellAudio;
+    [SerializeField] private AudioClip itemDropSound;
+    [SerializeField] private AudioClip itemSoldSound;
     private readonly HashSet<Item> itemsInArea = new HashSet<Item>();
+
+    private readonly Dictionary<Item, HashSet<Collider>> itemColliders = new Dictionary<Item, HashSet<Collider>>();
+    private readonly HashSet<Collider> playerColliders = new HashSet<Collider>();
     private bool playerNearby;
     
     public int TotalSaleValue
@@ -67,6 +74,14 @@ public class Sell : MonoBehaviour
             promptObject.SetActive(canSell);
         }
     }
+
+    private void PlaySound(AudioClip clip)
+    {
+        if(sellAudio != null &&clip != null)
+        {
+            sellAudio.PlayOneShot(clip);
+        }
+    }
     
     private void OnInteract(InputAction.CallbackContext context)
     {
@@ -95,12 +110,22 @@ public class Sell : MonoBehaviour
 
         if (item != null)
         {
-            itemsInArea.Add(item);
-            Debug.Log($"Item added to sell area: {item.ItemName}");
+            if (!itemColliders.ContainsKey(item))
+            {
+                itemColliders.Add(item, new HashSet<Collider>());
+                itemsInArea.Add(item);
+
+                PlaySound(itemDropSound);
+
+                Debug.Log($"Item added to sell area: {item.ItemName}");
+            }
+
+            itemColliders[item].Add(other);
         }
 
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(playerTag) || other.transform.root.CompareTag(playerTag))
         {
+            playerColliders.Add(other);
             playerNearby = true;
         }
     }
@@ -109,15 +134,23 @@ public class Sell : MonoBehaviour
     {
         Item item = other.GetComponentInParent<Item>();
 
-        if(item != null)
+        if(item != null && itemColliders.TryGetValue(item, out HashSet<Collider> colliders))
         {
-            itemsInArea.Remove(item);
-            Debug.Log($"Item removed from sell area: {item.ItemName}");
+            colliders.Remove(other);
+
+            if(colliders.Count == 0)
+            {
+                itemColliders.Remove(item);
+                itemsInArea.Remove(item);
+
+                Debug.Log($"Item removed from sell area: {item.ItemName}");
+            }
         }
 
-        if (other.CompareTag(playerTag))
+        if (other.CompareTag(playerTag) || other.transform.root.CompareTag(playerTag))
         {
-            playerNearby = false;
+            playerColliders.Remove(other);
+            playerNearby = playerColliders.Count > 0;
         }
     }
 
@@ -138,8 +171,12 @@ public class Sell : MonoBehaviour
 
         if (Shop.Instance.SellItems(itemsToSell))
         {
+            PlaySound(itemSoldSound);
+
             itemsInArea.Clear();
+            itemColliders.Clear();
+
+            Debug.Log("Items successfully sold!");
         }
     }
-
 }

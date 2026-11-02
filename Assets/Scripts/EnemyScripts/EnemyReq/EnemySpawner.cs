@@ -253,6 +253,9 @@ public class EnemySpawner : MonoBehaviour
                 prefabToSpawn.transform.rotation);
 
             enemy.tag = "Enemy";
+
+            enemy.name = enemy.name.Replace("(Clone)", "");
+
             Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 
             EnemyDespawn despawn = enemy.GetComponent<EnemyDespawn>();
