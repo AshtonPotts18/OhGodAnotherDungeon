@@ -1954,8 +1954,8 @@ MonoBehaviour:
   roomBoundsObjectName: RoomBounds
   enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
   additionalEnemyPrefabs:
-  - {fileID: 2750581035878607396, guid: 6a8645e7fff83e54caab0ec2ce1bbe46, type: 3}
-  - {fileID: 5879135865306032889, guid: 4158a1bcf2befef4d84739a7dfd88985, type: 3}
+  - {fileID: 5879135865306032889, guid: a190670c050c2b2498498bacd4002cab, type: 3}
+  - {fileID: 2750581035878607396, guid: ac7a5ba9a4fcba647aab6ec4db86825b, type: 3}
   hallwaysRoot: {fileID: 201365561}
   hallwayBoundsObjectName: HallwayBounds
   currentLevel: 1
