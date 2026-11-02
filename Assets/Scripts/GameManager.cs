@@ -49,14 +49,13 @@ public class GameManager : MonoBehaviour
         ClearHallways();
         ClearItems();
         mapGenerator.ClearMap();
-        DespawnPlayer();
         Console.Write("Map Cleared");
+        DespawnPlayer();
     }
 
     private void DespawnPlayer()
     {
         Destroy(Player);
-        Player = player;
     }
 
     private void CheckInstance()
@@ -73,6 +72,8 @@ public class GameManager : MonoBehaviour
 
     private void ClearItems()
     {
+        roomsList.Clear();
+        spawnedItemList.Clear();
         Transform parent = transform.Find("ItemManager");
         for (int i = parent.childCount - 1; i >= 0; i--)
         {
@@ -135,6 +136,7 @@ public class GameManager : MonoBehaviour
     }
     private void SpawnPlayer()
     {
+        Player = player;
         if (Player == null)
         {
             Debug.LogError($"{name}: Assign the Player Prefab.", this);
