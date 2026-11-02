@@ -37,6 +37,14 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);
+
+            if(slider.value == 0)
+            {
+                GameManager.Instance.EndGame();
+                SceneManager.LoadScene("Game Over");
+                
+            }
+
         }
         else
         {
