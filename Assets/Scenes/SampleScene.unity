@@ -154,7 +154,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 354, y: 202.00003}
+  m_AnchoredPosition: {x: 263.25, y: 118.25003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &106376514
@@ -1954,8 +1954,8 @@ MonoBehaviour:
   roomBoundsObjectName: RoomBounds
   enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
   additionalEnemyPrefabs:
-  - {fileID: 2750581035878607396, guid: 6a8645e7fff83e54caab0ec2ce1bbe46, type: 3}
-  - {fileID: 5879135865306032889, guid: 4158a1bcf2befef4d84739a7dfd88985, type: 3}
+  - {fileID: 5879135865306032889, guid: a190670c050c2b2498498bacd4002cab, type: 3}
+  - {fileID: 2750581035878607396, guid: ac7a5ba9a4fcba647aab6ec4db86825b, type: 3}
   hallwaysRoot: {fileID: 201365561}
   hallwayBoundsObjectName: HallwayBounds
   currentLevel: 1
@@ -2657,7 +2657,7 @@ MonoBehaviour:
   - {fileID: 5861500948527349197, guid: 7ed7e384ea494f64d8be5c577bdc4d3c, type: 3}
   navMeshSurface: {fileID: 1995259123}
   roomRange: {x: 0, y: 0}
-  roomSpawnRadius: 50
+  roomSpawnRadius: 25
   roomCount: 3
   roomOffset: 5
   randomPathChance: 100

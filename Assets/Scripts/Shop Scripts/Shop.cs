@@ -1,3 +1,4 @@
+using Unity.Collections.Tests.CoreCLR.TestJobs;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
@@ -86,5 +87,9 @@ public class Shop : MonoBehaviour
         Debug.Log($"Remaining Money: ${partyMoney}");
 
         return true;
+    }
+    public void ResetQuotaProgress()
+    {
+        quotaProgress = 0;
     }
 }
