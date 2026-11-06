@@ -11,6 +11,8 @@ TagManager:
   - Button
   - Music
   - Door
+  - Projectile
+  - Item
   layers:
   - Default
   - TransparentFX
@@ -19,7 +21,7 @@ TagManager:
   - Water
   - UI
   - PlayerUI
-  - 
+  - Shop
   - 
   - 
   - 

@@ -8,7 +8,7 @@ public class PickupController : MonoBehaviour
     [SerializeField] private Camera playerCamera;
     [SerializeField] private Transform holdHand;
     [SerializeField] private TextMeshProUGUI pickupPrompt;
-    [SerializeField] private InputActionReference pickup;
+    [SerializeField] private InputActionReference interactAction;
     [SerializeField] private InputActionReference drop;
     //pickup settings
     [SerializeField] private float range = 2.5f;
@@ -18,6 +18,7 @@ public class PickupController : MonoBehaviour
     private Item targetedItem;
     //Getter
     public Item HeldItem => heldItem;
+
 
     // Update is called once per frame
     private void Start()
@@ -46,7 +47,7 @@ public class PickupController : MonoBehaviour
 
     private void Pickup()
     {
-        if (targetedItem == null || holdHand == null) return;
+        if (targetedItem == null || holdHand == null || targetedItem.isShopItem) return;
 
         heldItem = targetedItem;
 
@@ -69,7 +70,7 @@ public class PickupController : MonoBehaviour
 
     private void OnEnable()
     {
-        if (pickup == null || pickup.action == null)
+        if (interactAction == null || interactAction.action == null)
         {
             Debug.LogError("pickup not assigned");
             return;
@@ -80,15 +81,15 @@ public class PickupController : MonoBehaviour
             Debug.LogError("drop not assigned");
             return;
         }
-            pickup.action.performed += OnPickup;
+        interactAction.action.performed += OnPickup;
             drop.action.performed += OnDrop;
     }
 
     private void OnDisable()
     {
-        if (pickup != null && pickup.action != null)
+        if (interactAction != null && interactAction.action != null)
         {
-            pickup.action.performed -= OnPickup;
+            interactAction.action.performed -= OnPickup;
         }
         if (drop != null && drop.action != null)
         {
@@ -122,12 +123,16 @@ public class PickupController : MonoBehaviour
 
             if (Physics.Raycast(ray, out RaycastHit hit, range))
             {
-                targetedItem = hit.collider.GetComponentInParent<Item>();
+                Item item = hit.collider.GetComponentInParent<Item>();
+
+                if(item != null && !item.isShopItem)
+                {
+                    targetedItem = item;
+                }
             }
         }
 
-        if (pickupPrompt == null)
-            return;
+        if (pickupPrompt == null) return;
 
         if (heldItem != null)
         {
@@ -137,7 +142,7 @@ public class PickupController : MonoBehaviour
         else if (targetedItem != null)
         {
             pickupPrompt.gameObject.SetActive(true);
-            pickupPrompt.text = "E - Pick Up " + targetedItem.ItemName + " | Value: " + targetedItem.Value;
+            pickupPrompt.text = "Left Click - Pick Up " + targetedItem.ItemName + " | Value: " + targetedItem.Value;
         }
         else
         {
@@ -154,7 +159,11 @@ public class PickupController : MonoBehaviour
         heldItem = null;
         targetedItem = null;
 
-        Destroy(itemToMove.gameObject);
+        //Destroy(itemToMove.gameObject);
+        itemToMove.gameObject.SetActive(false);
+        itemToMove.transform.SetParent(null);
+        
+
     }
 
     public bool EquipItem(GameObject prefab)
