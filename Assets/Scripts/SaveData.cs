@@ -46,7 +46,7 @@ public class SaveData : MonoBehaviour, IVisitor
     public void VisitHealth(HealthandPlus Health)
     {
         Player.PlayerHP = Health.slider.value;
-        Debug.Log(Player.PlayerHP);
+        //Debug.Log(Player.PlayerHP);
     }
 
     public void VisitShop(Shop Shop)
