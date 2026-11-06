@@ -2,12 +2,11 @@ using UnityEngine;
 
 public class Item : MonoBehaviour, IInteract
 {
-    //References
-
     //fields
     [SerializeField] private string itemName = "item";
     [SerializeField] private int value = 100;
     [SerializeField] private InventoryItemDimensions inventoryPrefab;
+    [HideInInspector] public bool isShopItem;
     private Rigidbody rb;
 
     //Getters
@@ -38,4 +37,5 @@ public class Item : MonoBehaviour, IInteract
     {
         Debug.Log("Not a useable item");
     }
+
 }

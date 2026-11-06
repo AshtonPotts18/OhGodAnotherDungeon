@@ -1737,6 +1737,10 @@ PrefabInstance:
       propertyPath: MirrorText
       value: 
       objectReference: {fileID: 820149240}
+    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
+      propertyPath: detectionRadius
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8159682550374518258, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
       propertyPath: m_Name
       value: MagicMirror

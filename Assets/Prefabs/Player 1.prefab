@@ -2216,7 +2216,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
   pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
-  pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 5447562051951042235, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
 --- !u!114 &5725297878230091861
@@ -4451,7 +4451,7 @@ Transform:
   m_GameObject: {fileID: 9053625408132380745}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.05289018, y: 0.31899977, z: 0.58330035}
+  m_LocalPosition: {x: 0.05289018, y: 0.31899977, z: -0.103}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
