@@ -154,7 +154,11 @@ public class PickupController : MonoBehaviour
         heldItem = null;
         targetedItem = null;
 
-        Destroy(itemToMove.gameObject);
+        //Destroy(itemToMove.gameObject);
+        itemToMove.gameObject.SetActive(false);
+        itemToMove.transform.SetParent(null);
+        
+
     }
 
     public bool EquipItem(GameObject prefab)

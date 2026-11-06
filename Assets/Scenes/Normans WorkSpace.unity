@@ -257,7 +257,7 @@ MonoBehaviour:
   dropLayer:
     serializedVersion: 2
     m_Bits: 4294967295
-  dropRange: 3
+  dropRange: 1.5
 --- !u!114 &207653512
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1255,10 +1255,10 @@ MonoBehaviour:
   jazzHandPrefab: {fileID: 3885886568819446642, guid: 722145f47be52354b9b915e2db2d903d, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
-  jazzHandDelayAfterSnap: 2
   navMeshSampleRadius: 3
   attemptsPerRoom: 20
   jazzSpawnTrials: 10
+  killDistance: 1.5
 --- !u!114 &940685459
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1276,6 +1276,8 @@ MonoBehaviour:
   roomBoundsObjectName: RoomBounds
   enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
   additionalEnemyPrefabs: []
+  hallwaysRoot: {fileID: 0}
+  hallwayBoundsObjectName: HallwayBounds
   currentLevel: 1
   enemiesAtLevelOne: 1
   extraEnemiesPerLevel: 1
@@ -1285,6 +1287,7 @@ MonoBehaviour:
   maximumSpawnInterval: 14
   navMeshSampleRadius: 2
   spawnAttemptsPerRoom: 24
+  maximumSpawnDistanceFromPlayer: 40
   navMeshAreaMask: -1
   clearanceRadius: 0.4
   clearanceHeight: 1.8
@@ -1310,6 +1313,7 @@ MonoBehaviour:
   - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
   - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
   station: {fileID: 1630751920}
+  levelStartTime: 0
 --- !u!4 &940685461
 Transform:
   m_ObjectHideFlags: 0
@@ -2346,6 +2350,9 @@ MonoBehaviour:
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   promptObject: {fileID: 1800981613}
   promptText: {fileID: 1800981615}
+  sellAudio: {fileID: 0}
+  itemDropSound: {fileID: 0}
+  itemSoldSound: {fileID: 0}
 --- !u!65 &1558280605
 BoxCollider:
   m_ObjectHideFlags: 0

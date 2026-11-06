@@ -9,6 +9,7 @@ public class InventoryDragController : MonoBehaviour
     [SerializeField] private ItemPlacement inventory;
     [SerializeField] private RectTransform itemLayer;
     [SerializeField] private Canvas canvas;
+    [SerializeField] private PickupController pickupController;
 
     //Drop settings
     [SerializeField] private LayerMask dropLayer = ~0;
@@ -191,14 +192,13 @@ public class InventoryDragController : MonoBehaviour
     private void DropIntoWorld(Vector2 mousePosition)
     {
         if (heldItem == null)return;
-
-        GameObject prefab = heldItem.worldPrefab;
-
-        if (prefab == null)
-        {
-            Debug.LogWarning("Cannot drop item: assign its World Prefab.");
-            return;
-        }
+        //GameObject prefab = heldItem.worldPrefab;
+        //
+        //if (prefab == null)
+        //{
+        //    Debug.LogWarning("Cannot drop item: assign its World Prefab.");
+        //    return;
+        //}
 
         Camera worldCamera = Camera.main;
 
@@ -221,7 +221,16 @@ public class InventoryDragController : MonoBehaviour
             dropPosition = ray.GetPoint(dropRange);
         }
 
-        Instantiate(prefab, dropPosition, prefab.transform.rotation);
+        Item originalItem = heldItem.originalItem;
+
+        if (originalItem == null)
+        {
+            Debug.LogError("Original world item reference is missing.");
+            return;
+        }
+        //Instantiate(prefab, dropPosition, prefab.transform.rotation);
+        originalItem.transform.position = dropPosition;
+        originalItem.gameObject.SetActive(true);
 
         Destroy(heldItem.gameObject);
         heldItem = null;
