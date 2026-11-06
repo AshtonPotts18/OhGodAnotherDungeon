@@ -14,7 +14,6 @@ public class LoadData : MonoBehaviour, IVisitor
     }
     public void VisitHealth(HealthandPlus Health)
     {
-        new WaitForSeconds(1f);
         Health.slider.value = PlayerSaved.PlayerHP;
     }
 
@@ -37,7 +36,6 @@ public class LoadData : MonoBehaviour, IVisitor
 
     public void VisitShop(Shop shop) // With Norman Make a Load Money Method
     {
-        new WaitForSeconds(0.5f);
         //shop.PartyMoney = PlayerSaved.PlayerMoney;
     }
     public GameData LoadingData() //This loads whatever is in the GameData class

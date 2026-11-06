@@ -282,10 +282,7 @@ public class ItemPlacement : MonoBehaviour, IVisitable
                         {
                             f++;
                         }
-                        else if (path[j + 1] == new Vector2(f+1, i))
-                        {
-                            f++;
-                        }
+
                     }
 
                 }
@@ -313,7 +310,8 @@ public class ItemPlacement : MonoBehaviour, IVisitable
                         path.Add(new Vector2(f, i + 1));
                         path.Add(new Vector2(f + 1, i + 1));
                         f++;
-                        Coordscounter++;
+                        Coordscounter += 2;
+                        
                         Debug.Log("2x2 inventory slot");
                     }
                 }

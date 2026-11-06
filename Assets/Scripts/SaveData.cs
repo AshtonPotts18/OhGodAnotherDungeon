@@ -67,13 +67,27 @@ public class SaveData : MonoBehaviour, IVisitor
 
     public void SavingData(GameData PlayerData) //This saves whatever is in the GameData class
     {
-        Task.Delay(500);
         string path_of_file = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
+        if (System.IO.File.Exists(path_of_file))
+        {
+            System.IO.File.Delete(path_of_file);
+        }
+
         Debug.Log(path_of_file);
         File.WriteAllText(path_of_file, JsonUtility.ToJson(PlayerData));
         Debug.Log(Player.PlayerHP);
 
-        Destroy(gameObject, 1.0f);
+        Destroy(gameObject);
+    }
+
+    public void EraseData(GameData PlayerData)
+    {
+        string path_of_file = Path.Combine(Application.persistentDataPath, "SavedPlayer.json");
+        if (System.IO.File.Exists(path_of_file))
+        {
+            System.IO.File.Delete(path_of_file);
+        }
+        PlayerData = new GameData();
     }
 
     void Start()
@@ -84,8 +98,9 @@ public class SaveData : MonoBehaviour, IVisitor
 
     private void OnSceneChanged(Scene current, Scene next)
     {
-        if(next.name == "Main Menu" && current.name == "SampleScene")
+        if(next.name == "Main Menu")
         { SavingData(Player); }
+        
     }
 }
 
@@ -95,10 +110,10 @@ public class SaveData : MonoBehaviour, IVisitor
 [System.Serializable]
 public class GameData
 {
-    public float PlayerHP;
-    public int PlayerMoney;
-    public int SavedLevel;
-    public List<InventoryData> Inv;
+    public float PlayerHP = 100;
+    public int PlayerMoney = 0;
+    public int SavedLevel = 0;
+    public List<InventoryData> Inv = new List<InventoryData>();
 }
 
 
