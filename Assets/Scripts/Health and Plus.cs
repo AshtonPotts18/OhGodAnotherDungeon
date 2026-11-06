@@ -22,12 +22,12 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
 
     public void Start()
     {
-        if (GameObject.Find("SaveData").GetComponent<SaveData>())
+        if (GameObject.Find("SaveData"))
         {
             PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
         }
 
-        if (GameObject.Find("LoadData").GetComponent<LoadData>())
+        if (GameObject.Find("LoadData"))
         {
             PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
         }
