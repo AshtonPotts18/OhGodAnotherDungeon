@@ -254,6 +254,7 @@ MonoBehaviour:
   inventory: {fileID: 1397961104}
   itemLayer: {fileID: 873392102}
   canvas: {fileID: 1397961108}
+  pickupController: {fileID: 0}
   dropLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -2180,7 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1533014391}
   - component: {fileID: 1533014392}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Audio Source
   m_TagString: Button
   m_Icon: {fileID: 0}
@@ -2347,7 +2348,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Sell
   playerTag: Player
-  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 5447562051951042235, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   promptObject: {fileID: 1800981613}
   promptText: {fileID: 1800981615}
   sellAudio: {fileID: 0}
@@ -2519,7 +2520,7 @@ GameObject:
   - component: {fileID: 1630751922}
   - component: {fileID: 1630751921}
   - component: {fileID: 1630751920}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BuyArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2558,7 +2559,7 @@ MonoBehaviour:
   playerCamera: {fileID: 0}
   playerTag: Player
   interactionDistance: 4
-  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 5447562051951042235, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   stock:
   - itemPrefab: {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
     displayPoint: {fileID: 1667237609}
@@ -2657,7 +2658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1667237609}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: spawnPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2886,7 +2887,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: F-to confirm sale
+  m_text: Left Click-to confirm sale
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

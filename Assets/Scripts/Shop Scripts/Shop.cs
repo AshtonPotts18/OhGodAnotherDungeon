@@ -1,4 +1,3 @@
-using Unity.Collections.Tests.CoreCLR.TestJobs;
 using UnityEngine;
 
 public class Shop : MonoBehaviour
