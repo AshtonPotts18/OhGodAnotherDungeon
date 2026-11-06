@@ -2218,7 +2218,7 @@ MonoBehaviour:
   playerCamera: {fileID: 8505865405342430525}
   holdHand: {fileID: 6452007730974309547}
   pickupPrompt: {fileID: 243368855325677327, guid: 3110dac9958ec114ca8bf7c9c4530cef, type: 3}
-  pickup: {fileID: -4846943644195855842, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  interactAction: {fileID: 5447562051951042235, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   drop: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   range: 2.5
 --- !u!114 &5725297878230091861
@@ -2845,6 +2845,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 7917788734977564086}
+        m_TargetAssemblyTypeName: HealthandPlus, Assembly-CSharp
+        m_MethodName: Save
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 2337510885831429995}
         m_TargetAssemblyTypeName: SwitchScreen, Assembly-CSharp
         m_MethodName: LoadScene

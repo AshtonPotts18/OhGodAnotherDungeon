@@ -74,6 +74,8 @@ public class InventoryToggle : MonoBehaviour
 
         InventoryItemDimensions uiItem = Instantiate(prefab);
 
+        uiItem.originalItem = worldItem;
+
         if (!dragController.PickupItem(uiItem))
         {
             Destroy(uiItem.gameObject);

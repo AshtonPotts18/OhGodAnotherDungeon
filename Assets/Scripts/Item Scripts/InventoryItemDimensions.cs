@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class InventoryItemDimensions : MonoBehaviour
 {
     [SerializeField] public GameObject worldPrefab;
@@ -10,6 +11,7 @@ public class InventoryItemDimensions : MonoBehaviour
     [SerializeField, Min(1)] public int width = 2;
     [SerializeField, Min(1)] public int height = 2;
 
+    [HideInInspector] public Item originalItem;
     //Fields
     [HideInInspector] public int gridX;
     [HideInInspector] public int gridY;
@@ -45,4 +47,6 @@ public class InventoryItemDimensions : MonoBehaviour
     {
         isRotated = rotated;
     }
+
+
 }
