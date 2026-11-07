@@ -1,12 +1,11 @@
 using System.Collections;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 
 public class LoadData : MonoBehaviour, IVisitor
 {
-
     private GameData PlayerSaved = new GameData();
-
     private void OnEnable() // This should only turn on if the Player chooses to load a player so the object must be disabled if not
     {
         PlayerSaved = LoadingData();
@@ -22,7 +21,8 @@ public class LoadData : MonoBehaviour, IVisitor
         for(int i = 0; i < PlayerSaved.Inv.Count; i++)
         {
             InventoryItemDimensions temp = new InventoryItemDimensions();
-            temp.worldPrefab = Resources.Load<GameObject>(PlayerSaved.Inv[i].ItemType);
+            GameObject Object = Resources.Load<GameObject>("Assets/Prefabs/Items/" + PlayerSaved.Inv[i].ItemType);
+            temp.worldPrefab = Object;
             temp.width = PlayerSaved.Inv[i].Width;
             temp.height = PlayerSaved.Inv[i].Height;
             temp.gridX = PlayerSaved.Inv[i].x;
@@ -36,7 +36,7 @@ public class LoadData : MonoBehaviour, IVisitor
 
     public void VisitShop(Shop shop) // With Norman Make a Load Money Method
     {
-        //shop.PartyMoney = PlayerSaved.PlayerMoney;
+        shop.AddMoney(PlayerSaved.PlayerMoney);
     }
     public GameData LoadingData() //This loads whatever is in the GameData class
     {

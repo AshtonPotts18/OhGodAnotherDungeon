@@ -31,6 +31,18 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
         {
             PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
         }
+
+        if(PlayerPrefs.GetInt("Delete") == 0)
+        {
+            var Health = gameObject.GetComponent<IVisitable>();
+            if (PlayerData != null)
+            {
+                //new WaitForSeconds(0.5f);
+                Health.Accept(PlayerData);
+            }
+        }
+
+
     }
 
     public void Accept(IVisitor visitor) //This is for SaveData and brings it to function to save the players Health
@@ -46,11 +58,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
             Health.Accept(PlayerSave);                           // This row as well.
         }
 
-        if (PlayerData != null)
-        {
-            //new WaitForSeconds(0.5f);
-            Health.Accept(PlayerData);
-        }
         
     }
     private void OnCollisionStay(Collision other)

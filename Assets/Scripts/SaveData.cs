@@ -27,6 +27,8 @@ public class SaveData : MonoBehaviour, IVisitor
     //
     // in Health and Plus uncomment the work in it when finished
     //
+
+    public bool Delete = false;
     GameData Player = new GameData();
 
     private static SaveData Instance;
@@ -59,6 +61,10 @@ public class SaveData : MonoBehaviour, IVisitor
         Player.Inv = it.listofitems;
         if(Player.Inv.Count > 0)
         { 
+            for(int i = 0; i < Player.Inv.Count; i++)
+            {
+                Player.Inv[i].ItemType = Player.Inv[i].ItemType.Replace("(Clone)", "");
+            }
             string t = "Player items: " + Player.Inv[0].ItemType;
             Debug.Log(t);
         }
@@ -68,16 +74,16 @@ public class SaveData : MonoBehaviour, IVisitor
     public void SavingData(GameData PlayerData) //This saves whatever is in the GameData class
     {
         string path_of_file = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
-        if (System.IO.File.Exists(path_of_file))
-        {
-            System.IO.File.Delete(path_of_file);
-        }
+        //if (System.IO.File.Exists(path_of_file))
+        //{
+        //    System.IO.File.Delete(path_of_file);
+        //}
 
         Debug.Log(path_of_file);
         File.WriteAllText(path_of_file, JsonUtility.ToJson(PlayerData));
         Debug.Log(Player.PlayerHP);
-
-        Destroy(gameObject);
+        PlayerPrefs.SetInt("Delete", 0);
+        Destroy(Instance.gameObject);
     }
 
     public void EraseData(GameData PlayerData)
@@ -94,13 +100,17 @@ public class SaveData : MonoBehaviour, IVisitor
     {
         SceneManager.activeSceneChanged += OnSceneChanged;
         
+        if(PlayerPrefs.GetInt("Deleted") == 1)
+        {
+            EraseData(Player);
+            
+        }
     }
 
     private void OnSceneChanged(Scene current, Scene next)
     {
         if(next.name == "Main Menu")
         { SavingData(Player); }
-        
     }
 }
 
