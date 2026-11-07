@@ -6,8 +6,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 //Temp
 using Unity.AI.Navigation;
-using Unity.Properties;
-using Newtonsoft.Json.Bson;
 
 public class RandomlyGenerateRooms : MonoBehaviour
 {
@@ -105,9 +103,13 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     private void CheckOpenDoors()
     {
+
         List<DungeonRoom> rooms = dungeonGrid.ListOfRooms();
+
         foreach (DungeonRoom room in rooms)
         {
+            if (room.roomInstance == null) room.InstantiateRoom();
+
             RoomInformation roomInformation = room.roomInstance.GetComponent<RoomInformation>();
             bool[] openDoors = roomInformation.openDoors;
 
@@ -117,6 +119,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
                 {
                     if (!dungeonGrid.IsOccupied(room.doorPositions[i]))
                     {
+                        Debug.Log("Filling Room At: " +  room.doorPositions[i]);
                         DungeonRoom fillerHallway = new DungeonRoom(room.doorPositions[i], new Vector2Int(1,1), hallway_prefab);
                         fillerHallway.InstantiateRoom(hallwayManager.transform);
 
