@@ -135,7 +135,7 @@ public class BuyStation : MonoBehaviour
 
                 if (promptText != null)
                 {
-                    promptText.text = $"{currentItem.ItemName}\n" + $"Price: ${currentItem.Value}\n" + "Press F to Buy";
+                    promptText.text = $"{currentItem.ItemName}\n" + $"Price: ${currentItem.Value}\n" + "Left Click to Buy";
                 }
                 else
                 {
@@ -167,6 +167,13 @@ public class BuyStation : MonoBehaviour
             }
 
             GameObject display = Instantiate(entry.itemPrefab, entry.displayPoint.position, entry.displayPoint.rotation);
+            
+            Item displayItem = display.GetComponent<Item>();
+
+            if (displayItem != null)
+            {
+                displayItem.isShopItem = true;
+            }
 
             Debug.Log($"BuyStation: Spawned {display.name} at {display.transform.position}");
 
@@ -257,7 +264,7 @@ public class BuyStation : MonoBehaviour
         Destroy(purchasedDisplay.gameObject);
 
         GameObject droppedItem = Instantiate(entry.itemPrefab, purchaseSpawnPoint.position, purchaseSpawnPoint.rotation);
-
+        
         Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
 
         if (rb != null)
@@ -268,7 +275,6 @@ public class BuyStation : MonoBehaviour
 
         if (promptObject != null)
         {
-
             promptObject.SetActive(false);
         }
 
