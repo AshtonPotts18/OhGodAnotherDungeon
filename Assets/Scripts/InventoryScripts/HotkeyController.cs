@@ -39,8 +39,7 @@ public class HotkeyController : MonoBehaviour
     {
         HandleHotKeyAssignment();
 
-        if (hoveredItem != null &&
-        (hotkey1.action.WasPressedThisFrame() || hotkey2.action.WasPressedThisFrame() || hotkey3.action.WasPressedThisFrame())) return;
+        if (hoveredItem != null && (hotkey1.action.WasPressedThisFrame() || hotkey2.action.WasPressedThisFrame() || hotkey3.action.WasPressedThisFrame())) return;
 
         HandleDropInput();
         HandleHotkeys();

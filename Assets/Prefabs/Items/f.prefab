@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5713660739773773326}
   - component: {fileID: 7663071787386649603}
   - component: {fileID: -2193694558011168440}
+  - component: {fileID: -6764437807123955055}
   m_Layer: 0
   m_Name: f
   m_TagString: Untagged
@@ -169,6 +170,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &-6764437807123955055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8159682550374518258}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec1c6f09409f2e469016c3266fd1884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryHover
 --- !u!1 &8474515701989247812
 GameObject:
   m_ObjectHideFlags: 0
