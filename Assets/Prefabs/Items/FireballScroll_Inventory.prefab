@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1264088258513013843}
   - component: {fileID: 4630493876826410754}
   - component: {fileID: 8004627547221998}
+  - component: {fileID: -3706117616397870009}
   m_Layer: 5
   m_Name: FireballScroll_Inventory
   m_TagString: Untagged
@@ -92,7 +93,20 @@ MonoBehaviour:
   hotkeyAction: {fileID: -9070742130838849308, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   width: 2
   height: 1
+  originalItem: {fileID: 0}
   gridX: 0
   gridY: 0
   isRotated: 0
   isPlaced: 0
+--- !u!114 &-3706117616397870009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 236813029586157744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ec1c6f09409f2e469016c3266fd1884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryHover
