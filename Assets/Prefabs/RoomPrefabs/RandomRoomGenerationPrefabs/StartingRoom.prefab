@@ -538,7 +538,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2516169460220638407
 Transform:
   m_ObjectHideFlags: 0
@@ -552,8 +552,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8573677109978576371}
   - {fileID: 2815164616596859594}
+  - {fileID: 8573677109978576371}
   - {fileID: 2899091153504068388}
   m_Father: {fileID: 4102995789849198691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -706,7 +706,7 @@ MonoBehaviour:
   floorSize: {x: 3, y: 3}
   openDoors: 00000000y
   walls:
-  - {fileID: 9056740273980960585}
+  - {fileID: 3196053670314733680}
   - {fileID: 2111843448528234078}
   - {fileID: 6368848900452041698}
   - {fileID: 4726277889583629715}
@@ -1220,7 +1220,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ff16c756a2e9ba4290bb2b2a58d49b3, type: 3}
       propertyPath: m_Name
-      value: FrontWall (1)
+      value: FrontWall
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2404,7 +2404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3684,7 +3684,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3ff16c756a2e9ba4290bb2b2a58d49b3, type: 3}
       propertyPath: m_Name
-      value: FrontWall
+      value: FrontWall (1)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
