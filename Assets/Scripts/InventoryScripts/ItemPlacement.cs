@@ -49,6 +49,11 @@ public class ItemPlacement : MonoBehaviour, IVisitable
         {
             PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
         }
+
+        if (PlayerPrefs.GetInt("Deleted") == 0)
+        { 
+            Load();
+        }
     }
 
     public bool CanPlace(InventoryItemDimensions item, int x, int y, bool rotated)
@@ -286,7 +291,7 @@ public class ItemPlacement : MonoBehaviour, IVisitable
                     }
 
                 }
-                if (f == 4)
+                if (f == 3)
                 {
                     break;
                 }

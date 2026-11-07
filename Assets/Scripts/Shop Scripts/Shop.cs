@@ -1,7 +1,13 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class Shop : MonoBehaviour
+public class Shop : MonoBehaviour, IVisitable
 {
+
+    SaveData PlayerSave;  //Player save Data
+
+    LoadData PlayerData;
+
     public static Shop Instance { get; private set; }
 
     //Qouta
@@ -24,6 +30,23 @@ public class Shop : MonoBehaviour
         }
 
         Instance = this;
+
+        if (GameObject.Find("SaveData"))
+        {
+            PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
+        }
+
+        if (GameObject.Find("LoadData"))
+        {
+            PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
+        }
+
+        SceneManager.activeSceneChanged += OnSceneChanged;
+
+        if(PlayerPrefs.GetInt("Delete") == 0)
+        {
+            Load();
+        }
     }
 
     public bool SellItems(Item[] items)
@@ -90,5 +113,38 @@ public class Shop : MonoBehaviour
     public void ResetQuotaProgress()
     {
         quotaProgress = 0;
+    }
+
+    public void AddMoney(int Amount)
+    {
+        partyMoney = Amount;
+    }
+
+    public void Accept(IVisitor visitor)
+    {
+        visitor.VisitShop(this);
+    }
+
+
+    public void Load()
+    {
+        var Money = gameObject.GetComponent<IVisitable>();
+        if (PlayerData != null)
+        {
+            //new WaitForSeconds(0.5f);
+            Money.Accept(PlayerData);
+        }
+    }
+
+    private void OnSceneChanged(Scene current, Scene next)
+    {
+        if (next.name == "Main Menu")
+        {
+            var Money = gameObject.GetComponent<IVisitable>();
+            if (PlayerSave != null)
+            {  //Needs set condition to not be recorded every second!!
+                Money.Accept(PlayerSave);                           // This row as well.
+            }
+        }
     }
 }
