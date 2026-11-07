@@ -530,6 +530,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1089464869}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &388310345 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8965643410880903628, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
+  m_PrefabInstance: {fileID: 7298384181964652879}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &477929419
 GameObject:
   m_ObjectHideFlags: 0
@@ -3068,9 +3073,17 @@ PrefabInstance:
       propertyPath: MirrorText
       value: 
       objectReference: {fileID: 53483741}
+    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
+      propertyPath: itemUseSound
+      value: 
+      objectReference: {fileID: 388310345}
     - target: {fileID: 8159682550374518258, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
       propertyPath: m_Name
       value: MagicMirror
+      objectReference: {fileID: 0}
+    - target: {fileID: 8965643410880903628, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

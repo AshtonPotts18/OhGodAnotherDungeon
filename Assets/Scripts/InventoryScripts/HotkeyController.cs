@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using TMPro;
 public class HotkeyController : MonoBehaviour
 {
     //References
@@ -8,7 +8,13 @@ public class HotkeyController : MonoBehaviour
     [SerializeField] private ItemPlacement inventory;
     [SerializeField] private InputActionReference dropAction;
 
+    //Hotkey Assignment
+    [SerializeField] private InputActionReference hotkey1;
+    [SerializeField] private InputActionReference hotkey2;
+    [SerializeField] private InputActionReference hotkey3;
+    [SerializeField] private TMP_Text hotkeyPrompt;
     private InventoryItemDimensions equippedItem;
+    private InventoryItemDimensions hoveredItem;
     private void Start()
     {
         if (pickupController == null)
@@ -31,6 +37,10 @@ public class HotkeyController : MonoBehaviour
 
     void Update()
     {
+        HandleHotKeyAssignment();
+
+        if (hoveredItem != null && (hotkey1.action.WasPressedThisFrame() || hotkey2.action.WasPressedThisFrame() || hotkey3.action.WasPressedThisFrame())) return;
+
         HandleDropInput();
         HandleHotkeys();
     }
@@ -145,5 +155,91 @@ public class HotkeyController : MonoBehaviour
             EquipInventoryItem(item);
             return;
         }
+    }
+
+    public void SetHoveredItem(InventoryItemDimensions item)
+    {
+        hoveredItem = item;
+
+        if (hotkeyPrompt == null) return;
+
+        if(item.originalItem is not UsableItem)
+        {
+            hotkeyPrompt.gameObject.SetActive(false);
+            return;
+        }
+
+        hotkeyPrompt.gameObject.SetActive(true);
+
+        if(item.HotkeyAction != null)
+        {
+            hotkeyPrompt.text = "Assigned " + item.HotkeyAction.action.name;
+        }
+        else
+        {
+            hotkeyPrompt.text = "Assign a hotkey: 1, 2, or 3";
+        }
+    }
+
+    public void ClearHoveredItem(InventoryItemDimensions item)
+    {
+        if (hoveredItem != item) return;
+
+        hoveredItem = null;
+
+        if(hotkeyPrompt != null)
+        {
+            hotkeyPrompt.gameObject.SetActive(false);
+        }
+    }
+
+    private void HandleHotKeyAssignment()
+    {
+        if (hoveredItem == null || Keyboard.current == null) return;
+
+        if(!(hoveredItem.originalItem is UsableItem)) return;
+
+        if(hotkey1.action.WasPressedThisFrame())
+        {
+            AssignHotkey(hoveredItem, hotkey1);
+        }
+        else if (hotkey2.action.WasPressedThisFrame())
+        {
+            AssignHotkey(hoveredItem, hotkey2);
+        }
+        else if (hotkey3.action.WasPressedThisFrame())
+        {
+            AssignHotkey(hoveredItem, hotkey3);
+        }
+    }
+
+    private void AssignHotkey(InventoryItemDimensions item, InputActionReference action)
+    {
+        if (action == null || action.action == null) return;
+
+        InventoryItemDimensions[] items = FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
+
+        foreach(InventoryItemDimensions existingItem in items)
+        {
+            if(existingItem == item) continue;
+            
+            if(existingItem.HotkeyAction  != null && existingItem.HotkeyAction.action == action.action)
+            {
+                if(hotkeyPrompt != null)
+                {
+                    hotkeyPrompt.text = "That key is already assigned!";
+                    return;
+                }
+            }
+        }
+        
+        item.SetHotkeyAction(action);
+
+        if(hotkeyPrompt != null)
+        {
+            hotkeyPrompt.text = "Assigned: " + action.action.name;
+        }
+
+        Debug.Log(item.originalItem.ItemName + " assigned to " + action.action.name);
     }
 }
