@@ -935,7 +935,7 @@ MonoBehaviour:
   interactionDistance: 4
   interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   stock:
-  - itemPrefab: {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
+  - itemPrefab: {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
     displayPoint: {fileID: 561533988}
   purchaseSpawnPoint: {fileID: 561533988}
   promptObject: {fileID: 578015355}
@@ -1338,6 +1338,7 @@ MonoBehaviour:
   inventory: {fileID: 2051524988}
   itemLayer: {fileID: 1347152482}
   canvas: {fileID: 2051524992}
+  pickupController: {fileID: 0}
   dropLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3273,7 +3274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Shop
   quotaTarget: 100
   quotaProgress: 0
-  partyMoney: 0
+  partyMoney: 1000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

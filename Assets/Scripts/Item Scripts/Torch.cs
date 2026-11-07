@@ -1,122 +1,196 @@
 using UnityEngine;
 
-public class Torch : MonoBehaviour
+public class Torch : UsableItem
 {
     [Header("Torch Settings")]
-    [SerializeField] private float burnDuration = 10f;
-    [SerializeField] private float lightIntensity = 1f;
-    [SerializeField] private float minimumFlameSize = 0.25f;
+    [SerializeField, Min(0.1f)] private float burnDuration = 10f;
+    [SerializeField, Min(0f)] private float lightIntensity = 1f;
+    [SerializeField, Range(0f, 1f)] private float minimumFlameSize = 0.25f;
 
-    [Header("Torch Assets")]
-    [SerializeField] private GameObject torch_lit;
-    [SerializeField] private GameObject torch_extinguished;
+    [Header("Model Prefabs")]
+    [SerializeField] private GameObject litModel;
+    [SerializeField] private GameObject unlitModel;
+
+    [Header("Lit Torch Effects")]
     [SerializeField] private Light torchLight;
     [SerializeField] private ParticleSystem flameParticles;
 
-    [Header("Current State")]
-    [SerializeField] private bool isEquipped;
+    private const string HoldPointName = "HoldPoint";
 
-    private float currentBurnTime;
-    private float startingEmissionRate;
-    private float startingParticleSize;
+    private MeshFilter torchMeshFilter;
+    private MeshRenderer torchMeshRenderer;
+
     private bool isExtinguished;
+    private float remainingBurnTime;
+    private float startingEmissionMultiplier = 1f;
+    private float startingParticleSizeMultiplier = 1f;
+    private float nextBurnLogTime;
 
-    void Start()
+    private void Awake()
     {
-        currentBurnTime = burnDuration;
+        burnDuration = Mathf.Max(0.1f, burnDuration);
+        remainingBurnTime = burnDuration;
 
-        if(flameParticles != null)
-        {
-            ParticleSystem.EmissionModule emission = flameParticles.emission;
-            ParticleSystem.MainModule main = flameParticles.main;
+        torchMeshFilter = FindComponent<MeshFilter>(gameObject);
+        torchMeshRenderer = FindComponent<MeshRenderer>(gameObject);
 
-            startingEmissionRate = flameParticles.emission.rateOverTime.constant;
-            startingParticleSize = flameParticles.main.startSize.constant;
-        }
-
-        if(torch_lit != null && torch_extinguished != null)
-        {
-            torch_lit.SetActive(true);
-            torch_extinguished.SetActive(false);
-        }
-
-        UpdateVisuals();
-    }
-    void UpdateVisuals()
-    {
-        //dims the light slowly to the players default light source as the torch burns out
-        if (torchLight == null) return;
-        
-        float remainingRatio = burnDuration > 0 ? currentBurnTime / burnDuration : 0f;
-        torchLight.intensity = lightIntensity * remainingRatio;
-
-        float burnRate = burnDuration > 0 ? Mathf.Clamp01(currentBurnTime / burnDuration) : 0f;
-        
-        if (torchLight != null)
-        {
-            torchLight.intensity = lightIntensity * burnRate;
-        }
+        ApplyModel(litModel);
 
         if (flameParticles != null)
         {
-            ParticleSystem.EmissionModule emission = flameParticles.emission;
-            ParticleSystem.MainModule main = flameParticles.main;
-            
-            emission.rateOverTimeMultiplier = startingEmissionRate * burnRate;
-            main.startSizeMultiplier = startingParticleSize * Mathf.Lerp(minimumFlameSize, 1f, burnRate);
+            startingEmissionMultiplier =
+                flameParticles.emission.rateOverTimeMultiplier;
+
+            startingParticleSizeMultiplier =
+                flameParticles.main.startSizeMultiplier;
         }
+
+        UpdateBurnVisuals();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void SetHeld(bool held)
     {
-        if (!IsTorchEquipped() || isExtinguished)
-        {
+        base.SetHeld(held);
+        Debug.Log($"[Torch] SetHeld({held}) on {name}", this);
+    }
+
+    public override void UseItem()
+    {
+        // The torch starts burning while it is under HoldPoint.
+    }
+
+    private void Update()
+    {
+        if (!IsUnderHoldPoint() || isExtinguished)
             return;
-        }
 
-        BurnTorch();
-    }
+        remainingBurnTime = Mathf.Max(
+            0f,
+            remainingBurnTime - Time.deltaTime
+        );
 
-    bool IsTorchEquipped()
-    {
-        return isEquipped;
-    }
+        UpdateBurnVisuals();
 
-    void BurnTorch()
-    {
-        currentBurnTime -= Time.deltaTime;
-        currentBurnTime = Mathf.Max(currentBurnTime, 0f);
-
-        UpdateVisuals();
-
-        if (currentBurnTime <= 0f)
+        if (Time.time >= nextBurnLogTime)
         {
+            Debug.Log(
+                $"[Torch] Burning: {remainingBurnTime:F1}s left.",
+                this
+            );
+
+            nextBurnLogTime = Time.time + 1f;
+        }
+
+        if (remainingBurnTime <= 0f)
             Extinguish();
+    }
+
+    private bool IsUnderHoldPoint()
+    {
+        Transform currentParent = transform.parent;
+
+        while (currentParent != null)
+        {
+            if (currentParent.name == HoldPointName)
+                return true;
+
+            currentParent = currentParent.parent;
+        }
+
+        return false;
+    }
+
+    private void UpdateBurnVisuals()
+    {
+        float remainingRatio = Mathf.Clamp01(
+            remainingBurnTime / burnDuration
+        );
+
+        if (torchLight != null)
+            torchLight.intensity = lightIntensity * remainingRatio;
+
+        if (flameParticles != null)
+        {
+            var emission = flameParticles.emission;
+            emission.rateOverTimeMultiplier =
+                startingEmissionMultiplier * remainingRatio;
+
+            var main = flameParticles.main;
+            main.startSizeMultiplier =
+                startingParticleSizeMultiplier *
+                Mathf.Lerp(minimumFlameSize, 1f, remainingRatio);
         }
     }
 
-    void Extinguish()
+    private void Extinguish()
     {
-        if(isExtinguished) return;
+        if (isExtinguished)
+            return;
 
         isExtinguished = true;
-        currentBurnTime = 0f;
+        remainingBurnTime = 0f;
 
-        if(torchLight != null)
+        if (torchLight != null)
         {
+            torchLight.intensity = 0f;
             torchLight.enabled = false;
         }
 
         if (flameParticles != null)
         {
-            flameParticles.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            flameParticles.Stop(
+                true,
+                ParticleSystemStopBehavior.StopEmitting
+            );
         }
 
-        if (torch_lit != null) { torch_lit.SetActive(false); }
+        if (!ApplyModel(unlitModel))
+            Debug.LogError(
+                "[Torch] Could not find a Mesh Filter on the Unlit Model prefab.",
+                this
+            );
 
-        if (torch_extinguished != null) { torch_extinguished.SetActive(true); }
+        Debug.Log("[Torch] Extinguished; changed to the unlit model.", this);
+    }
 
-        //Extinguish sound goes here.
+    private bool ApplyModel(GameObject modelPrefab)
+    {
+        if (modelPrefab == null || torchMeshFilter == null)
+            return false;
+
+        MeshFilter sourceMeshFilter =
+            FindComponent<MeshFilter>(modelPrefab);
+
+        if (sourceMeshFilter == null)
+            return false;
+
+        torchMeshFilter.sharedMesh = sourceMeshFilter.sharedMesh;
+
+        MeshRenderer sourceRenderer =
+            FindComponent<MeshRenderer>(modelPrefab);
+
+        if (sourceRenderer != null && torchMeshRenderer != null)
+        {
+            torchMeshRenderer.sharedMaterials =
+                sourceRenderer.sharedMaterials;
+
+            torchMeshRenderer.enabled = sourceRenderer.enabled;
+        }
+
+        return true;
+    }
+
+    private static T FindComponent<T>(GameObject target)
+        where T : Component
+    {
+        if (target == null)
+            return null;
+
+        T component = target.GetComponent<T>();
+
+        if (component != null)
+            return component;
+
+        return target.GetComponentInChildren<T>(true);
     }
 }
