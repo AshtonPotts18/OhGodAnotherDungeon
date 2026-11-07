@@ -5,9 +5,11 @@ using UnityEngine.UI;
 using static SaveData;
 
 
-public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisitable
+public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitable
 {
-    //SaveData PlayerSave;  //Player save Data
+    SaveData PlayerSave;  //Player save Data
+
+    LoadData PlayerData;
     public Slider slider;
 
     public string GameOver;
@@ -17,18 +19,47 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
     [SerializeField] private float InvincFrames = 0.25f;
 
     private float clock = 0;
-    private int limit = 0;
 
-    //public void Accept(IVisitor visitor) //This is for SaveData and brings it to function to save the players Health
-    //{
-    //    visitor.VisitHealth(this);
-    //}
+    public void Start()
+    {
+        if (GameObject.Find("SaveData"))
+        {
+            PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
+        }
 
-    //public void Start()
-    //{
-    //     PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
-    //}
+        if (GameObject.Find("LoadData"))
+        {
+            PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
+        }
 
+        if(PlayerPrefs.GetInt("Delete") == 0)
+        {
+            var Health = gameObject.GetComponent<IVisitable>();
+            if (PlayerData != null)
+            {
+                //new WaitForSeconds(0.5f);
+                Health.Accept(PlayerData);
+            }
+        }
+
+
+    }
+
+    public void Accept(IVisitor visitor) //This is for SaveData and brings it to function to save the players Health
+    {
+        visitor.VisitHealth(this);
+    }
+
+    public void Save()
+    {
+        var Health = gameObject.GetComponent<IVisitable>();
+        if (PlayerSave != null)
+        {  //Needs set condition to not be recorded every second!!
+            Health.Accept(PlayerSave);                           // This row as well.
+        }
+
+        
+    }
     private void OnCollisionStay(Collision other)
     {
         if(other.gameObject.CompareTag(TagName) && clock <= 0)
@@ -53,12 +84,6 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable//, IVisita
     }
 
 
-    private void Update()
-    {
-        //var Health = gameObject.GetComponent<IVisitable>();  //Needs set condition to not be recorded every second!!
-        //Health.Accept(PlayerSave);                           // This row as well.
-        
-    }
 
 
     public void SetMax(int Max)

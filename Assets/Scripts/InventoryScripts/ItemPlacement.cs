@@ -1,7 +1,17 @@
+using NUnit.Framework;
+using System.Collections.Generic;
+using Unity.VectorGraphics;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemPlacement : MonoBehaviour
+public class ItemPlacement : MonoBehaviour, IVisitable
 {
+    //Saves
+    SaveData PlayerSave;  //Player save Data
+
+    LoadData PlayerData;  // Load Player Data;
+
+
     //Grid settings
     [SerializeField] private int columns = 3;
     [SerializeField] private int rows = 3;
@@ -13,6 +23,8 @@ public class ItemPlacement : MonoBehaviour
 
     private InventoryItemDimensions[,] fullCells;
     public static ItemPlacement Instance { get; private set; }
+
+    public List<InventoryData> listofitems;
 
     private void OnEnable()
     {
@@ -33,9 +45,14 @@ public class ItemPlacement : MonoBehaviour
 
         fullCells = new InventoryItemDimensions[columns, rows];
 
-        if (itemLayer == null)
+        if (GameObject.Find("SaveData") != null)
         {
-            Debug.LogError("ItemPlacement: Item Layer is not assigned.", this);
+            PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
+        }
+
+        if (PlayerPrefs.GetInt("Deleted") == 0)
+        { 
+            Load();
         }
     }
 
@@ -216,5 +233,111 @@ public class ItemPlacement : MonoBehaviour
         }
 
         return false;
+    }
+    public void Accept(IVisitor visitor)
+    {
+        visitor.VisitItems(this);
+    }
+
+    public void SaveInv()
+    {
+        //if (itemLayer == null)
+        //{
+        //    Debug.LogError("ItemPlacement: Item Layer is not assigned.", this);
+        //}
+
+        var Inven = gameObject.GetComponent<IVisitable>();
+        if (PlayerSave != null)
+        {                                                       //Needs set condition to not be recorded every second!!
+            Inven.Accept(PlayerSave);                           // This row as well.
+        }
+
+        
+    }
+
+
+    InventoryData SaveingInventoryintoData(InventoryItemDimensions Cells)
+    {
+        InventoryData temp = new InventoryData();
+
+        temp.ItemType = Cells.gameObject.name;
+        temp.Width = Cells.width;
+        temp.Height = Cells.height;
+        temp.x = Cells.gridX;
+        temp.y = Cells.gridY;
+        temp.isPlaced = Cells.isPlaced;
+        temp.isRotated = Cells.isRotated;
+        return temp;
+    }
+
+    void OnDestroy()
+    {
+        int counter = 0;
+        List<Vector2> path = new List<Vector2>();
+        int Coordscounter = 0;
+        for (int i = 0; i < 3; i++)
+        {
+            for (int f = 0; f < 3; f++)
+            {
+                if (Coordscounter != 0)
+                {
+                    for (int j = 0; j < Coordscounter; j++)
+                    {
+                        if (path[j] == new Vector2(f, i))
+                        {
+                            f++;
+                        }
+
+                    }
+
+                }
+                if (f == 3)
+                {
+                    break;
+                }
+                if (fullCells[f, i] != null)
+                {
+                    listofitems.Add(SaveingInventoryintoData(fullCells[f, i]));
+                    Debug.Log(listofitems[counter].ItemType);
+                    counter++;
+                    if (fullCells[f, i].Width == 2 && fullCells[f, i].Height != 2)
+                    {
+                        f++;
+                    }
+                    else if (fullCells[f, i].Height == 2 && fullCells[f, i].Width != 2)
+                    {
+                        path.Add(new Vector2(f, i + 1));
+                        Coordscounter++;
+
+                    }
+                    else if (fullCells[f, i].Width == 2 && fullCells[f, i].Height == 2)
+                    {
+                        path.Add(new Vector2(f, i + 1));
+                        path.Add(new Vector2(f + 1, i + 1));
+                        f++;
+                        Coordscounter += 2;
+                        
+                        Debug.Log("2x2 inventory slot");
+                    }
+                }
+            }
+        }
+
+        SaveInv();
+    }
+
+    public void Load()
+    {
+        var Inven = gameObject.GetComponent<IVisitable>();
+
+        if (GameObject.Find("LoadData") != null)
+        {
+            PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
+        }
+        if (PlayerData != null)
+        {
+            //new WaitForSeconds(0.5f);
+            Inven.Accept(PlayerData);
+        }
     }
 }

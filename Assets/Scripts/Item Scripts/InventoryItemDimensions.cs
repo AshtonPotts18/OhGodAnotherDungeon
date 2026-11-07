@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+
 public class InventoryItemDimensions : MonoBehaviour
 {
     [SerializeField] public GameObject worldPrefab;
