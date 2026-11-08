@@ -112,11 +112,13 @@ public class LevelExit : MonoBehaviour, IInteract
         }
 
         float levelTime = GameManager.Instance != null
-            ? GameManager.Instance.LevelElapsedSeconds
+            ? GameManager.Instance.levelManager.CurrentLevel
             : 0f;
 
         int moneyCollected =
             Shop.Instance.QuotaProgress + Shop.Instance.PartyMoney;
+
+        GameManager.Instance.levelManager.CompleteLevel();
 
         RunSummarySave.Save(new RunSummary
         {

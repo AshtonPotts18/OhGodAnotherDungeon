@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class DoorInteraction : MonoBehaviour, IInteract
 {
@@ -15,7 +16,9 @@ public class DoorInteraction : MonoBehaviour, IInteract
         {
             transform.Rotate(0, -90, 0);
         }
+
         isOpen = !isOpen;
+        gameObject.GetComponent<NavMeshObstacle>().carving = isOpen;
     }
 
     private void OpenDoor()
