@@ -21,14 +21,41 @@ public class TransitionScreenUI : MonoBehaviour
 
     private void Start()
     {
+        summary = RunSummarySave.Load();
+        if (PlayerPrefs.GetInt("ResetL") == 1)
+	    {
+	        summary.level = 1;
+	        PlayerPrefs.SetInt("ResetL", 0);
+	    }
 
-		if(PlayerPrefs.GetInt("ResetL") == 1)
-	        {
-	            summary.level = 1;
-	            PlayerPrefs.SetInt("ResetL", 0);
-	        }
+        
 
+        if (summary == null)
+        {
+            Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
+            return;
+        }
 
+        if (playerNameText != null)
+            playerNameText.text = summary.playerName;
+
+        if (currentLevelText != null)
+            currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
+
+        int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
+        int minutes = totalSeconds / 60;
+        int seconds = totalSeconds % 60;
+
+        if (levelTimeText != null)
+            levelTimeText.text = $"{minutes:00}:{seconds:00}";
+
+        if (goldCollectedText != null)
+            goldCollectedText.text = $"${summary.goldCollected}";
+
+    }
+
+    public void ContinueToNextLevel()
+    {
         if (GameManager.Instance.levelManager.CurrentLevel == GameManager.Instance.levelManager.finalLevel) // checks if the level 
         {
 
@@ -39,58 +66,18 @@ public class TransitionScreenUI : MonoBehaviour
         }
         else
         {
-
-
-
-
-
-
-            summary = RunSummarySave.Load();
-
-
-
-       int seconds = totalSeconds % 60;
             if (summary == null)
             {
-                Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
+                Debug.LogError("Cannot continue: no run summary was loaded.", this);
                 return;
             }
 
+            PlayerPrefs.SetInt("CurrentLevel", GameManager.Instance.levelManager.CurrentLevel);
 
+            PlayerPrefs.Save();
 
-            if (playerNameText != null)
-                playerNameText.text = summary.playerName;
-
-
-           goldCollectedText.text = $"${summary.goldCollected}";
-            if (currentLevelText != null)
-                currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
-
-            int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
-            int minutes = totalSeconds / 60;
-            int seconds = totalSeconds % 60;
-
-            if (levelTimeText != null)
-                levelTimeText.text = $"{minutes:00}:{seconds:00}";
-
-            if (goldCollectedText != null)
-                goldCollectedText.text = $"${summary.goldCollected}";
+            SceneManager.LoadScene(gameplaySceneName);
         }
-    }
-
-    public void ContinueToNextLevel()
-    {
-        if (summary == null)
-        {
-            Debug.LogError("Cannot continue: no run summary was loaded.", this);
-            return;
-        }
-        
-        PlayerPrefs.SetInt("CurrentLevel", GameManager.Instance.levelManager.CurrentLevel);
-
-        PlayerPrefs.Save();
-
-        SceneManager.LoadScene(gameplaySceneName);
     }
 
     public void ExitToMainMenu()

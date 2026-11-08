@@ -54,8 +54,8 @@ public class Enemy_Movement : MonoBehaviour
 
         searchUntil = 0f;
 
-        Debug.Log( $"{name}: initialized with {patrolAreas?.Length ?? 0} patrol areas. " +
-            $"On NavMesh={agent.isOnNavMesh}", this);
+        //Debug.Log( $"{name}: initialized with {patrolAreas?.Length ?? 0} patrol areas. " +
+        //    $"On NavMesh={agent.isOnNavMesh}", this);
     }
 
     //Changed
@@ -166,7 +166,7 @@ public class Enemy_Movement : MonoBehaviour
             return;
         }
 
-        Debug.Log($"{name}: searching for a patrol destination.", this);
+        //Debug.Log($"{name}: searching for a patrol destination.", this);
 
         // Shuffle the areas so the search doesn't keep picking the same ones.
         Collider[] areasToTry = (Collider[])patrolAreas.Clone();
@@ -221,15 +221,15 @@ public class Enemy_Movement : MonoBehaviour
             if (agent.SetPath(path))
             {
                 hasDestination = true;
-                Debug.Log($"{name}: patrol destination set to {hit.position}.", this);
+                //Debug.Log($"{name}: patrol destination set to {hit.position}.", this);
                 return;
             }
         }
 
-        Debug.LogWarning(
-            $"{name}: couldn't find a reachable patrol destination after {attempts} attempts.",
-            this
-        );
+        //Debug.LogWarning(
+        //    $"{name}: couldn't find a reachable patrol destination after {attempts} attempts.",
+        //    this
+        //);
 
         waitUntil = Time.time + 1f;
     }
