@@ -23,9 +23,9 @@ public class RandomlyGenerateRooms : MonoBehaviour
     //Temp
     [SerializeField] private NavMeshSurface navMeshSurface;
     [SerializeField] private Vector2Int roomRange;
-    [SerializeField] private int roomSpawnRadius;
+    [SerializeField] public int roomSpawnRadius;
 
-    [SerializeField] private Int16 roomCount;
+    [SerializeField] public Int16 roomCount;
     [SerializeField] const int roomSpawnAttemptCap = 50;
 
     [SerializeField, UnityEngine.Range(0f, 100f)] float randomPathChance = 100f;

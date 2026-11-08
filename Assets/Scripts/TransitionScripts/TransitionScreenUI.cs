@@ -30,7 +30,7 @@ public class TransitionScreenUI : MonoBehaviour
             playerNameText.text = summary.playerName;
 
         if (currentLevelText != null)
-            currentLevelText.text = summary.level.ToString();
+            currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
 
         int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
         int minutes = totalSeconds / 60;
@@ -50,8 +50,9 @@ public class TransitionScreenUI : MonoBehaviour
             Debug.LogError("Cannot continue: no run summary was loaded.", this);
             return;
         }
+        
+        PlayerPrefs.SetInt("CurrentLevel", GameManager.Instance.levelManager.CurrentLevel);
 
-        PlayerPrefs.SetInt("CurrentLevel", summary.level + 1);
         PlayerPrefs.Save();
 
         SceneManager.LoadScene(gameplaySceneName);
