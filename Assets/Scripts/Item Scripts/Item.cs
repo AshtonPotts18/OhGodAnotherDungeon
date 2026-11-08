@@ -14,6 +14,8 @@ public class Item : MonoBehaviour, IInteract
     public string ItemName { get; set; } = "item";
     public int Value { get; set; } = 100;
 
+    public Vector3 pickupRotationOffset;
+
     public Item()
     {}
 
