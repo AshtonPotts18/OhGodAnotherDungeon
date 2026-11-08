@@ -36,7 +36,7 @@ public class PlayerInterator : MonoBehaviour
             {
                 Ray playerLookDirection = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
 
-                if (Physics.Raycast(playerLookDirection, out RaycastHit hitInfo, interactRange))
+                if (Physics.Raycast(playerLookDirection, out RaycastHit hitInfo, interactRange, Physics.DefaultRaycastLayers, QueryTriggerInteraction.Ignore))
                 {
                     IInteract interatableObject = hitInfo.collider.GetComponent<IInteract>();
                     interatableObject?.Interact(); // checks if he interactable object is null

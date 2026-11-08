@@ -31,4 +31,15 @@ public class DoorInteraction : MonoBehaviour, IInteract
         isOpen = !isOpen;
     }
 
+    //Ashton made this change to add the ability for doors to be detected by the enemies 
+    public void OpenForEnemy()
+    {
+        if (isOpen)
+        {
+            return;
+        }
+        transform.Rotate(0f, -90f, 0f);
+        isOpen = true;
+    }
+
 }
