@@ -1310,44 +1310,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryDragController
   cameraLook: {fileID: 7909069791514087151, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
-  inventory: {fileID: 2051524988}
-  itemLayer: {fileID: 1347152482}
-  canvas: {fileID: 2051524992}
+  inventory: {fileID: 0}
+  itemLayer: {fileID: 0}
+  canvas: {fileID: 0}
   pickupController: {fileID: 0}
   dropLayer:
     serializedVersion: 2
     m_Bits: 4294967295
   dropRange: 3
---- !u!114 &767323278
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767323275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.020450069, g: 0.4060063, b: 0.59119487, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!222 &975715715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2191,6 +2161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3acce9db941d04a4597891e2afccf104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveData
+  Delete: 0
 --- !u!4 &1483067928
 Transform:
   m_ObjectHideFlags: 0
@@ -3341,21 +3312,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 983001929}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2140034198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2140034196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ef4fd72f148313429970ec6c3d19c0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Shop
-  quotaTarget: 100
-  quotaProgress: 0
-  partyMoney: 1000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -26,8 +26,10 @@ public class Torch : UsableItem
     private float startingParticleSizeMultiplier = 1f;
     private float nextBurnLogTime;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         burnDuration = Mathf.Max(0.1f, burnDuration);
         remainingBurnTime = burnDuration;
 

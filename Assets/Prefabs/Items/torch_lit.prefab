@@ -276,9 +276,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Torch
-  value: 60
+  value: 0
   inventoryPrefab: {fileID: 8143514954177988935}
   isShopItem: 0
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &8143514954177988935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -313,9 +314,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   itemName: item
-  value: 100
+  value: 10
   inventoryPrefab: {fileID: 8143514954177988935}
   isShopItem: 0
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 0}
