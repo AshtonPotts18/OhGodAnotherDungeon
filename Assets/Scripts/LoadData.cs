@@ -8,7 +8,9 @@ public class LoadData : MonoBehaviour, IVisitor
     private GameData PlayerSaved = new GameData();
     private void OnEnable() // This should only turn on if the Player chooses to load a player so the object must be disabled if not
     {
-        PlayerSaved = LoadingData();
+        string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
+        if (File.Exists(Path_Of_File)) 
+        {PlayerSaved = LoadingData();}
         Debug.Log(PlayerSaved.PlayerHP);
     }
     public void VisitHealth(HealthandPlus Health)
@@ -21,7 +23,7 @@ public class LoadData : MonoBehaviour, IVisitor
         for(int i = 0; i < PlayerSaved.Inv.Count; i++)
         {
             InventoryItemDimensions temp = new InventoryItemDimensions();
-            GameObject Object = Resources.Load<GameObject>("Assets/Prefabs/Items/" + PlayerSaved.Inv[i].ItemType);
+            GameObject Object = Resources.Load<GameObject>("Prefabs/Items/" + PlayerSaved.Inv[i].ItemType);
             temp.worldPrefab = Object;
             temp.width = PlayerSaved.Inv[i].Width;
             temp.height = PlayerSaved.Inv[i].Height;

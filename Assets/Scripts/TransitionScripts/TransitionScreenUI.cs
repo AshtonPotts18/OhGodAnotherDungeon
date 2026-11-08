@@ -20,6 +20,12 @@ public class TransitionScreenUI : MonoBehaviour
     {
         summary = RunSummarySave.Load();
 
+        if(PlayerPrefs.GetInt("ResetL") == 1)
+        {
+            summary.level = 1;
+            PlayerPrefs.SetInt("ResetL", 0);
+        }
+
         if (summary == null)
         {
             Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
