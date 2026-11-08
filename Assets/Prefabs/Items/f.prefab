@@ -132,8 +132,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MagicMirror
   itemName: item
   value: 100
-  inventoryPrefab: {fileID: 6219769198402500448, guid: c5c44d969e2adf64d999f335379cdf2e, type: 3}
+  inventoryPrefab: {fileID: 8262558009188327979, guid: c5c44d969e2adf64d999f335379cdf2e, type: 3}
   isShopItem: 0
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 8965643410880903628}
