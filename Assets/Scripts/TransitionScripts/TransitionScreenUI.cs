@@ -21,8 +21,18 @@ public class TransitionScreenUI : MonoBehaviour
 
     private void Start()
     {
+
+		if(PlayerPrefs.GetInt("ResetL") == 1)
+	        {
+	            summary.level = 1;
+	            PlayerPrefs.SetInt("ResetL", 0);
+	        }
+
+
         if (GameManager.Instance.levelManager.CurrentLevel == GameManager.Instance.levelManager.finalLevel) // checks if the level 
         {
+
+
             PlayerPrefs.SetInt("CurrentLevel", 1);
             PlayerPrefs.Save();
             SceneManager.LoadScene(gameOverSceneName);
@@ -31,17 +41,28 @@ public class TransitionScreenUI : MonoBehaviour
         {
 
 
+
+
+
+
             summary = RunSummarySave.Load();
 
+
+
+       int seconds = totalSeconds % 60;
             if (summary == null)
             {
                 Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
                 return;
             }
 
+
+
             if (playerNameText != null)
                 playerNameText.text = summary.playerName;
 
+
+           goldCollectedText.text = $"${summary.goldCollected}";
             if (currentLevelText != null)
                 currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
 
