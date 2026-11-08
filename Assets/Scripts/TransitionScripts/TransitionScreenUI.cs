@@ -14,33 +14,47 @@ public class TransitionScreenUI : MonoBehaviour
     [SerializeField] private string gameplaySceneName = "Ashtons WorkSpace";
     [SerializeField] private string mainMenuSceneName = "Main Menu";
 
+    [SerializeField] private string gameOverSceneName = "WinGame";
+
+
     private RunSummary summary;
 
     private void Start()
     {
-        summary = RunSummarySave.Load();
-
-        if (summary == null)
+        if (GameManager.Instance.levelManager.CurrentLevel == GameManager.Instance.levelManager.finalLevel) // checks if the level 
         {
-            Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
-            return;
+            PlayerPrefs.SetInt("CurrentLevel", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(gameOverSceneName);
         }
+        else
+        {
 
-        if (playerNameText != null)
-            playerNameText.text = summary.playerName;
 
-        if (currentLevelText != null)
-            currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
+            summary = RunSummarySave.Load();
 
-        int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
-        int minutes = totalSeconds / 60;
-        int seconds = totalSeconds % 60;
+            if (summary == null)
+            {
+                Debug.LogError("TransitionScreenUI: No saved run summary was found.", this);
+                return;
+            }
 
-        if (levelTimeText != null)
-            levelTimeText.text = $"{minutes:00}:{seconds:00}";
+            if (playerNameText != null)
+                playerNameText.text = summary.playerName;
 
-        if (goldCollectedText != null)
-            goldCollectedText.text = $"${summary.goldCollected}";
+            if (currentLevelText != null)
+                currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
+
+            int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
+            int minutes = totalSeconds / 60;
+            int seconds = totalSeconds % 60;
+
+            if (levelTimeText != null)
+                levelTimeText.text = $"{minutes:00}:{seconds:00}";
+
+            if (goldCollectedText != null)
+                goldCollectedText.text = $"${summary.goldCollected}";
+        }
     }
 
     public void ContinueToNextLevel()
