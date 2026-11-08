@@ -55,7 +55,7 @@ public class PickupController : MonoBehaviour
 
         heldItem.transform.SetParent(holdHand);
         heldItem.transform.localPosition = Vector3.zero;
-        heldItem.transform.localRotation = Quaternion.identity;
+        heldItem.transform.localRotation = Quaternion.Euler(heldItem.pickupRotationOffset);
     }
 
     private void Drop()
@@ -190,7 +190,7 @@ public class PickupController : MonoBehaviour
 
         heldItem.transform.SetParent(holdHand);
         heldItem.transform.localPosition = Vector3.zero;
-        heldItem.transform.localRotation = Quaternion.identity;
+        heldItem.transform.localRotation = Quaternion.Euler(heldItem.pickupRotationOffset);
 
         targetedItem = null;
 
