@@ -1998,7 +1998,10 @@ MonoBehaviour:
   itemGenerator: {fileID: 969927394}
   itemPool:
   - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
-  - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
+  - {fileID: 7843449733760610993, guid: 02fb1b8932e64894e93749307d7ff45f, type: 3}
+  - {fileID: 5310880052895582658, guid: 13b811e34a1c7714a97e2544a4e3b24a, type: 3}
+  - {fileID: 2462064408466990033, guid: 5bd04139a0a0ee84fbea54da8179816d, type: 3}
+  - {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
   station: {fileID: 439342825}
   levelStartTime: 0
 --- !u!4 &1178532822

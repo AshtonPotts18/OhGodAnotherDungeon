@@ -88,10 +88,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
-  worldPrefab: {fileID: 3773891881577928685, guid: 69bb250d47e67664691800e86ef35877, type: 3}
+  worldPrefab: {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
   hotkeyAction: {fileID: 0}
   width: 1
   height: 2
+  originalItem: {fileID: 0}
   gridX: 0
   gridY: 0
   isRotated: 0
