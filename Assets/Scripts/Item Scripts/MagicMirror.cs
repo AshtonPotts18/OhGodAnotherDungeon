@@ -15,7 +15,9 @@ public class MagicMirror : UsableItem
     [SerializeField] private Text MirrorText;
     //Scanning settings
     [SerializeField] private float scanningRange = 2f;
+    [SerializeField] private float displayDuration = 3f;
 
+    private Coroutine displayCoroutine;
     //Scanned enemies
     private HashSet<GameObject> scannedEnemies = new HashSet<GameObject>();
 
@@ -124,10 +126,24 @@ public class MagicMirror : UsableItem
     {
         Debug.Log(message);
 
-        if(MirrorText != null)
+        if (MirrorText == null) return;
+
+        if (displayCoroutine != null)
         {
-            MirrorText.text = message;
-            MirrorText.gameObject.SetActive(true);
+            StopCoroutine(displayCoroutine);
         }
+
+        MirrorText.gameObject.SetActive(true);
+        MirrorText.text = message;
+
+        displayCoroutine = StartCoroutine(HideMessage());
+    }
+    private System.Collections.IEnumerator HideMessage()
+    {
+        yield return new WaitForSeconds(displayDuration);
+
+        MirrorText.gameObject.SetActive(false);
+
+        displayCoroutine = null;
     }
 }

@@ -48,5 +48,8 @@ public class InventoryItemDimensions : MonoBehaviour
         isRotated = rotated;
     }
 
-
+    public void SetHotkeyAction(InputActionReference action)
+    {
+        hotkeyAction = action;
+    }
 }
