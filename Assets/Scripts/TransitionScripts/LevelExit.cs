@@ -52,7 +52,7 @@ public class LevelExit : MonoBehaviour, IInteract
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("LevelExit trigger detected the player.", this);
+        //Debug.Log("LevelExit trigger detected the player.", this);
         if (!IsPlayer(other))
             return;
 

@@ -280,7 +280,8 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
             if (dungeonGrid.IsRoomOccupied(nextHallPosition)) // validates the next position
             {
-                ConnectHallToRoom(currentHall, dungeonGrid.RoomAtCell(nextHallPosition).ClosestDoor(currentHall), _queue, endOfHallway, _hallInformation, dungeonGrid.RoomAtCell(nextHallPosition)); // if the next position is a room, connect hallway through the room and adds the path the the walked path
+                int recursionCounter = 1;
+                ConnectHallToRoom(currentHall, dungeonGrid.RoomAtCell(nextHallPosition).ClosestDoor(currentHall), _queue, endOfHallway, _hallInformation, dungeonGrid.RoomAtCell(nextHallPosition), recursionCounter); // if the next position is a room, connect hallway through the room and adds the path the the walked path
             }
             currentHall = nextHallPosition; // moves the currentHall to the validated next position
             //if (dungeonGrid.CanPlaceRoom(currentHall)
@@ -312,8 +313,9 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
     }
 
-    private void ConnectHallToRoom(Vector2Int _currentHallPosition, Vector2Int _roomClosestDoor, Queue<Vector2Int?> _queue, in Vector2Int _endOfHallway, RoomInformation _hallInformation, DungeonRoom _connectedRoom) // in makes it readonly // does not add first point to the queue inclusively
+    private void ConnectHallToRoom(Vector2Int _currentHallPosition, Vector2Int _roomClosestDoor, Queue<Vector2Int?> _queue, in Vector2Int _endOfHallway, RoomInformation _hallInformation, DungeonRoom _connectedRoom, int _connectRoomRecursionCounter) // in makes it readonly // does not add first point to the queue inclusively
     {
+        if (_connectRoomRecursionCounter > 25) return;
         Debug.Log("ConnectHallwayToRoom Called");
         Vector2Int nextHallPosition = _currentHallPosition;
 
@@ -355,7 +357,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
                 if (attemptCount > 1000)
                 {
 
-                    ConnectHallToRoom(_currentHallPosition, dungeonGrid.RoomAtCell(nextHallPosition).ClosestDoor(_currentHallPosition), _queue, _endOfHallway, _hallInformation, dungeonGrid.RoomAtCell(nextHallPosition));
+                    ConnectHallToRoom(_currentHallPosition, dungeonGrid.RoomAtCell(nextHallPosition).ClosestDoor(_currentHallPosition), _queue, _endOfHallway, _hallInformation, dungeonGrid.RoomAtCell(nextHallPosition), _connectRoomRecursionCounter++);
                 }
             }
 
@@ -394,7 +396,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
 
 
-        Debug.Log("<color=green>ROOM ENTRY: </color?" + _currentHallPosition);
+        //Debug.Log("<color=green>ROOM ENTRY: </color?" + _currentHallPosition);
 
 
         // ROOM EXIT: this walks through the room towards the door closest to the wallways end point
@@ -409,16 +411,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
                  _queue.Enqueue(_currentHallPosition);
              }
         }
-        Debug.Log("<color=red>ROOM EXIT: </color?" + _currentHallPosition);
-        //_currentHallPosition = _connectedRoom.anchor;
-        //_queue.Enqueue(_currentHallPosition);
-        //// add the room position to the queue
-
-        //// at this point the next position is at the door. 
-        ////_queue.Enqueue(null); // the exit is going to be the room door, this prevents the room from trying to connect with itself. Test without this, might not even be a issue
-
-        //_currentHallPosition = dungeonGrid.RoomAtCell(_currentHallPosition).ClosestDoor(_endOfHallway); // this sets the currentHallPostion equal to the door closet to the end of the hallway
-        //_queue.Enqueue(_currentHallPosition);
+        //Debug.Log("<color=red>ROOM EXIT: </color?" + _currentHallPosition);
 
         if (dungeonGrid.CanPlaceRoom(nextHallPosition, _hallInformation.floorSize)) // this will make sure that a room instanstiates at the end of the rooom
         {
