@@ -53,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        if (Instance == null) return;
         //Player.SetActive(false);
         ClearRooms();
         ClearHallways();
