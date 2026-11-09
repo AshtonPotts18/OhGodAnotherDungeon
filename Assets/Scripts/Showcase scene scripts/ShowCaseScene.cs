@@ -32,11 +32,16 @@ public class ShowCaseScene : MonoBehaviour
     {
         if (showcase == null && showcase.action == null) return;
 
-        if (sceneName == null) return;
-
         if(showcase.action.WasPressedThisFrame())
         {
+            if (string.IsNullOrWhiteSpace(sceneName))
+            {
+                Debug.LogWarning("Showcase scene name is missing");
+                return;
+            }
+
             SceneManager.LoadScene(sceneName);
+
         }
     }
 }

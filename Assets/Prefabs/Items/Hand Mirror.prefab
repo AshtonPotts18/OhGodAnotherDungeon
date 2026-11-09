@@ -216,9 +216,6 @@ PrefabInstance:
       addedObject: {fileID: 458215424562058441}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d214381a3c2926446a40f216b25f983c, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 4569243598679772610}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d214381a3c2926446a40f216b25f983c, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5679030726875474775}
   m_SourcePrefab: {fileID: 100100000, guid: d214381a3c2926446a40f216b25f983c, type: 3}
 --- !u!4 &515127918676369032 stripped
@@ -248,6 +245,7 @@ MonoBehaviour:
   inventoryPrefab: {fileID: 8262558009188327979, guid: c5c44d969e2adf64d999f335379cdf2e, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 45, y: 180, z: 0}
+  itemDescription: 
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 5833778523364448491}
@@ -284,18 +282,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4569243598679772610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 895594759323059250}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec1c6f09409f2e469016c3266fd1884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryHover
 --- !u!65 &5679030726875474775
 BoxCollider:
   m_ObjectHideFlags: 0

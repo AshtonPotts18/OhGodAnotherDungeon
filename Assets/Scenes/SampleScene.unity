@@ -1338,6 +1338,7 @@ MonoBehaviour:
   inventory: {fileID: 2051524988}
   itemLayer: {fileID: 1347152482}
   canvas: {fileID: 2051524992}
+  pickupController: {fileID: 0}
   dropLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1681,75 +1682,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060190308}
   m_CullTransparentMesh: 1
---- !u!1001 &1107548783
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.89
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1941031979044735846, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: inputMap
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
-    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: MirrorText
-      value: 
-      objectReference: {fileID: 820149240}
-    - target: {fileID: 7663071787386649603, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: detectionRadius
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8159682550374518258, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
-      propertyPath: m_Name
-      value: MagicMirror
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 58a821b2e350b54489ca4af2187f3f81, type: 3}
 --- !u!1 &1110332149
 GameObject:
   m_ObjectHideFlags: 0
@@ -2433,6 +2365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3acce9db941d04a4597891e2afccf104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveData
+  Delete: 0
 --- !u!4 &1670893028
 Transform:
   m_ObjectHideFlags: 0
@@ -2751,7 +2684,6 @@ MonoBehaviour:
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 25
   roomCount: 3
-  roomOffset: 5
   randomPathChance: 100
   startingRoom: {fileID: 0}
 --- !u!1 &2051524987
@@ -3283,6 +3215,5 @@ SceneRoots:
   - {fileID: 1180175793}
   - {fileID: 2051524993}
   - {fileID: 2068759600}
-  - {fileID: 1107548783}
   - {fileID: 1670893028}
   - {fileID: 1490945591}

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3424004420580226602}
   - component: {fileID: 5836493400622699535}
   - component: {fileID: 793912266631784659}
+  - component: {fileID: 1430851527060574529}
   m_Layer: 0
   m_Name: JazzHand
   m_TagString: Untagged
@@ -311,6 +312,33 @@ MonoBehaviour:
   soundClips: []
   minimumInterval: 4
   maximumInterval: 8
+--- !u!54 &1430851527060574529
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3885886568819446642}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &4326293624332742863
 GameObject:
   m_ObjectHideFlags: 0
