@@ -197,9 +197,6 @@ PrefabInstance:
       addedObject: {fileID: 2160867884479972091}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8143514954177988935}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1753561793881981826}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       insertIndex: -1
@@ -277,30 +274,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Torch
   value: 0
-  inventoryPrefab: {fileID: 8143514954177988935}
+  inventoryPrefab: {fileID: 3247055251918431623, guid: a896f1bb6244f8748bad69b232c9de04, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
---- !u!114 &8143514954177988935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3668524649369812798}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
-  worldPrefab: {fileID: 0}
-  hotkeyAction: {fileID: 0}
-  width: 1
-  height: 2
-  originalItem: {fileID: 0}
-  gridX: 0
-  gridY: 0
-  isRotated: 0
-  isPlaced: 0
+  itemDescription: 
 --- !u!114 &1753561793881981826
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,9 +292,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   itemName: item
   value: 10
-  inventoryPrefab: {fileID: 8143514954177988935}
+  inventoryPrefab: {fileID: 3247055251918431623, guid: a896f1bb6244f8748bad69b232c9de04, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: 
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 0}

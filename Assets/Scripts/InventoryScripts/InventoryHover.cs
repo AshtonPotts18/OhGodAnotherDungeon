@@ -27,7 +27,7 @@ public class InventoryHover : MonoBehaviour
     {
         // Find the spawned player's controller
         if (hotkeyController == null)
-            hotkeyController = FindFirstObjectByType<HotkeyController>();
+            hotkeyController = FindAnyObjectByType<HotkeyController>();
 
         DetectItem();
     }

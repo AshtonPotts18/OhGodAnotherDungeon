@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +11,6 @@ public class VictoryScreenButtons : MonoBehaviour
     {
         if (GameManager.Instance != null)
             GameManager.Instance.EndGame();
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(mainMenuScreen);
     }
 }
