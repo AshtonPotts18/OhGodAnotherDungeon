@@ -146,5 +146,10 @@ public class Shop : MonoBehaviour, IVisitable
                 Money.Accept(PlayerSave);                           // This row as well.
             }
         }
+        
+        if(next.name == "Game Over")
+        {
+            PlayerPrefs.SetInt("PlayerMoney", PartyMoney);
+        }
     }
 }

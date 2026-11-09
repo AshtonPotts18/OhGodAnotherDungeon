@@ -142,7 +142,7 @@ public class PickupController : MonoBehaviour
         else if (targetedItem != null)
         {
             pickupPrompt.gameObject.SetActive(true);
-            pickupPrompt.text = "Left Click - Pick Up " + targetedItem.ItemName + " | Value: " + targetedItem.Value;
+            pickupPrompt.text = "E - Pick Up " + targetedItem.ItemName + " | Value: " + targetedItem.Value;
         }
         else
         {

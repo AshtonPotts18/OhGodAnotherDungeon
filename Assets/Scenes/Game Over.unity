@@ -1223,6 +1223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 745ae37517ee85d40b7a11a66d78f45b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeathScreenInfo
+  PrefabNameDeath: LastTouched
+  PrefabNameMoney: PlayerMoney
   text: {fileID: 1545445362}
 --- !u!1 &1799728504
 GameObject:

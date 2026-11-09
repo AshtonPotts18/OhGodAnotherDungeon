@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Item : MonoBehaviour, IInteract
@@ -15,6 +16,8 @@ public class Item : MonoBehaviour, IInteract
     public int Value { get; set; } = 100;
 
     public Vector3 pickupRotationOffset;
+
+    [TextArea(4, 15)] public string itemDescription;
 
     public Item()
     {}

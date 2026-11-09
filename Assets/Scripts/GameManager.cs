@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
     [SerializeField] RandomlyGenerateRooms mapGenerator;
+    public LevelManager levelManager;
     [SerializeField] GameObject player;
     [SerializeField] ItemGeneration itemGenerator;
     [SerializeField] List<GameObject> itemPool;
@@ -32,10 +33,15 @@ public class GameManager : MonoBehaviour
         Console.Write("Map Generated");
     }
 
-    
+    public void LoadLevel()
+    {
+        levelManager.LoadLevel(mapGenerator);
+    }
     public void StartGame()
     {
         levelStartTime = Time.time;
+
+        LoadLevel();
 
         GenerateLevel();
         InitiateItemGenerator();     

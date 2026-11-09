@@ -14,11 +14,21 @@ public class TransitionScreenUI : MonoBehaviour
     [SerializeField] private string gameplaySceneName = "Ashtons WorkSpace";
     [SerializeField] private string mainMenuSceneName = "Main Menu";
 
+    [SerializeField] private string gameOverSceneName = "WinGame";
+
+
     private RunSummary summary;
 
     private void Start()
     {
         summary = RunSummarySave.Load();
+        if (PlayerPrefs.GetInt("ResetL") == 1)
+	    {
+	        summary.level = 1;
+	        PlayerPrefs.SetInt("ResetL", 0);
+	    }
+
+        
 
         if (summary == null)
         {
@@ -30,7 +40,7 @@ public class TransitionScreenUI : MonoBehaviour
             playerNameText.text = summary.playerName;
 
         if (currentLevelText != null)
-            currentLevelText.text = summary.level.ToString();
+            currentLevelText.text = (GameManager.Instance.levelManager.CurrentLevel - 1).ToString();
 
         int totalSeconds = Mathf.Max(0, Mathf.FloorToInt(summary.elapsedSeconds));
         int minutes = totalSeconds / 60;
@@ -41,20 +51,33 @@ public class TransitionScreenUI : MonoBehaviour
 
         if (goldCollectedText != null)
             goldCollectedText.text = $"${summary.goldCollected}";
+
     }
 
     public void ContinueToNextLevel()
     {
-        if (summary == null)
+        if (GameManager.Instance.levelManager.CurrentLevel == GameManager.Instance.levelManager.finalLevel) // checks if the level 
         {
-            Debug.LogError("Cannot continue: no run summary was loaded.", this);
-            return;
+
+
+            PlayerPrefs.SetInt("CurrentLevel", 1);
+            PlayerPrefs.Save();
+            SceneManager.LoadScene(gameOverSceneName);
         }
+        else
+        {
+            if (summary == null)
+            {
+                Debug.LogError("Cannot continue: no run summary was loaded.", this);
+                return;
+            }
 
-        PlayerPrefs.SetInt("CurrentLevel", summary.level + 1);
-        PlayerPrefs.Save();
+            PlayerPrefs.SetInt("CurrentLevel", GameManager.Instance.levelManager.CurrentLevel);
 
-        SceneManager.LoadScene(gameplaySceneName);
+            PlayerPrefs.Save();
+
+            SceneManager.LoadScene(gameplaySceneName);
+        }
     }
 
     public void ExitToMainMenu()

@@ -103,14 +103,23 @@ public class SaveData : MonoBehaviour, IVisitor
         if(PlayerPrefs.GetInt("Deleted") == 1)
         {
             EraseData(Player);
-            
         }
     }
+
 
     private void OnSceneChanged(Scene current, Scene next)
     {
         if(next.name == "Main Menu")
         { SavingData(Player); }
+
+        if(next.name == "Game Over")
+        { EraseData(Player); }
+
+        if(next.name == "Level Transition")
+        {
+            Player.SavedLevel += 1;
+            SavingData(Player); 
+        }
     }
 }
 
