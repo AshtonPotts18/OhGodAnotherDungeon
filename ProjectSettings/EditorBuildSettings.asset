@@ -26,5 +26,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ShowCase.unity
     guid: 620fd5d625edb984891aa07548d31d8c
+  - enabled: 1
+    path: Assets/Scenes/MainGamplayLoop/WinGame.unity
+    guid: 428752a098a3c8e4db0481d0656625bd
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

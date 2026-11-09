@@ -9,6 +9,7 @@ public class LevelManager : MonoBehaviour
     public int CurrentLevel { get; set; } = 1;
     private List<Level> levelMap = new List<Level>();
 
+    public int finalLevel;
 
     void Awake()
     {
@@ -42,6 +43,9 @@ public class LevelManager : MonoBehaviour
         levelMap.Add(new Level(23, 14, 550));
         levelMap.Add(new Level(23, 15, 600));
         levelMap.Add(new Level(23, 15, 650));
+
+
+        finalLevel = levelMap.Count + 1;
     }
 
     public Level GetLevel(int _level)

@@ -1,7 +1,4 @@
-using NUnit.Framework;
 using System.Collections.Generic;
-using Unity.VectorGraphics;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ItemPlacement : MonoBehaviour, IVisitable
