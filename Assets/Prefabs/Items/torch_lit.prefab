@@ -299,7 +299,7 @@ MonoBehaviour:
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 0}
-  burnDuration: 10
+  burnDuration: 60
   lightIntensity: 1
   minimumFlameSize: 0.25
   litModel: {fileID: 3668524649369812798}
