@@ -7,12 +7,12 @@ public class ShowCaseScene : MonoBehaviour
     [SerializeField] private InputActionReference showcase;
     [SerializeField] private string sceneName;
 
-
+   
     private void OnEnable()
     {
         if (showcase != null)
         {
-            showcase.action.Enable();
+            showcase.action.performed += OnLoad;
         }
     }
 
@@ -20,14 +20,10 @@ public class ShowCaseScene : MonoBehaviour
     {
         if (showcase != null)
         {
-            showcase.action.Disable();
+            showcase.action.performed -= OnLoad;
         }
     }
-    private void Update()
-    {
-        LoadShowCase();
-    }
-
+   
     private void LoadShowCase()
     {
         if (showcase == null && showcase.action == null) return;
@@ -43,5 +39,10 @@ public class ShowCaseScene : MonoBehaviour
             SceneManager.LoadScene(sceneName);
 
         }
+    }
+
+    private void OnLoad(InputAction.CallbackContext context)
+    {
+       LoadShowCase();
     }
 }
