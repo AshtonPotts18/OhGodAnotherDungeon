@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class GameManager : MonoBehaviour
     private BuyStation StationObject;
     public float LevelElapsedSeconds => Time.time - levelStartTime;
 	public float levelStartTime;
+
+    private bool isLoadingNextLevel = false;
 
     private void Awake()
     {
@@ -50,6 +53,7 @@ public class GameManager : MonoBehaviour
     }
     public void EndGame()
     {
+        if (Instance == null) return;
         //Player.SetActive(false);
         ClearRooms();
         ClearHallways();
@@ -59,6 +63,40 @@ public class GameManager : MonoBehaviour
         Console.Write("Map Cleared");
         DespawnPlayer();
     }
+
+    public void LoadNextLevel()
+    {
+        if (isLoadingNextLevel) { return; }
+        StartCoroutine(LoadNextLevelRoutine());
+    }
+
+    private IEnumerator LoadNextLevelRoutine()
+    {
+        isLoadingNextLevel = true;
+
+        ClearRooms();
+        ClearHallways();
+        ClearItems();
+        mapGenerator.ClearMap();
+
+        // Let Unity finish clearing the old map.
+        yield return null;
+
+        levelManager.CurrentLevel++;
+        levelManager.LoadLevel(mapGenerator);
+        GenerateLevel(); // Also sets playerSpawnPoint from StartingRoom/SpawnPoint.
+
+        // Let the new map finish generating.
+        yield return null;
+
+        MovePlayerToSpawn(playerSpawnPoint);
+
+        InitiateItemGenerator();
+        StartShop();
+
+        isLoadingNextLevel = false;
+    }
+
 
     private void DespawnPlayer()
     {
@@ -162,6 +200,25 @@ public class GameManager : MonoBehaviour
         PlayerCamera = (Player.transform.Find("Main Camera")).GetComponentInParent<Camera>();
     }
 
+    private void MovePlayerToSpawn(Transform spawnPoint)
+    {
+        if (Player == null || spawnPoint == null)
+        {
+            Debug.LogError("Player or SpawnPoint was not found.", this);
+            return;
+        }
+
+        CharacterController controller = Player.GetComponent<CharacterController>();
+        bool controllerWasEnabled = controller != null && controller.enabled;
+
+        if (controller != null)
+            controller.enabled = false;
+
+        Player.transform.SetPositionAndRotation(
+            spawnPoint.position,
+            spawnPoint.rotation
+        );
+    }
     private void StartShop()
     {
         StationObject = station;

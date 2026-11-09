@@ -680,7 +680,6 @@ public class DungeonGrid
     HashSet<Vector2Int> roomCells = new HashSet<Vector2Int>(); // cells containing rooms
     HashSet<Vector2Int> hallwayCells = new HashSet<Vector2Int>();
     Dictionary<Vector2Int, DungeonRoom> cellToRoomKey = new Dictionary<Vector2Int, DungeonRoom>();
-    int cellSize = 5;
 
     public bool IsRoomOccupied(Vector2Int _cell)
     {

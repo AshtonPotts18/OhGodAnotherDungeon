@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8746286306777983444}
   - component: {fileID: 5588875990419844725}
   - component: {fileID: 6982799213211949865}
-  - component: {fileID: -3023720436558680406}
   m_Layer: 5
   m_Name: InventoryCube
   m_TagString: Untagged
@@ -98,15 +97,3 @@ MonoBehaviour:
   gridY: 0
   isRotated: 0
   isPlaced: 0
---- !u!114 &-3023720436558680406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2904931308273374651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0ec1c6f09409f2e469016c3266fd1884, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryHover

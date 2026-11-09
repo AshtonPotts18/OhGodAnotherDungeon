@@ -1,6 +1,6 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using TMPro;
 public class HotkeyController : MonoBehaviour
 {
     //References
@@ -15,6 +15,8 @@ public class HotkeyController : MonoBehaviour
     [SerializeField] private TMP_Text hotkeyPrompt;
     private InventoryItemDimensions equippedItem;
     private InventoryItemDimensions hoveredItem;
+    public TMP_Text HotkeyPrompt => hotkeyPrompt;
+
     private void Start()
     {
         if (pickupController == null)
@@ -35,8 +37,36 @@ public class HotkeyController : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        if (hotkey1 != null) hotkey1.action.Enable();
+        if (hotkey2 != null) hotkey2.action.Enable();
+        if (hotkey3 != null) hotkey3.action.Enable();
+    }
+
+    private void OnDisable()
+    {
+        if (hotkey1 != null) hotkey1.action.Disable();
+        if (hotkey2 != null) hotkey2.action.Disable();
+        if (hotkey3 != null) hotkey3.action.Disable();
+    }
+
     void Update()
     {
+        if (hoveredItem != null)
+        {
+            Debug.Log("Currently hovering: " + hoveredItem.name);
+        }
+
+        if (hotkey1 != null && hotkey1.action.WasPressedThisFrame())
+            Debug.Log("KEY 1 DETECTED");
+
+        if (hotkey2 != null && hotkey2.action.WasPressedThisFrame())
+            Debug.Log("KEY 2 DETECTED");
+
+        if (hotkey3 != null && hotkey3.action.WasPressedThisFrame())
+            Debug.Log("KEY 3 DETECTED");
+
         HandleHotKeyAssignment();
 
         if (hoveredItem != null && (hotkey1.action.WasPressedThisFrame() || hotkey2.action.WasPressedThisFrame() || hotkey3.action.WasPressedThisFrame())) return;
@@ -163,21 +193,28 @@ public class HotkeyController : MonoBehaviour
 
         if (hotkeyPrompt == null) return;
 
-        if(item.originalItem is not UsableItem)
+        if (item.originalItem == null)
         {
             hotkeyPrompt.gameObject.SetActive(false);
             return;
         }
 
-        hotkeyPrompt.gameObject.SetActive(true);
-
-        if(item.HotkeyAction != null)
+        if (item.originalItem is UsableItem)
         {
-            hotkeyPrompt.text = "Assigned " + item.HotkeyAction.action.name;
+            hotkeyPrompt.gameObject.SetActive(true);
+
+            if (item.HotkeyAction != null && item.HotkeyAction.action != null)
+            {
+                hotkeyPrompt.text = "Assigned: " + item.HotkeyAction.action.name;
+            }
+            else
+            {
+                hotkeyPrompt.text = "Assign a hotkey: 1, 2, or 3";
+            }
         }
         else
         {
-            hotkeyPrompt.text = "Assign a hotkey: 1, 2, or 3";
+            hotkeyPrompt.gameObject.SetActive(false);
         }
     }
 
@@ -195,51 +232,109 @@ public class HotkeyController : MonoBehaviour
 
     private void HandleHotKeyAssignment()
     {
-        if (hoveredItem == null || Keyboard.current == null) return;
+        //if (hoveredItem == null || Keyboard.current == null) return;
+        //
+        //if(!(hoveredItem.originalItem is UsableItem)) return;
+        //
+        //if(hotkey1.action.WasPressedThisFrame())
+        //{
+        //    AssignHotkey(hoveredItem, hotkey1);
+        //}
+        //else if (hotkey2.action.WasPressedThisFrame())
+        //{
+        //    AssignHotkey(hoveredItem, hotkey2);
+        //}
+        //else if (hotkey3.action.WasPressedThisFrame())
+        //{
+        //    AssignHotkey(hoveredItem, hotkey3);
+        //}
+        if (hoveredItem == null)
+            return;
 
-        if(!(hoveredItem.originalItem is UsableItem)) return;
-
-        if(hotkey1.action.WasPressedThisFrame())
+        if (hoveredItem.originalItem == null)
         {
+            Debug.LogWarning("Hovered item has no originalItem!");
+            return;
+        }
+
+        if (hoveredItem.originalItem is not UsableItem)
+            return;
+
+        if (hotkey1 == null || hotkey2 == null || hotkey3 == null)
+        {
+            Debug.LogError("One or more hotkey references are missing!");
+            return;
+        }
+
+        if (hotkey1.action.WasPressedThisFrame())
+        {
+            Debug.Log("Hotkey 1 pressed");
             AssignHotkey(hoveredItem, hotkey1);
         }
         else if (hotkey2.action.WasPressedThisFrame())
         {
+            Debug.Log("Hotkey 2 pressed");
             AssignHotkey(hoveredItem, hotkey2);
         }
         else if (hotkey3.action.WasPressedThisFrame())
         {
+            Debug.Log("Hotkey 3 pressed");
             AssignHotkey(hoveredItem, hotkey3);
         }
     }
 
     private void AssignHotkey(InventoryItemDimensions item, InputActionReference action)
     {
-        if (action == null || action.action == null) return;
+        //if (action == null || action.action == null) return;
+        //
+        //InventoryItemDimensions[] items = FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
+        //
+        //foreach(InventoryItemDimensions existingItem in items)
+        //{
+        //    if(existingItem == item) continue;
+        //    
+        //    if(existingItem.HotkeyAction  != null && existingItem.HotkeyAction.action == action.action)
+        //    {
+        //        if(hotkeyPrompt != null)
+        //        {
+        //            hotkeyPrompt.text = "That key is already assigned!";
+        //            return;
+        //        }
+        //    }
+        //}
+        //
+        //item.SetHotkeyAction(action);
+        //
+        //if(hotkeyPrompt != null)
+        //{
+        //    hotkeyPrompt.text = "Assigned: " + action.action.name;
+        //}
+        //
+        //Debug.Log(item.originalItem.ItemName + " assigned to " + action.action.name);
+        if (item == null || action == null || action.action == null) return;
 
-        InventoryItemDimensions[] items = FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
+        InventoryItemDimensions[] items =
+            FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
 
-        foreach(InventoryItemDimensions existingItem in items)
+        foreach (InventoryItemDimensions existingItem in items)
         {
-            if(existingItem == item) continue;
-            
-            if(existingItem.HotkeyAction  != null && existingItem.HotkeyAction.action == action.action)
+            if (existingItem == item) continue;
+
+            if (existingItem.HotkeyAction != null &&
+                existingItem.HotkeyAction.action == action.action)
             {
-                if(hotkeyPrompt != null)
-                {
+                if (hotkeyPrompt != null)
                     hotkeyPrompt.text = "That key is already assigned!";
-                    return;
-                }
+
+                return;
             }
         }
-        
+
         item.SetHotkeyAction(action);
 
-        if(hotkeyPrompt != null)
-        {
-            hotkeyPrompt.text = "Assigned: " + action.action.name;
-        }
+        Debug.Log("Assigned " + action.action.name + " to " + item.name);
 
-        Debug.Log(item.originalItem.ItemName + " assigned to " + action.action.name);
+        if (hotkeyPrompt != null)
+            hotkeyPrompt.text = "Assigned: " + action.action.name;
     }
 }

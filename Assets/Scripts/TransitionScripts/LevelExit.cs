@@ -82,7 +82,7 @@ public class LevelExit : MonoBehaviour, IInteract
     private EnemySpawner FindEnemySpawner()
     {
         if (enemySpawner == null)
-            enemySpawner = FindFirstObjectByType<EnemySpawner>();
+            enemySpawner = FindAnyObjectByType<EnemySpawner>();
 
         return enemySpawner;
     }
