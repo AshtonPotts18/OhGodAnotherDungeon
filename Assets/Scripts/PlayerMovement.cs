@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
             if (!WalkAudio.isPlaying)
             {
                 RunAudio.Stop();
-                WalkAudio.Play();
+                WalkAudio.PlayOneShot(WalkAudio.clip);
             }
         }
 
@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if(!RunAudio.isPlaying)
         { 
-            RunAudio.Play();
+            RunAudio.PlayOneShot(RunAudio.clip);
         }
     }
 
