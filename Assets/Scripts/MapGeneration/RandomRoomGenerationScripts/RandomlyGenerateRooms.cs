@@ -774,6 +774,10 @@ public class DungeonGrid
     {
         return cellToRoomKey[_cell];
     }
+    public bool TryGetRoomAtCell(Vector2Int _cell, out DungeonRoom _roomAtCell)
+    {
+        return cellToRoomKey.TryGetValue(_cell, out _roomAtCell);
+    }
     public GameObject LivingRoomAtCell(Vector2Int _cell)
     {
         if (cellToRoomKey.Keys.Contains(_cell))
