@@ -733,13 +733,13 @@ public class DungeonGrid
         return !roomCells.Contains(_cell);
     }
 
-    public void ReserveHallway(Vector2Int _cell, DungeonRoom _room)
+    public bool ReserveHallway(Vector2Int _cell, DungeonRoom _room)
     {
-        if (CanPlaceHallway(_cell))
-        {
-            hallwayCells.Add(_cell);
-            cellToRoomKey.Add(_cell, _room);
-        }
+        if (IsOccupied(_cell)) return false;
+
+        hallwayCells.Add(_cell);
+        cellToRoomKey.Add(_cell, _room);
+        return true;
     }
 
     public void Clear()
