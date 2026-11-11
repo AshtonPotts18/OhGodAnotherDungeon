@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 //Temp
 using Unity.AI.Navigation;
+using Newtonsoft.Json.Bson;
 
 public class RandomlyGenerateRooms : MonoBehaviour
 {
@@ -818,6 +819,33 @@ public class DungeonGrid
             }
         }
         return outputListOfRooms;
+    }
+    public void GetPathBounds(Vector2Int _start, Vector2Int _end, out Vector2Int _minBounds,  out Vector2Int _maxBounds)
+    {
+        _minBounds = default;
+        _maxBounds = default;
+
+        if (_start.x < _end.x)
+        {
+            _minBounds.x =_start.x;
+            _maxBounds.x = _end.x;
+        }
+        else
+        {
+            _minBounds.x = _end.x;
+            _maxBounds.x = _start.x;
+        }
+
+        if (_start.y < _end.y)
+        {
+            _minBounds.y = _start.y;
+            _maxBounds.y = _end.y;
+        }
+        else
+        {
+            _minBounds.y = _end.y;
+            _maxBounds.y = _start.y;
+        }
     }
 }
 
