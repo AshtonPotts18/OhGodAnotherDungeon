@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
   Audio: {fileID: 119526649}
-  scene: SampleScene
+  scene: Normans WorkSpace
   delay: 0.5
 --- !u!82 &119526649
 AudioSource:
