@@ -83,11 +83,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da365744bcfe2e40ba423937e7ef099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: item
+  itemName: Ancient coin pile
   value: 175
   inventoryPrefab: {fileID: 6857681353650560994, guid: b28b3990b80d6294da039cf7c24cedc5, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: 'OH GREAT LUCK! WE''RE RICH! Ancient gold coins a whole mountain of them. They''re solid gold and museums will pay a fortune for them. Too bad you need money to get out. '
 --- !u!65 &6225585845093675235
 BoxCollider:
   m_ObjectHideFlags: 0
