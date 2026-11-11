@@ -2000,10 +2000,10 @@ MonoBehaviour:
   roomsRoot: {fileID: 136208476}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   roomBoundsObjectName: RoomBounds
-  enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
+  enemyPrefab: {fileID: 7305526634617386568, guid: 3c50a7ab1574adf4ebe8002a3172b911, type: 3}
   additionalEnemyPrefabs:
-  - {fileID: 5879135865306032889, guid: a190670c050c2b2498498bacd4002cab, type: 3}
-  - {fileID: 2750581035878607396, guid: ac7a5ba9a4fcba647aab6ec4db86825b, type: 3}
+  - {fileID: 5514556085656364471, guid: db5d94987566e674ca66fd4f7309e610, type: 3}
+  - {fileID: 7101606700899570288, guid: cead49e0df01fbd4e9bbaa8ef5858ed0, type: 3}
   hallwaysRoot: {fileID: 201365561}
   hallwayBoundsObjectName: HallwayBounds
   currentLevel: 1
