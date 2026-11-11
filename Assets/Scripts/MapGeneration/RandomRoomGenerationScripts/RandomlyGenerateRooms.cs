@@ -659,6 +659,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
         return output;
     }
 
+    private int ManhattenDistance(Vector2Int _first, Vector2Int _second)
+    {
+        return Mathf.Abs(_first.x - _second.x) + Mathf.Abs(_first.y - _second.y);
+    }
+
 }
 
 public class Direction2D
