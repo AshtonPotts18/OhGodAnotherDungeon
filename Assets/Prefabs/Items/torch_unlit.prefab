@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6443811452752461775}
   - component: {fileID: 3601828738100947808}
   - component: {fileID: 6751929991282403827}
-  - component: {fileID: 1530960534334340690}
   m_Layer: 0
   m_Name: torch_unlit
   m_TagString: Untagged
@@ -156,28 +155,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da365744bcfe2e40ba423937e7ef099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: item
+  itemName: Burnt out Torch
   value: 100
-  inventoryPrefab: {fileID: 1530960534334340690}
+  inventoryPrefab: {fileID: 0}
   isShopItem: 0
---- !u!114 &1530960534334340690
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5941821371667191706}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
-  worldPrefab: {fileID: 0}
-  hotkeyAction: {fileID: 0}
-  width: 1
-  height: 2
-  originalItem: {fileID: 0}
-  gridX: 0
-  gridY: 0
-  isRotated: 0
-  isPlaced: 0
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: A burnt stick. You were told not to use it all up. Now it's dark and the shop doesn't have any night vision scrolls. Good luck.
