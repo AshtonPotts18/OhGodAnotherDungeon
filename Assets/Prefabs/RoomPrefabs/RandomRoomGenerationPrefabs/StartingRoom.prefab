@@ -3629,6 +3629,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7344e5fa3d337744bab8988cdebded00, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3526351029370946963}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 7344e5fa3d337744bab8988cdebded00, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6256269072373801227}
   m_SourcePrefab: {fileID: 100100000, guid: 7344e5fa3d337744bab8988cdebded00, type: 3}
 --- !u!4 &6922198785111166834 stripped
 Transform:
@@ -3678,6 +3681,27 @@ MonoBehaviour:
   promptText: {fileID: 3242303481551096821}
   playerTag: Player
   exitPrompt: Press F to Exit
+--- !u!65 &6256269072373801227
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7735855615733487048}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 4, y: 0.97074306, z: 4}
+  m_Center: {x: 0, y: -0.51462865, z: 4.3058086e-15}
 --- !u!1001 &7981381618364502942
 PrefabInstance:
   m_ObjectHideFlags: 0

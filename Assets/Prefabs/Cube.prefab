@@ -156,3 +156,6 @@ MonoBehaviour:
   itemName: item
   value: 100
   inventoryPrefab: {fileID: 6982799213211949865, guid: f5c9ea13d4ee16540bd712d489477141, type: 3}
+  isShopItem: 0
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: 'A brick. just a brick. sell it, leave it, do what you want its a brick. '

@@ -131,8 +131,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da365744bcfe2e40ba423937e7ef099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: item
+  itemName: 'Unbreakable Box '
   value: 100
   inventoryPrefab: {fileID: 0}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: 'A box created with the craftsmanship of ancient civilizations. It is unkown how to open them. They are only good for taking up space and making a quick buck. '

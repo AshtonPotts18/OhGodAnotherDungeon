@@ -511,7 +511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ButtonSound
   Audio: {fileID: 119526649}
-  scene: SampleScene
+  scene: Normans WorkSpace
   delay: 0.5
 --- !u!82 &119526649
 AudioSource:
@@ -978,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b40c8e860106342b2385494620b163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowCaseScene
-  showcase: {fileID: -5157325248790334715, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
+  showcase: {fileID: -8445465029377641354, guid: ced28e6904e273649a056194abd48fad, type: 3}
   sceneName: ShowCase
 --- !u!4 &189908576
 Transform:

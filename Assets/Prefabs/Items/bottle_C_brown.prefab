@@ -83,11 +83,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da365744bcfe2e40ba423937e7ef099, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemName: item
+  itemName: Mysterious Bottle
   value: 150
   inventoryPrefab: {fileID: 0}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
+  itemDescription: A bottle of mysterious liquid left over from an ancient civilization. The ancients were said to have enjoyed wine, so we're in luck.
 --- !u!65 &425597689515264887
 BoxCollider:
   m_ObjectHideFlags: 0
