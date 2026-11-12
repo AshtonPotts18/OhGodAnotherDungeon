@@ -3,18 +3,22 @@ using UnityEngine.AI;
 
 public class DoorInteraction : MonoBehaviour, IInteract
 {
+    private static readonly int InteractHash = Animator.StringToHash("Interact");
     private bool isOpen = false;
+    [SerializeField] private Animator animation;
+    [SerializeField] AnimationClip openDoorClip;
+    [SerializeField] AnimationClip closeDoorClip;
  
 
     public void Interact()
     {
         if (isOpen) 
         {
-            transform.Rotate(0, 90, 0);
+            animation.SetTrigger(InteractHash);
         }
         else
         {
-            transform.Rotate(0, -90, 0);
+            animation.SetTrigger(InteractHash);
         }
 
         isOpen = !isOpen;

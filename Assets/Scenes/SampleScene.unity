@@ -1978,7 +1978,7 @@ MonoBehaviour:
   roomsRoot: {fileID: 136208476}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   snapHandPrefab: {fileID: 3150046739261248120, guid: ad35a892d5940b8458f57d74b8b36394, type: 3}
-  jazzHandPrefab: {fileID: 3885886568819446642, guid: 722145f47be52354b9b915e2db2d903d, type: 3}
+  jazzHandPrefab: {fileID: 6898810954446306540, guid: 609c3ef0c3d505e43a78d27871ebb392, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
   navMeshSampleRadius: 3
@@ -3078,7 +3078,6 @@ MonoBehaviour:
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 25
   roomCount: 3
-  randomPathChance: 100
   startingRoom: {fileID: 0}
 --- !u!1 &2051524987
 GameObject:
