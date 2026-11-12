@@ -35,7 +35,6 @@ public class Detection : MonoBehaviour
         {
             if (PlayerDetected)
             { 
-                Debug.Log($"{name}: lost player because a Detection reference is missing.", this);
                 PlayerDetected = false;
             }
 
@@ -49,18 +48,6 @@ public class Detection : MonoBehaviour
         float distance;
 
         PlayerDetected = CanSeePlayer(out reason, out distance);
-
-        if (PlayerDetected && !wasDetected)
-        {
-            Debug.Log($"{name}: detected player at {distance:F1} units.", this);
-        }
-        else if (!PlayerDetected && wasDetected)
-        {
-            Debug.Log(
-                $"{name}: lost player ({reason}; {distance:F1}/{viewDistance:F1} units).",
-                this
-            );
-        }
 
         enemy.SetPlayerVisible(PlayerDetected, player);
     }
@@ -87,13 +74,12 @@ public class Detection : MonoBehaviour
             return false;
         }
 
-        if (Physics.Raycast(
-            visionPoint.position,
-            direction.normalized,
-            distance,
-            obstacleMask,
-            QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast( visionPoint.position, direction.normalized, out RaycastHit hit,
+            distance, obstacleMask, QueryTriggerInteraction.Ignore))
         {
+            Debug.Log($"Sight blocked by {hit.collider.name} on layer " +
+              LayerMask.LayerToName(hit.collider.gameObject.layer));
+
             reason = "blocked by an obstacle";
             Debug.DrawRay(visionPoint.position, direction, Color.red);
             return false;
