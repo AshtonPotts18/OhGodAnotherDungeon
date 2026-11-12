@@ -291,6 +291,7 @@ MonoBehaviour:
   goldCollectedText: {fileID: 1061263131}
   gameplaySceneName: SampleScene
   mainMenuSceneName: Main Menu
+  gameOverSceneName: WinGame
 --- !u!4 &89256652
 Transform:
   m_ObjectHideFlags: 0
@@ -1230,9 +1231,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 800}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96

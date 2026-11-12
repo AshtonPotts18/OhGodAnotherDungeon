@@ -266,7 +266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 595.2739, y: 287.1353}
+  m_AnchoredPosition: {x: 876, y: 433}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &106376514
@@ -668,9 +668,9 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 800}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 1
+  m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -943,7 +943,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -49, y: -36}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &578015357
@@ -1977,8 +1977,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandEncounterController
   roomsRoot: {fileID: 136208476}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
-  snapHandPrefab: {fileID: 3150046739261248120, guid: ad35a892d5940b8458f57d74b8b36394, type: 3}
-  jazzHandPrefab: {fileID: 3885886568819446642, guid: 722145f47be52354b9b915e2db2d903d, type: 3}
+  snapHandPrefab: {fileID: 354349043613001179, guid: c462b6e522a05ff4d898e9e0c880e7fd, type: 3}
+  jazzHandPrefab: {fileID: 6898810954446306540, guid: 609c3ef0c3d505e43a78d27871ebb392, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
   navMeshSampleRadius: 3
@@ -2000,10 +2000,10 @@ MonoBehaviour:
   roomsRoot: {fileID: 136208476}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   roomBoundsObjectName: RoomBounds
-  enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
+  enemyPrefab: {fileID: 7305526634617386568, guid: 3c50a7ab1574adf4ebe8002a3172b911, type: 3}
   additionalEnemyPrefabs:
-  - {fileID: 5879135865306032889, guid: a190670c050c2b2498498bacd4002cab, type: 3}
-  - {fileID: 2750581035878607396, guid: ac7a5ba9a4fcba647aab6ec4db86825b, type: 3}
+  - {fileID: 5514556085656364471, guid: db5d94987566e674ca66fd4f7309e610, type: 3}
+  - {fileID: 7101606700899570288, guid: cead49e0df01fbd4e9bbaa8ef5858ed0, type: 3}
   hallwaysRoot: {fileID: 201365561}
   hallwayBoundsObjectName: HallwayBounds
   currentLevel: 1
@@ -3078,7 +3078,6 @@ MonoBehaviour:
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 25
   roomCount: 3
-  randomPathChance: 100
   startingRoom: {fileID: 0}
 --- !u!1 &2051524987
 GameObject:
@@ -3166,7 +3165,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 800}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -3333,7 +3332,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 7, y: 0}
+  m_AnchoredPosition: {x: -72, y: -8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2084049274
