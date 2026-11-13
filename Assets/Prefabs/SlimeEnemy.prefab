@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1056748769486746215}
   - component: {fileID: 5512172317330932929}
   - component: {fileID: 5741443917571928778}
+  - component: {fileID: 2531701840198244885}
   m_Layer: 0
   m_Name: SlimeEnemy
   m_TagString: Untagged
@@ -32,8 +33,8 @@ Transform:
   m_GameObject: {fileID: 5514556085656364471}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 392.25262, y: -0.00002, z: -2084.119}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 392.21, y: 0.34369, z: -2084}
+  m_LocalScale: {x: 0.68758, y: 0.68758, z: 0.68758}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6088118573519182385}
@@ -161,13 +162,37 @@ MonoBehaviour:
   poisonDuration: 4
   onAttackStarted:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2531701840198244885}
+        m_TargetAssemblyTypeName: SlimeAnimation, Assembly-CSharp
+        m_MethodName: PlayAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onDamageTick:
     m_PersistentCalls:
       m_Calls: []
   onAttackFinished:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2531701840198244885}
+        m_TargetAssemblyTypeName: SlimeAnimation, Assembly-CSharp
+        m_MethodName: StopAttack
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!136 &5741443917571928778
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -191,6 +216,18 @@ CapsuleCollider:
   m_Height: 2.1688654
   m_Direction: 1
   m_Center: {x: 0.07804108, y: 0.97104156, z: 0.4215088}
+--- !u!114 &2531701840198244885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5514556085656364471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d028641f22d89cc44818095417cffa8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SlimeAnimation
 --- !u!1 &7036171638547969706
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,10 +314,40 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4164833620592662240, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5717393027333530829}
   m_SourcePrefab: {fileID: 100100000, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
 --- !u!4 &7408169202274158170 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
   m_PrefabInstance: {fileID: 6073310890172451328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &7891654613692718304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4164833620592662240, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
+  m_PrefabInstance: {fileID: 6073310890172451328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &5717393027333530829
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7891654613692718304}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c92480efb1f4e25479026594d583b3e6, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0

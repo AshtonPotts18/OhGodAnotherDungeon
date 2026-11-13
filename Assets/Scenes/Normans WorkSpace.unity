@@ -1675,7 +1675,7 @@ MonoBehaviour:
   roomsRoot: {fileID: 1168703294}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   snapHandPrefab: {fileID: 3150046739261248120, guid: ad35a892d5940b8458f57d74b8b36394, type: 3}
-  jazzHandPrefab: {fileID: 3885886568819446642, guid: 722145f47be52354b9b915e2db2d903d, type: 3}
+  jazzHandPrefab: {fileID: 6898810954446306540, guid: 609c3ef0c3d505e43a78d27871ebb392, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
   navMeshSampleRadius: 3
@@ -1697,7 +1697,7 @@ MonoBehaviour:
   roomsRoot: {fileID: 1168703294}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   roomBoundsObjectName: RoomBounds
-  enemyPrefab: {fileID: 865206128135596498, guid: ddaea33fce88342439b5fdafbdfa034c, type: 3}
+  enemyPrefab: {fileID: 5514556085656364471, guid: db5d94987566e674ca66fd4f7309e610, type: 3}
   additionalEnemyPrefabs: []
   hallwaysRoot: {fileID: 0}
   hallwayBoundsObjectName: HallwayBounds
@@ -2516,7 +2516,7 @@ MonoBehaviour:
   interactionDistance: 4
   interactAction: {fileID: 5447562051951042235, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   stock:
-  - itemPrefab: {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
+  - itemPrefab: {fileID: 1087930004274743054, guid: f1397b6d3910e604d9718d0c241b1b9a, type: 3}
     displayPoint: {fileID: 1667237609}
   purchaseSpawnPoint: {fileID: 1667237609}
   promptObject: {fileID: 682239826}
