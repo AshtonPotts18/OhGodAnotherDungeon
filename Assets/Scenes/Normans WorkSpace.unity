@@ -1734,7 +1734,7 @@ MonoBehaviour:
   player: {fileID: 4702544181617325606, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   itemGenerator: {fileID: 1892160042}
   itemPool:
-  - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
+  - {fileID: 1087930004274743054, guid: f1397b6d3910e604d9718d0c241b1b9a, type: 3}
   - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
   station: {fileID: 1392341050}
   levelStartTime: 0
@@ -2000,7 +2000,6 @@ MonoBehaviour:
   roomRange: {x: 0, y: 0}
   roomSpawnRadius: 50
   roomCount: 3
-  randomPathChance: 12.3
   startingRoom: {fileID: 0}
 --- !u!1 &1098418011
 GameObject:

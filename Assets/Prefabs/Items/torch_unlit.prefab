@@ -157,7 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Burnt out Torch
   value: 100
-  inventoryPrefab: {fileID: 0}
+  inventoryPrefab: {fileID: 5367177460160729262, guid: 2157dd3f56ee6aa4489557810ce0d8ef, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: A burnt stick. You were told not to use it all up. Now it's dark and the shop doesn't have any night vision scrolls. Good luck.
