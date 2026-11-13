@@ -2039,8 +2039,9 @@ MonoBehaviour:
   player: {fileID: 4702544181617325606, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   itemGenerator: {fileID: 969927394}
   itemPool:
-  - {fileID: 2135260955353499408, guid: 1f6550029511455409a0f77695948b55, type: 3}
-  - {fileID: 4421293615949454883, guid: 76e69dc478b154d45971b96375e7f833, type: 3}
+  - {fileID: 1087930004274743054, guid: f1397b6d3910e604d9718d0c241b1b9a, type: 3}
+  - {fileID: 5310880052895582658, guid: 13b811e34a1c7714a97e2544a4e3b24a, type: 3}
+  - {fileID: 2462064408466990033, guid: 5bd04139a0a0ee84fbea54da8179816d, type: 3}
   station: {fileID: 965338540}
   levelStartTime: 0
 --- !u!4 &1178532822
