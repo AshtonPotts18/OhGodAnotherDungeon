@@ -4,6 +4,7 @@ public class FireballCollision : MonoBehaviour
 {
     [SerializeField] private float damage = 30f;
 
+    public GameObject Smoke;
     private bool hasHit;
 
     private void OnCollisionEnter(Collision collision)
@@ -21,6 +22,8 @@ public class FireballCollision : MonoBehaviour
                 break;
             }
         }
+        GameObject Smoke_ = Instantiate(Smoke, transform.position, transform.rotation);
+        
         Destroy(gameObject);
     }
 
