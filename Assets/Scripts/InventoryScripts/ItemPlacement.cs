@@ -138,10 +138,7 @@ public class ItemPlacement : MonoBehaviour, IVisitable
 
         rect.anchoredPosition = new Vector2(x * (cellSize.x + spacing.x), -y * (cellSize.y + spacing.y));
 
-        float itemWidth = width * cellSize.x + (width - 1) * spacing.x;
-        float itemHeight = height * cellSize.y + (height - 1) * spacing.y;
-
-        rect.sizeDelta = item.isRotated ? new Vector2(itemHeight, itemWidth) : new Vector2(itemWidth, itemHeight);
+        rect.sizeDelta = new Vector2(width * cellSize.x + (width - 1) * spacing.x, height * cellSize.y + (height - 1) * spacing.y);
 
         return true;
     }
