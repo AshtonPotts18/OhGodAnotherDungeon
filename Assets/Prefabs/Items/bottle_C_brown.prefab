@@ -9,6 +9,18 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: e1d4d4833bd91a24aa309f0a719e34df, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e1d4d4833bd91a24aa309f0a719e34df, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e1d4d4833bd91a24aa309f0a719e34df, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: e1d4d4833bd91a24aa309f0a719e34df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.439
       objectReference: {fileID: 0}
@@ -85,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Mysterious Bottle
   value: 150
-  inventoryPrefab: {fileID: 0}
+  inventoryPrefab: {fileID: 8053027514973696694, guid: e264c74c8cab4f04bb197ad81b8869a2, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: A bottle of mysterious liquid left over from an ancient civilization. The ancients were said to have enjoyed wine, so we're in luck.
