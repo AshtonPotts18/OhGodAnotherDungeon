@@ -20,14 +20,22 @@ public class InventoryHover : MonoBehaviour
     private void Start()
     {
         if (descriptionPanel != null)
+        {
             descriptionPanel.SetActive(false);
+        }
     }
 
     private void Update()
     {
-        // Find the spawned player's controller
         if (hotkeyController == null)
+        {
             hotkeyController = FindAnyObjectByType<HotkeyController>();
+
+            if (hotkeyController != null)
+            {
+                Debug.Log("InventoryHover found player: " + hotkeyController.gameObject.name);
+            }
+        }
 
         DetectItem();
     }
@@ -55,17 +63,14 @@ public class InventoryHover : MonoBehaviour
                 break;
         }
 
-        // Nothing changed
         if (hoveredItem == currentItem)
             return;
 
-        // Send pointer exit to previous item
         if (currentItem != null && hotkeyController != null)
             hotkeyController.ClearHoveredItem(currentItem);
 
         currentItem = hoveredItem;
 
-        // Send pointer enter to new item
         if (currentItem != null)
             ShowDescription(currentItem);
         else
@@ -73,22 +78,27 @@ public class InventoryHover : MonoBehaviour
     }
 
     private void ShowDescription(InventoryItemDimensions item)
-    {
-        if (item.originalItem == null)
-            return;
+    { 
+        if (hotkeyController != null)
+        {
+            hotkeyController.SetHoveredItem(item);
+        }
+
+        if (item.originalItem == null) return;
 
         if (descriptionPanel != null)
+        {
             descriptionPanel.SetActive(true);
+        }
 
         if (itemName != null)
-            itemName.text = "Name: " + item.originalItem.name +
-                            "\nValue: " + item.originalItem.Value;
+            itemName.text = "Name: " + item.originalItem.ItemName + "\nValue: " + item.originalItem.Value;
 
         if (itemDescription != null)
-            itemDescription.text = item.originalItem.itemDescription;
+        {
+            itemDescription.text = item.originalItem.ItemDescription;
+        }
 
-        if (hotkeyController != null)
-            hotkeyController.SetHoveredItem(item);
     }
 
     private void HideDescription()
@@ -96,4 +106,5 @@ public class InventoryHover : MonoBehaviour
         if (descriptionPanel != null)
             descriptionPanel.SetActive(false);
     }
+
 }
