@@ -21,20 +21,6 @@ public class MagicMirror : UsableItem
     //Scanned enemies
     private HashSet<GameObject> scannedEnemies = new HashSet<GameObject>();
 
-    private ParticleSystem[] particles;
-
-    protected override void Awake()
-    {
-        base.Awake();
-
-        particles = GetComponentsInChildren<ParticleSystem>(true);
-
-        foreach (ParticleSystem particle in particles)
-        {
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-        }
-    }
-
     private void Start()
     {
         if(MirrorText != null)
@@ -56,8 +42,6 @@ public class MagicMirror : UsableItem
         }
 
         GameObject enemy = DetectEnemy();
-
-        PlayParticles();
 
         if(enemy == null)
         {
@@ -161,14 +145,5 @@ public class MagicMirror : UsableItem
         MirrorText.gameObject.SetActive(false);
 
         displayCoroutine = null;
-    }
-
-    private void PlayParticles()
-    {
-        foreach (ParticleSystem particle in particles)
-        {
-            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
-            particle.Play();
-        }
     }
 }

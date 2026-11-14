@@ -271,7 +271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Torch
   itemName: Torch
   value: 10
-  inventoryPrefab: {fileID: 6331482838052994670, guid: d2027ca005f8ad34f8da298949daf004, type: 3}
+  inventoryPrefab: {fileID: 3247055251918431623, guid: a896f1bb6244f8748bad69b232c9de04, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: A light source that will illuminate your way for 3 minutes. try not to let it run out.
@@ -322,7 +322,7 @@ ParticleSystem:
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
-  moveWithTransform: 1
+  moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
   randomSeed: 0
