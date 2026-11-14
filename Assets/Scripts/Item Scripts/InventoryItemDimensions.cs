@@ -46,10 +46,6 @@ public class InventoryItemDimensions : MonoBehaviour
     public void SetRotation(bool rotated)
     {
         isRotated = rotated;
-
-        if (RectTransform == null) return;
-
-        RectTransform.localRotation= Quaternion.Euler(0f,0f, rotated ? 90f : 0f);
     }
 
     public void SetHotkeyAction(InputActionReference action)

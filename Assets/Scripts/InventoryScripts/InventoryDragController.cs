@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UIElements;
 
 public class InventoryDragController : MonoBehaviour
 {
@@ -133,10 +132,7 @@ public class InventoryDragController : MonoBehaviour
 
         if (rect == null) return;
 
-        float width = heldItem.Width * inventory.cellSize.x + (heldItem.Width - 1) * inventory.spacing.x;
-        float height = heldItem.Height * inventory.cellSize.y + (heldItem.Height - 1) * inventory.spacing.y;
-
-        rect.sizeDelta = heldItem.isRotated ? new Vector2(height, width) : new Vector2(width, height);
+        rect.sizeDelta = new Vector2(heldItem.Width * inventory.cellSize.x + (heldItem.Width - 1) * inventory.spacing.x, heldItem.Height * inventory.cellSize.y + (heldItem.Height - 1) * inventory.spacing.y);
     }
 
     private void UpdateHeldItemPosition()
@@ -196,6 +192,13 @@ public class InventoryDragController : MonoBehaviour
     private void DropIntoWorld(Vector2 mousePosition)
     {
         if (heldItem == null)return;
+        //GameObject prefab = heldItem.worldPrefab;
+        //
+        //if (prefab == null)
+        //{
+        //    Debug.LogWarning("Cannot drop item: assign its World Prefab.");
+        //    return;
+        //}
 
         Camera worldCamera = Camera.main;
 
@@ -225,7 +228,7 @@ public class InventoryDragController : MonoBehaviour
             Debug.LogError("Original world item reference is missing.");
             return;
         }
-
+        //Instantiate(prefab, dropPosition, prefab.transform.rotation);
         originalItem.transform.position = dropPosition;
         originalItem.gameObject.SetActive(true);
 
