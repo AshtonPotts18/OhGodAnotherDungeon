@@ -21,6 +21,10 @@ public class SlimeAI : EnemyBehavior
     [SerializeField] private UnityEvent onDamageTick;
     [SerializeField] private UnityEvent onAttackFinished;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource AttackingSoundSource = null;
+    [SerializeField] private AudioClip AttackingSound = null;
+
     private Transform player;
     private Detection detection;
     private Enemy_Movement movement;
@@ -33,6 +37,17 @@ public class SlimeAI : EnemyBehavior
     private float nextDamageTime;
     private bool poisonActive;
     private float poisonExpiresAt;
+    private ParticleSystem[] particles;
+
+    private void Awake()
+    {
+        particles = GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
 
     public override void Initialize(Transform target, Detection detector, Enemy_Movement mover)
     {
@@ -74,7 +89,10 @@ public class SlimeAI : EnemyBehavior
         }
         else if (isAttacking)
         {
+
             FinishAttack();
+            StopParticles();
+
         }
 
         // Poison keeps ticking even after the player leaves attack range.
@@ -112,9 +130,10 @@ public class SlimeAI : EnemyBehavior
     private void BeginAttack()
     {
         isAttacking = true;
+        PlayParticles();
+        PlaySound();
         movement.SetAttacking(true);
         nextDamageTime = Time.time + damageStartDelay;
-
         onAttackStarted?.Invoke();
     }
 
@@ -185,10 +204,34 @@ public class SlimeAI : EnemyBehavior
             movement.SetAttacking(false);
 
         onAttackFinished?.Invoke();
+
     }
 
     private void OnDisable()
     {
         FinishAttack();
+    }
+    public void PlayParticles()
+    {
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            particle.Play();
+        }
+    }
+    public void StopParticles()
+    {
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    private void PlaySound()
+    {
+        if(AttackingSoundSource != null && AttackingSound != null)
+        {
+            AttackingSoundSource.PlayOneShot(AttackingSound);
+        }
     }
 }
