@@ -9,16 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.58752
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.58752
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.58752
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.862
+      value: -0.86157
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.2386
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.46136
+      value: 1.467
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -85,7 +97,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Ancient coin pile
   value: 175
-  inventoryPrefab: {fileID: 6857681353650560994, guid: b28b3990b80d6294da039cf7c24cedc5, type: 3}
+  inventoryPrefab: {fileID: 5901857545013142758, guid: b28b3990b80d6294da039cf7c24cedc5, type: 3}
   isShopItem: 0
   pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: 'OH GREAT LUCK! WE''RE RICH! Ancient gold coins a whole mountain of them. They''re solid gold and museums will pay a fortune for them. Too bad you need money to get out. '
