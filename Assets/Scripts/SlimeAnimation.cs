@@ -5,6 +5,8 @@ public class SlimeAnimation : MonoBehaviour
 {
     private Animator animator;
     private NavMeshAgent agent;
+    [SerializeField] private AudioSource MovingSoundSource = null;
+    [SerializeField] private AudioClip movingSound = null;
 
     void Start()
     {
@@ -19,6 +21,11 @@ public class SlimeAnimation : MonoBehaviour
 
         bool isMoving = agent.velocity.magnitude > 0.05f;
 
+        if(isMoving )
+        {
+            PlaySound();
+        }
+        
         animator.SetBool("IsMoving", isMoving);
     }
 
@@ -32,5 +39,21 @@ public class SlimeAnimation : MonoBehaviour
     public void StopAttack()
     {
         
+    }
+
+    private void PlaySound()
+    {
+        if(MovingSoundSource != null && movingSound != null)
+        {
+            if (!MovingSoundSource.isPlaying)
+            {
+                MovingSoundSource.clip = movingSound;
+                MovingSoundSource.Play();
+            }
+        }
+        else if (MovingSoundSource != null && MovingSoundSource.isPlaying)
+        {
+            MovingSoundSource.Stop();
+        }
     }
 }
