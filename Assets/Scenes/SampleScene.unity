@@ -3605,7 +3605,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Shop
   quotaTarget: 500
-  quotaProgress: 500
+  quotaProgress: 0
   partyMoney: 1000
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
