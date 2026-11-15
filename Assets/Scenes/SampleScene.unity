@@ -2584,6 +2584,7 @@ MonoBehaviour:
   quotaTarget: 500
   quotaProgress: 0
   partyMoney: 1000
+  total: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
