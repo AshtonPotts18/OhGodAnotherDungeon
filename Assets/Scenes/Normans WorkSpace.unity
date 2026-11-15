@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   mapGenerator: {fileID: 1089464871}
   levelManager: {fileID: 1373393910}
-  player: {fileID: 4702544181617325606, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
+  player: {fileID: 152987164414083479, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
   itemGenerator: {fileID: 1892160042}
   itemPool:
   - {fileID: 1087930004274743054, guid: f1397b6d3910e604d9718d0c241b1b9a, type: 3}
@@ -1732,6 +1732,7 @@ MonoBehaviour:
   quotaTarget: 100
   quotaProgress: 0
   partyMoney: 110
+  total: 0
 --- !u!1 &1373393908
 GameObject:
   m_ObjectHideFlags: 0
