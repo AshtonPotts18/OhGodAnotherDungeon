@@ -64,16 +64,6 @@ public class BuyStation : MonoBehaviour
             playerCamera = Camera.main;
         }
 
-        if (playerCamera == null)
-        {
-            Debug.LogError("BuyStation: No camera found. Tag the player camera MainCamera.");
-        }
-
-        if (purchaseSpawnPoint == null)
-        {
-            Debug.LogError("BuyStation: Assign a Purchase Spawn Point in the Inspector.");
-        }
-
         SpawnStock();
     }
 
@@ -112,7 +102,6 @@ public class BuyStation : MonoBehaviour
                 if (hitItem != null && availableItems.ContainsKey(hitItem))
                 {
                     currentItem = hitItem;
-                    Debug.Log("Looking at shop item: " + hitItem.ItemName);
                 }
             }
         }
@@ -123,7 +112,6 @@ public class BuyStation : MonoBehaviour
 
         if (promptObject == null)
         {
-            Debug.LogError("BuyStation: Prompt Object is not assigned!");
         }
         else
         {
@@ -131,16 +119,12 @@ public class BuyStation : MonoBehaviour
 
             if (showPrompt)
             {
-                Debug.Log("BuyStation: Showing purchase prompt.");
 
                 if (promptText != null)
                 {
                     promptText.text = $"{currentItem.ItemName}\n" + $"Price: ${currentItem.Value}\n" + "Left Click to Buy";
                 }
-                else
-                {
-                    Debug.LogError("BuyStation: Prompt Text is not assigned!");
-                }
+               
             }
         }
 
@@ -150,21 +134,11 @@ public class BuyStation : MonoBehaviour
     {
         if (stock == null) return;
 
-        Debug.Log($"BuyStation: Starting stock spawn. Entries: {stock.Length}");
-
         foreach (StockEntry entry in stock)
         {
-            if (entry.itemPrefab == null)
-            {
-                Debug.LogError("BuyStation: Item Prefab is not assigned!");
-                continue;
-            }
+            if (entry.itemPrefab == null) continue;
 
-            if (entry.displayPoint == null)
-            {
-                Debug.LogError($"BuyStation: Display Point missing for {entry.itemPrefab.name}!");
-                continue;
-            }
+            if (entry.displayPoint == null) continue;
 
             GameObject display = Instantiate(entry.itemPrefab, entry.displayPoint.position, entry.displayPoint.rotation);
             
@@ -175,8 +149,6 @@ public class BuyStation : MonoBehaviour
                 displayItem.isShopItem = true;
             }
 
-            Debug.Log($"BuyStation: Spawned {display.name} at {display.transform.position}");
-
             Rigidbody rb = display.GetComponentInChildren<Rigidbody>();
 
             if (rb != null)
@@ -186,11 +158,7 @@ public class BuyStation : MonoBehaviour
 
             Item item = display.GetComponentInChildren<Item>();
 
-            if (item == null)
-            {
-                Debug.LogError($"{display.name} has no Item component!");
-                continue;
-            }
+            if (item == null) continue;
 
             availableItems.Add(item, entry);
         }
@@ -202,8 +170,6 @@ public class BuyStation : MonoBehaviour
         {
             playerColliders.Add(other);
             playerNearby = true;
-
-            Debug.Log("Player entered buy station area.");
         }
     }
 
@@ -232,21 +198,13 @@ public class BuyStation : MonoBehaviour
 
         if (!availableItems.TryGetValue(currentItem, out StockEntry entry)) return;
 
-        if (Shop.Instance == null)
-        {
-            Debug.LogError("BuyStation: No Shop instance found.");
-            return;
-        }
+        if (Shop.Instance == null) return;
 
         if (purchaseSpawnPoint == null || entry.itemPrefab == null) return;
 
         int price = Mathf.Max(0, currentItem.Value);
 
-        if (Shop.Instance.BuyItem(price) == false)
-        {
-            Debug.Log("Not enough gold!");
-            return;
-        }
+        if (Shop.Instance.BuyItem(price) == false) return;
 
         string purchasedName = currentItem.ItemName;
         Item purchasedDisplay = currentItem;
@@ -278,7 +236,6 @@ public class BuyStation : MonoBehaviour
             promptObject.SetActive(false);
         }
 
-        Debug.Log("Purchased " + purchasedName);
         }
 
     private void UpdateShopMoneyUI()

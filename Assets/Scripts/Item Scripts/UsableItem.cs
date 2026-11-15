@@ -25,7 +25,6 @@ public class UsableItem : Item
     public override void SetHeld(bool isHeld)
     {
         base.SetHeld(isHeld);
-        Debug.Log(name + " " + isHeld + "<--UsableItem");
     }
     public override void UseItem()
     {
@@ -33,7 +32,6 @@ public class UsableItem : Item
         {
             itemUseSound.Play();
         }
-        Debug.Log(name + " Use Item <--UsableItem");
 
     }
 
