@@ -12,6 +12,11 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private CharacterController playerController;
     public Slider slider;
+    [Header("Player Brightness")]
+    [SerializeField, Range(0f, 2f)]
+    private float playerBrightness = 1f;
+
+    [SerializeField] private Light playerLight;
 
     public float sprintspeed = 1.25f;
 
@@ -30,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
         look = InputSystem.actions.FindAction("Look");
 
         if (playerController == null) playerController = GetComponent<CharacterController>();
+        if (playerLight == null) playerLight = GetComponentInChildren<Light>();
     }
 
     void Movement()
@@ -96,7 +102,8 @@ public class PlayerMovement : MonoBehaviour
             Movement();
         }
 
-        
+        if (playerLight != null) playerLight.intensity = playerBrightness;
+
     }
 
     void RunningSound()

@@ -8,16 +8,20 @@ public class Item : MonoBehaviour, IInteract
     [SerializeField] private int value = 100;
     [SerializeField] private InventoryItemDimensions inventoryPrefab;
     [HideInInspector] public bool isShopItem;
+
+    [TextArea(4, 15)]
+    [SerializeField] private string itemDescription;
     private Rigidbody rb;
 
     //Getters
     public InventoryItemDimensions InventoryPrefab { get; set; }
     public string ItemName { get; set; } = "item";
     public int Value { get; set; } = 100;
+    public string ItemDescription => itemDescription;
 
     public Vector3 pickupRotationOffset;
 
-    [TextArea(4, 15)] public string itemDescription;
+    
 
     public Item()
     {}

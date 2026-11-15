@@ -2681,6 +2681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHealth: 30
+  damageFlashDuration: 0.15
 --- !u!114 &1056748769486746215
 MonoBehaviour:
   m_ObjectHideFlags: 0

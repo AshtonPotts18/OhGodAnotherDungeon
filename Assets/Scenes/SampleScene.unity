@@ -2022,6 +2022,8 @@ MonoBehaviour:
   blockingLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  spawnSmokePrefab: {fileID: 0}
+  spawnSmokeColor: {r: 0.6, g: 0.2, b: 1, a: 1}
 --- !u!114 &1178532821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2042,6 +2044,9 @@ MonoBehaviour:
   - {fileID: 1087930004274743054, guid: f1397b6d3910e604d9718d0c241b1b9a, type: 3}
   - {fileID: 5310880052895582658, guid: 13b811e34a1c7714a97e2544a4e3b24a, type: 3}
   - {fileID: 2462064408466990033, guid: 5bd04139a0a0ee84fbea54da8179816d, type: 3}
+  - {fileID: 850631322133749168, guid: 3c68fdb88a45ebb4c9bfdbfcbc5845f0, type: 3}
+  - {fileID: 5992471310698194540, guid: 87e09d3677447504abf812897cfb1e5f, type: 3}
+  - {fileID: 196809952696576694, guid: b54d1ac0285a038478ca67319bbbdd68, type: 3}
   station: {fileID: 965338540}
   levelStartTime: 0
 --- !u!4 &1178532822

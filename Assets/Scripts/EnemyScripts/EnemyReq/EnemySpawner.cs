@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,6 +33,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Min(0.05f)] private float clearanceRadius = 0.4f;
     [SerializeField, Min(0.2f)] private float clearanceHeight = 1.8f;
     [SerializeField] private LayerMask blockingLayers = ~0;
+
+    [Header("Spawn Effect")]
+    [SerializeField] private ParticleSystem spawnSmokePrefab;
+    [SerializeField] private Color spawnSmokeColor = new Color(0.6f, 0.2f, 1f, 1f);
 
     private readonly List<Collider> roomAreas = new List<Collider>();
     private readonly List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -252,6 +257,8 @@ public class EnemySpawner : MonoBehaviour
                 spawnPosition,
                 prefabToSpawn.transform.rotation);
 
+            PlaySpawnSmoke(spawnPosition);
+
             enemy.tag = "Enemy";
             Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 
@@ -437,6 +444,47 @@ public class EnemySpawner : MonoBehaviour
 
         return Physics.CheckCapsule(lowerPoint, upperPoint, radius,
             blockingLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    private void PlaySpawnSmoke(Vector3 position)
+    {
+        if (spawnSmokePrefab == null)
+        {
+            Debug.LogWarning($"{name}: Spawn Smoke Prefab is not assigned.", this);
+            return;
+        }
+
+        ParticleSystem smoke = Instantiate(
+            spawnSmokePrefab,
+            position,
+            Quaternion.identity
+        );
+
+        ParticleSystem[] systems = smoke.GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem system in systems)
+        {
+            var main = system.main;
+            main.startColor = spawnSmokeColor;
+            main.loop = false;
+            main.playOnAwake = false;
+
+            system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        smoke.Play(true);
+        StartCoroutine(DestroySmokeWhenFinished(smoke));
+    }
+
+    private IEnumerator DestroySmokeWhenFinished(ParticleSystem smoke)
+    {
+        yield return null;
+
+        while (smoke != null && smoke.IsAlive(true))
+            yield return null;
+
+        if (smoke != null)
+            Destroy(smoke.gameObject);
     }
 
     private void RemoveDestroyedEnemies()
