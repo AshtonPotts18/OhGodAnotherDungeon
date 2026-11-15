@@ -88,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
-  worldPrefab: {fileID: 895594759323059250, guid: 33589594d4469f54ca1c5a699c2f76df, type: 3}
+  worldPrefab: {fileID: 9137935721938693287, guid: a3484f30487aa444198b480ae44607a5, type: 3}
   hotkeyAction: {fileID: 0}
   width: 1
   height: 2
