@@ -45,15 +45,27 @@ public class RandomlyGenerateRooms : MonoBehaviour
         {
             ClearMap();
             resultOutput = GenerateRooms();
-        } while (resultOutput != 0);
+        } 
+        while (resultOutput != 0);
 
-        //Temp
         if (navMeshSurface == null)
         {
             Debug.LogError("RandomlyGenerateRooms: NavMeshSurface is not assigned.", this);
             //return;
         }
 
+        //Delete the NavMesh on the Ceiling - Ashton
+        int defaultLayer = LayerMask.NameToLayer("Default");
+
+        if(defaultLayer < 0)
+        {
+            Debug.LogError("RandomlyGenerateRooms: Default layer not found.", this);
+            return roomList;
+        }
+
+        navMeshSurface.collectObjects = CollectObjects.All;
+        navMeshSurface.layerMask = 1 << defaultLayer; // Only include the Default layer
+        navMeshSurface.RemoveData();
         navMeshSurface.BuildNavMesh();
         
         return roomList;
