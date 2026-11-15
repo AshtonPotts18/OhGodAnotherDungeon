@@ -3074,6 +3074,8 @@ MonoBehaviour:
   lookSpeed: 30
   playerController: {fileID: 3210071393195323531}
   slider: {fileID: 7508006183706755870}
+  playerBrightness: 2
+  playerLight: {fileID: 1557216590297957914}
   sprintspeed: 1.25
   RunAudio: {fileID: 9168031275682988104}
   WalkAudio: {fileID: 5212000271374975140}

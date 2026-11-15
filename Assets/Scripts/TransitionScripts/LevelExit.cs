@@ -1,6 +1,6 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class LevelExit : MonoBehaviour, IInteract
@@ -21,6 +21,8 @@ public class LevelExit : MonoBehaviour, IInteract
 
     private void Awake()
     {
+        ConfigurePromptCanvas();
+
         if (promptObject != null)
             promptObject.SetActive(false);
     }
@@ -132,5 +134,35 @@ public class LevelExit : MonoBehaviour, IInteract
         GameManager.Instance.EndGame();
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+    }
+
+    private void ConfigurePromptCanvas()
+    {
+        if (promptObject == null)
+            return;
+
+        Canvas promptCanvas = promptObject.GetComponentInParent<Canvas>();
+        if (promptCanvas == null)
+        {
+            Debug.LogError("LevelExit: Prompt is not under a Canvas.", this);
+            return;
+        }
+
+        CanvasScaler scaler = promptCanvas.GetComponent<CanvasScaler>();
+        if (scaler == null)
+            scaler = promptCanvas.gameObject.AddComponent<CanvasScaler>();
+
+        scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        scaler.referenceResolution = new Vector2(1920f, 1080f);
+        scaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+        scaler.matchWidthOrHeight = 0.5f;
+
+        RectTransform promptRect = promptObject.GetComponent<RectTransform>();
+        if (promptRect != null)
+        {
+            promptRect.anchorMin = new Vector2(0.5f, 0.5f);
+            promptRect.anchorMax = new Vector2(0.5f, 0.5f);
+            promptRect.pivot = new Vector2(0.5f, 0.5f);
+        }
     }
 }
