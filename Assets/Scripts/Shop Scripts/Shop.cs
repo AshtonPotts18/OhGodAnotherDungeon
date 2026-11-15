@@ -126,6 +126,12 @@ public class Shop : MonoBehaviour, IVisitable
     }
 
 
+    public void QuotaPerLevel(int NewTarget)
+    {
+        quotaTarget = NewTarget;
+    }
+
+
     public void Load()
     {
         var Money = gameObject.GetComponent<IVisitable>();
