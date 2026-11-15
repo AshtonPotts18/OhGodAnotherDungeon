@@ -51,7 +51,6 @@ public class MagicMirror : UsableItem
 
         if(playerCamera == null)
         {
-            Debug.LogWarning("Magic Mirror: Player camera not assigned");
             return;
         }
 

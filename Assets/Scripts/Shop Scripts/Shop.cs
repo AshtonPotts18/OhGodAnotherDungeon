@@ -16,10 +16,13 @@ public class Shop : MonoBehaviour, IVisitable
 
     //Party Savings
     [SerializeField] private int partyMoney = 0;
+    //Total
+    [SerializeField] private int total = 0;
 
     public int QuotaTarget => quotaTarget;
     public int QuotaProgress => quotaProgress;
     public int PartyMoney => partyMoney;
+    public int Total => total;
 
     private void Awake()
     {
@@ -68,6 +71,8 @@ public class Shop : MonoBehaviour, IVisitable
             totalValue += Mathf.Max(0, item.Value);
         }
 
+        total += totalValue;
+
         int remainingQuota = Mathf.Max(0, quotaTarget - quotaProgress);
 
         int moneyForQuota = Mathf.Min(totalValue, remainingQuota);
@@ -82,9 +87,6 @@ public class Shop : MonoBehaviour, IVisitable
             Destroy(item.gameObject);
         }
 
-        Debug.Log($"Sold items for ${totalValue}");
-        Debug.Log($"Quota: ${quotaProgress} / ${quotaTarget}");
-        Debug.Log($"Spendable Money: ${partyMoney}");
 
         if (quotaProgress >= quotaTarget)
         {
@@ -104,9 +106,6 @@ public class Shop : MonoBehaviour, IVisitable
         {
             partyMoney -= cost;
         }
-
-        Debug.Log($"Purchased item for ${cost}");
-        Debug.Log($"Remaining Money: ${partyMoney}");
 
         return true;
     }

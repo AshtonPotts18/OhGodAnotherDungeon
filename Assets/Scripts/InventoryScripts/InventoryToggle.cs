@@ -68,7 +68,6 @@ public class InventoryToggle : MonoBehaviour
 
         if (prefab == null)
         {
-            Debug.LogError("No prefab assinged.");
             return;
         }
 
@@ -79,7 +78,6 @@ public class InventoryToggle : MonoBehaviour
         if (!dragController.PickupItem(uiItem))
         {
             Destroy(uiItem.gameObject);
-            Debug.LogError("Item rejected");
             return;
         }
 
@@ -95,7 +93,6 @@ public class InventoryToggle : MonoBehaviour
         UpdateCameraLock();
         UpdateCursorState();
 
-        Debug.Log("Item fits");
     }
     public void CloseInventory()
     {
