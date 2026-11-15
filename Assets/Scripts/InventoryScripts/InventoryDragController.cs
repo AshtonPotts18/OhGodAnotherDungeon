@@ -61,19 +61,16 @@ public class InventoryDragController : MonoBehaviour
     {
         if(item == null)
         {
-            Debug.LogWarning("Cannot pickup null item");
             return false;
         }
         
         if(isHolding)
         {
-            Debug.LogWarning("Already holding an inventory item.");
             return false;
         }
         
         if(inventory == null || itemLayer == null)
         {
-            Debug.LogError("no inventory or itemlayer assigned");
             return false;
         }
         
@@ -88,7 +85,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (inventory == null || itemLayer == null)
         {
-            Debug.LogError("Inventory or Item Layer is not assigned.");
             return;
         }
 
@@ -108,7 +104,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (rect == null)
         {
-            Debug.LogError("Inventory item has no RectTransform.");
             heldItem = null;
             return;
         }
@@ -201,7 +196,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (worldCamera == null)
         {
-            Debug.LogError("Cannot drop item: no Main Camera.");
             return;
         }
 
@@ -222,7 +216,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (originalItem == null)
         {
-            Debug.LogError("Original world item reference is missing.");
             return;
         }
 
@@ -262,7 +255,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (cameraLook == null)
         {
-            Debug.LogWarning("cameraLook not found");
             return;
         }
         

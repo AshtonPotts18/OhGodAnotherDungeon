@@ -30,15 +30,11 @@ public class PickupController : MonoBehaviour
             if (text.gameObject.name == "PickupPrompt")
             {
                 pickupPrompt = text;
-                Debug.Log("Pickup prompt assigned successfully!");
                 break;
             }
         }
 
-        if (pickupPrompt == null)
-        {
-            Debug.LogError("PickupPrompt was not found!");
-        }
+        
     }
     private void Update()
     {
@@ -72,13 +68,11 @@ public class PickupController : MonoBehaviour
     {
         if (interactAction == null || interactAction.action == null)
         {
-            Debug.LogError("pickup not assigned");
             return;
         }
 
         if (drop == null || drop.action == null)
         {
-            Debug.LogError("drop not assigned");
             return;
         }
         interactAction.action.performed += OnPickup;
@@ -159,11 +153,8 @@ public class PickupController : MonoBehaviour
         heldItem = null;
         targetedItem = null;
 
-        //Destroy(itemToMove.gameObject);
         itemToMove.gameObject.SetActive(false);
         itemToMove.transform.SetParent(null);
-        
-
     }
 
     public bool EquipItem(GameObject prefab)
@@ -179,8 +170,6 @@ public class PickupController : MonoBehaviour
 
         if (item == null)
         {
-            Debug.LogError("The world prefab need an Item component on its root.", instance);
-
             Destroy(instance);
             return false;
         }

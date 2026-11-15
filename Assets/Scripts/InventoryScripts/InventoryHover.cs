@@ -31,10 +31,6 @@ public class InventoryHover : MonoBehaviour
         {
             hotkeyController = FindAnyObjectByType<HotkeyController>();
 
-            if (hotkeyController != null)
-            {
-                Debug.Log("InventoryHover found player: " + hotkeyController.gameObject.name);
-            }
         }
 
         DetectItem();
@@ -59,22 +55,26 @@ public class InventoryHover : MonoBehaviour
         {
             hoveredItem = result.gameObject.GetComponentInParent<InventoryItemDimensions>();
 
-            if (hoveredItem != null)
-                break;
+            if (hoveredItem != null) break;
         }
 
-        if (hoveredItem == currentItem)
-            return;
+        if (hoveredItem == currentItem) return;
 
         if (currentItem != null && hotkeyController != null)
+        {
             hotkeyController.ClearHoveredItem(currentItem);
+        }
 
         currentItem = hoveredItem;
 
         if (currentItem != null)
+        {
             ShowDescription(currentItem);
+        }
         else
+        { 
             HideDescription();
+        }
     }
 
     private void ShowDescription(InventoryItemDimensions item)
@@ -92,7 +92,9 @@ public class InventoryHover : MonoBehaviour
         }
 
         if (itemName != null)
+        {
             itemName.text = "Name: " + item.originalItem.ItemName + "\nValue: " + item.originalItem.Value;
+        }
 
         if (itemDescription != null)
         {
@@ -104,7 +106,9 @@ public class InventoryHover : MonoBehaviour
     private void HideDescription()
     {
         if (descriptionPanel != null)
+        {
             descriptionPanel.SetActive(false);
+        }
     }
 
 }
