@@ -1388,6 +1388,8 @@ MonoBehaviour:
   blockingLayers:
     serializedVersion: 2
     m_Bits: 4294967295
+  spawnSmokePrefab: {fileID: 0}
+  spawnSmokeColor: {r: 0.6, g: 0.2, b: 1, a: 1}
 --- !u!114 &940685460
 MonoBehaviour:
   m_ObjectHideFlags: 0

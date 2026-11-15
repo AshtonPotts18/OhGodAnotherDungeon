@@ -84,9 +84,9 @@ public class SaveData : MonoBehaviour, IVisitor
     public void EraseData(GameData PlayerData)
     {
         string path_of_file = Path.Combine(Application.persistentDataPath, "SavedPlayer.json");
-        if (System.IO.File.Exists(path_of_file))
+        if (File.Exists(path_of_file))
         {
-            System.IO.File.Delete(path_of_file);
+            File.Delete(path_of_file);
         }
         PlayerData = new GameData();
     }
@@ -102,15 +102,14 @@ public class SaveData : MonoBehaviour, IVisitor
     }
 
 
+
     private void OnSceneChanged(Scene current, Scene next)
     {
         if(next.name == "Main Menu")
         { SavingData(Player); }
-
-        if(next.name == "Game Over")
+        else if(next.name == "Game Over")
         { EraseData(Player); }
-
-        if(next.name == "Level Transition")
+        else if(next.name == "Level Transition")
         {
             Player.SavedLevel += 1;
             SavingData(Player); 

@@ -1,5 +1,6 @@
-using UnityEngine;
 using System.Collections;
+using UnityEditor;
+using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, DamagingEnemy.IDamageable
 {
@@ -85,6 +86,7 @@ public class EnemyHealth : MonoBehaviour, DamagingEnemy.IDamageable
     private void Die()
     {
         Debug.Log($"{name} was defeated.", this);
+        GetComponent<EnemyNoises>().Died();
         Destroy(gameObject);
     }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class SoundSettings : MonoBehaviour
 {
@@ -13,8 +14,8 @@ public class SoundSettings : MonoBehaviour
     public Slider MasterSlider;
 
 
-    
- 
+
+
     public void SetVolumeForTag() //Depending on the Tag of the GameObject it will change all sounds for all the tags with a sound.
     {
 
