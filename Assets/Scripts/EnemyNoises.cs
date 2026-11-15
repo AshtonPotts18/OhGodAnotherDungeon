@@ -10,6 +10,7 @@ public class EnemyNoises : MonoBehaviour
     public List<AudioClip> ClipsDeath;
     private EnemyHealth EnemyDamaged;
     private float Comparer;
+
     void Start()
     {
         EnemyDamaged = GetComponent<EnemyHealth>();
@@ -18,6 +19,7 @@ public class EnemyNoises : MonoBehaviour
 
     void Update()
     {
+
         if(EnemyDamaged.CurrentHealth < Comparer)
         {
             if(!Source.isPlaying)
@@ -26,12 +28,11 @@ public class EnemyNoises : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    public void Died()
     {
         Source.Stop();
         AudioSource.PlayClipAtPoint(ClipsDeath[Random.Range(0, ClipsDeath.Count)], transform.position, 1.0f);
     }
-
 
     public void OnDamage()
     {
