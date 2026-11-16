@@ -77,8 +77,7 @@ public class Detection : MonoBehaviour
         if (Physics.Raycast( visionPoint.position, direction.normalized, out RaycastHit hit,
             distance, obstacleMask, QueryTriggerInteraction.Ignore))
         {
-            Debug.Log($"Sight blocked by {hit.collider.name} on layer " +
-              LayerMask.LayerToName(hit.collider.gameObject.layer));
+            LayerMask.LayerToName(hit.collider.gameObject.layer);
 
             reason = "blocked by an obstacle";
             Debug.DrawRay(visionPoint.position, direction, Color.red);
