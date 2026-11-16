@@ -284,7 +284,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'press F to Exit
+  m_text: 'press Left Click to Exit
 
 '
   m_isRightToLeft: 0

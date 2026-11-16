@@ -66,7 +66,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: 59cc541524418fb4495092d13324b38b, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a83c0adcebab77c45a1683c68bf66484, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryItemDimensions
-  worldPrefab: {fileID: 0}
+  worldPrefab: {fileID: 5992471310698194540, guid: 87e09d3677447504abf812897cfb1e5f, type: 3}
   hotkeyAction: {fileID: 0}
   width: 1
   height: 1

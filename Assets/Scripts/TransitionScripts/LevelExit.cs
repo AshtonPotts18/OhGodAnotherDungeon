@@ -15,7 +15,7 @@ public class LevelExit : MonoBehaviour, IInteract
     [SerializeField] private GameObject promptObject;
     [SerializeField] private TMP_Text promptText;
     [SerializeField] private string playerTag = "Player";
-    [SerializeField] private string exitPrompt = "Press F to Exit";
+    [SerializeField] private string exitPrompt = "Press Left Click to Exit";
 
     private bool playerNearby;
 
@@ -49,7 +49,7 @@ public class LevelExit : MonoBehaviour, IInteract
         promptText.text =
             Shop.Instance.QuotaProgress >= Shop.Instance.QuotaTarget
                 ? exitPrompt
-                : "Meet the quota to exit";
+                : "Find items and sell them to leave";
     }
 
     private void OnTriggerEnter(Collider other)
