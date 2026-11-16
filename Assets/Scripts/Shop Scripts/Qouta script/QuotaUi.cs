@@ -9,7 +9,7 @@ public class QuotaUI : MonoBehaviour
     {
         if (Shop.Instance == null || quotaText == null) return;
 
-        int collected = Shop.Instance.QuotaProgress + Shop.Instance.PartyMoney;
+        int collected = Shop.Instance.Total;
         int required = Shop.Instance.QuotaTarget;
 
         quotaText.text = $"QUOTA: ${collected} / ${required}";

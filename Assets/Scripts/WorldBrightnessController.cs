@@ -1,0 +1,43 @@
+using UnityEngine;
+using UnityEngine.UI;
+public class WorldBrightnessController : MonoBehaviour
+{
+    [SerializeField] private Slider brightnessSlider;
+    [SerializeField, Range(0f, 1f)] private float maxAmbientBrightness = 0.18f;
+    [SerializeField] private Color ambientTint = Color.white;
+
+    private const string SaveKey = "World Brightness";
+
+    // Load the saved brightness and apply it when this scene starts.
+    void Start()
+    {
+        float savedValue = brightnessSlider != null ? brightnessSlider.value : 0f;
+
+        if (PlayerPrefs.HasKey(SaveKey))
+        { savedValue = PlayerPrefs.GetFloat(SaveKey); }
+
+        if (brightnessSlider != null)
+        {
+            brightnessSlider.SetValueWithoutNotify(savedValue);
+            brightnessSlider.onValueChanged.AddListener(SetBrightness);
+        }
+
+        SetBrightness(savedValue);
+    }
+
+    // Applies the slider value to the world's ambient brightness and saves the preference.
+    public void SetBrightness(float sliderValue)
+    {
+        float brightness = Mathf.Clamp01(sliderValue) * maxAmbientBrightness;
+        RenderSettings.ambientLight = new Color(ambientTint.r * brightness, ambientTint.g * brightness, ambientTint.b * brightness, 1f);
+        PlayerPrefs.SetFloat(SaveKey, sliderValue);
+    }
+
+    private void OnDestroy()
+    {
+        if (brightnessSlider != null)
+        {
+            brightnessSlider.onValueChanged.RemoveListener(SetBrightness);
+        }
+    }
+}

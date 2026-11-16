@@ -85,16 +85,6 @@
                     "interactions": "",
                     "initialStateCheck": false,
                     "priority": 0
-                },
-                {
-                    "name": "OpenShowCase",
-                    "type": "Button",
-                    "id": "f651ed09-6b8a-4792-afa9-03e4e0310b8f",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
-                    "priority": 0
                 }
             ],
             "bindings": [
@@ -188,12 +178,12 @@
                 },
                 {
                     "name": "",
-                    "id": "d8b40210-34ff-49a8-bc0f-8c7a53753257",
-                    "path": "<Keyboard>/backquote",
+                    "id": "29dca448-89d1-4a6b-8cfa-6dd2535955a8",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "OpenShowCase",
+                    "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

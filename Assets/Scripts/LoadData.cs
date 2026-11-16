@@ -11,7 +11,6 @@ public class LoadData : MonoBehaviour, IVisitor
         string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
         if (File.Exists(Path_Of_File)) 
         {PlayerSaved = LoadingData();}
-        Debug.Log(PlayerSaved.PlayerHP);
     }
     public void VisitHealth(HealthandPlus Health)
     {

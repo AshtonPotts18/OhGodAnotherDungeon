@@ -26,15 +26,6 @@ public class HotkeyController : MonoBehaviour
 
         inventory = ItemPlacement.Instance;
 
-        if (inventory == null)
-        {
-            Debug.LogError("No active ItemPlacement registered in the scene.", this);
-        }
-
-        if (inventory == null)
-        {
-            Debug.LogError("HotkeyEquipmentController: ItemPlacement not found in the scene.", this);
-        }
     }
 
     private void OnEnable()
@@ -53,19 +44,6 @@ public class HotkeyController : MonoBehaviour
 
     void Update()
     {
-        if (hoveredItem != null)
-        {
-            Debug.Log("Currently hovering: " + hoveredItem.name);
-        }
-
-        if (hotkey1 != null && hotkey1.action.WasPressedThisFrame())
-            Debug.Log("KEY 1 DETECTED");
-
-        if (hotkey2 != null && hotkey2.action.WasPressedThisFrame())
-            Debug.Log("KEY 2 DETECTED");
-
-        if (hotkey3 != null && hotkey3.action.WasPressedThisFrame())
-            Debug.Log("KEY 3 DETECTED");
 
         HandleHotKeyAssignment();
 
@@ -79,27 +57,15 @@ public class HotkeyController : MonoBehaviour
     {
         if (item == null || inventory == null || pickupController == null) return;
 
-        if(item.worldPrefab == null)
-        {
-            Debug.LogWarning("No prefab assigned");
-            return;
-        }
+        if(item.worldPrefab == null) return;
 
-        if (pickupController.HeldItem != null && equippedItem == null)
-        {
-            Debug.LogWarning("Drop current item before equipping");
-            return;
-        }
+        if (pickupController.HeldItem != null && equippedItem == null) return;
 
         InventoryItemDimensions previousItem = equippedItem;
 
         if (previousItem != null)
         {
-            if (!inventory.TryReturnItemToGrid(previousItem))
-            {
-                Debug.LogWarning("Cannot swap items: there is no room in the inventory.");
-                return;
-            }
+            if (!inventory.TryReturnItemToGrid(previousItem)) return;
 
             pickupController.MoveHeldItem();
             equippedItem = null;
@@ -121,21 +87,13 @@ public class HotkeyController : MonoBehaviour
         item.SetGridPosition(oldX, oldY);
         item.SetRotation(oldRotation);
 
-        if (!inventory.TryReturnItemToGrid(item))
-        {
-            Debug.LogError("Failed to equip item and could not rturn to inventory", item);
-        }
     }
 
     private void UnequipToInventory()
     {
         if (equippedItem == null || pickupController == null || inventory == null) return;
 
-        if(!inventory.TryReturnItemToGrid(equippedItem))
-        {
-            Debug.LogWarning("Cannot unequip: there is no room in the inventory.");
-            return;
-        }
+        if(!inventory.TryReturnItemToGrid(equippedItem)) return;
 
         pickupController.MoveHeldItem();
         equippedItem = null;
@@ -180,9 +138,12 @@ public class HotkeyController : MonoBehaviour
         {
             if (item == null || !item.isPlaced) continue;
 
+            if (item.originalItem == null) continue;
+
             if (!IsHotkeyPressed(item)) continue;
 
             EquipInventoryItem(item);
+
             return;
         }
     }
@@ -232,99 +193,44 @@ public class HotkeyController : MonoBehaviour
 
     private void HandleHotKeyAssignment()
     {
-        //if (hoveredItem == null || Keyboard.current == null) return;
-        //
-        //if(!(hoveredItem.originalItem is UsableItem)) return;
-        //
-        //if(hotkey1.action.WasPressedThisFrame())
-        //{
-        //    AssignHotkey(hoveredItem, hotkey1);
-        //}
-        //else if (hotkey2.action.WasPressedThisFrame())
-        //{
-        //    AssignHotkey(hoveredItem, hotkey2);
-        //}
-        //else if (hotkey3.action.WasPressedThisFrame())
-        //{
-        //    AssignHotkey(hoveredItem, hotkey3);
-        //}
-        if (hoveredItem == null)
-            return;
+        if (hoveredItem == null) return;
 
-        if (hoveredItem.originalItem == null)
-        {
-            Debug.LogWarning("Hovered item has no originalItem!");
-            return;
-        }
+        if (hoveredItem.originalItem == null) return;
 
-        if (hoveredItem.originalItem is not UsableItem)
-            return;
+        if (!(hoveredItem.originalItem is UsableItem)) return;
 
-        if (hotkey1 == null || hotkey2 == null || hotkey3 == null)
-        {
-            Debug.LogError("One or more hotkey references are missing!");
-            return;
-        }
+        if (hotkey1 == null || hotkey2 == null || hotkey3 == null) return;
 
         if (hotkey1.action.WasPressedThisFrame())
         {
-            Debug.Log("Hotkey 1 pressed");
             AssignHotkey(hoveredItem, hotkey1);
         }
         else if (hotkey2.action.WasPressedThisFrame())
         {
-            Debug.Log("Hotkey 2 pressed");
             AssignHotkey(hoveredItem, hotkey2);
         }
         else if (hotkey3.action.WasPressedThisFrame())
         {
-            Debug.Log("Hotkey 3 pressed");
             AssignHotkey(hoveredItem, hotkey3);
         }
     }
 
     private void AssignHotkey(InventoryItemDimensions item, InputActionReference action)
     {
-        //if (action == null || action.action == null) return;
-        //
-        //InventoryItemDimensions[] items = FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
-        //
-        //foreach(InventoryItemDimensions existingItem in items)
-        //{
-        //    if(existingItem == item) continue;
-        //    
-        //    if(existingItem.HotkeyAction  != null && existingItem.HotkeyAction.action == action.action)
-        //    {
-        //        if(hotkeyPrompt != null)
-        //        {
-        //            hotkeyPrompt.text = "That key is already assigned!";
-        //            return;
-        //        }
-        //    }
-        //}
-        //
-        //item.SetHotkeyAction(action);
-        //
-        //if(hotkeyPrompt != null)
-        //{
-        //    hotkeyPrompt.text = "Assigned: " + action.action.name;
-        //}
-        //
-        //Debug.Log(item.originalItem.ItemName + " assigned to " + action.action.name);
         if (item == null || action == null || action.action == null) return;
 
-        InventoryItemDimensions[] items =
-            FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
+        InventoryItemDimensions[] items = FindObjectsByType<InventoryItemDimensions>(FindObjectsInactive.Include);
 
         foreach (InventoryItemDimensions existingItem in items)
         {
             if (existingItem == item) continue;
 
-            if (existingItem.HotkeyAction != null &&
-                existingItem.HotkeyAction.action == action.action)
+            if (existingItem.HotkeyAction != null && existingItem.HotkeyAction.action == action.action)
             {
                 if (hotkeyPrompt != null)
+                {
                     hotkeyPrompt.text = "That key is already assigned!";
+                }
 
                 return;
             }
@@ -332,9 +238,9 @@ public class HotkeyController : MonoBehaviour
 
         item.SetHotkeyAction(action);
 
-        Debug.Log("Assigned " + action.action.name + " to " + item.name);
-
         if (hotkeyPrompt != null)
+        {
             hotkeyPrompt.text = "Assigned: " + action.action.name;
+        }
     }
 }

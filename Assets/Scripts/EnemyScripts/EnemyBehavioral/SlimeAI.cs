@@ -21,6 +21,10 @@ public class SlimeAI : EnemyBehavior
     [SerializeField] private UnityEvent onDamageTick;
     [SerializeField] private UnityEvent onAttackFinished;
 
+    [Header("Sounds")]
+    [SerializeField] private AudioSource AttackingSoundSource = null;
+    [SerializeField] private AudioClip AttackingSound = null;
+
     private Transform player;
     private Detection detection;
     private Enemy_Movement movement;
@@ -33,6 +37,17 @@ public class SlimeAI : EnemyBehavior
     private float nextDamageTime;
     private bool poisonActive;
     private float poisonExpiresAt;
+    private ParticleSystem[] particles;
+
+    private void Awake()
+    {
+        particles = GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
 
     public override void Initialize(Transform target, Detection detector, Enemy_Movement mover)
     {
@@ -42,7 +57,6 @@ public class SlimeAI : EnemyBehavior
 
         if(player == null || detection == null || movement == null)
         {
-            Debug.LogError($"{name}: SlimeAI needs a player, Detection, and Enemy_Movement.", this);
             initialized = false;
             return;
         }
@@ -56,7 +70,6 @@ public class SlimeAI : EnemyBehavior
         nextDamageTime = 0f;
         initialized = true;
 
-        Debug.Log($"{name}: slime behavior initialized.", this);
     }
     private void Update()
     {
@@ -74,7 +87,10 @@ public class SlimeAI : EnemyBehavior
         }
         else if (isAttacking)
         {
+
             FinishAttack();
+            StopParticles();
+
         }
 
         // Poison keeps ticking even after the player leaves attack range.
@@ -112,9 +128,10 @@ public class SlimeAI : EnemyBehavior
     private void BeginAttack()
     {
         isAttacking = true;
+        PlayParticles();
+        PlaySound();
         movement.SetAttacking(true);
         nextDamageTime = Time.time + damageStartDelay;
-
         onAttackStarted?.Invoke();
     }
 
@@ -138,7 +155,6 @@ public class SlimeAI : EnemyBehavior
     {
         if (movement == null || movement.agent == null)
         {
-            Debug.LogWarning($"{name}: no NavMeshAgent found; slime speed was not adjusted.", this);
             return;
         }
 
@@ -166,11 +182,6 @@ public class SlimeAI : EnemyBehavior
         if (playerHealth != null || warnedMissingHealth)
             return;
 
-        Debug.LogWarning(
-            $"{name}: the player has no component implementing IDamageable. " +
-            "Slime damage will not reduce health.",
-            this);
-
         warnedMissingHealth = true;
     }
 
@@ -185,10 +196,34 @@ public class SlimeAI : EnemyBehavior
             movement.SetAttacking(false);
 
         onAttackFinished?.Invoke();
+
     }
 
     private void OnDisable()
     {
         FinishAttack();
+    }
+    public void PlayParticles()
+    {
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+            particle.Play();
+        }
+    }
+    public void StopParticles()
+    {
+        foreach (ParticleSystem particle in particles)
+        {
+            particle.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+    }
+
+    private void PlaySound()
+    {
+        if(AttackingSoundSource != null && AttackingSound != null)
+        {
+            AttackingSoundSource.PlayOneShot(AttackingSound);
+        }
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.UIElements;
 
 public class InventoryDragController : MonoBehaviour
 {
@@ -60,19 +61,16 @@ public class InventoryDragController : MonoBehaviour
     {
         if(item == null)
         {
-            Debug.LogWarning("Cannot pickup null item");
             return false;
         }
         
         if(isHolding)
         {
-            Debug.LogWarning("Already holding an inventory item.");
             return false;
         }
         
         if(inventory == null || itemLayer == null)
         {
-            Debug.LogError("no inventory or itemlayer assigned");
             return false;
         }
         
@@ -87,7 +85,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (inventory == null || itemLayer == null)
         {
-            Debug.LogError("Inventory or Item Layer is not assigned.");
             return;
         }
 
@@ -107,7 +104,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (rect == null)
         {
-            Debug.LogError("Inventory item has no RectTransform.");
             heldItem = null;
             return;
         }
@@ -132,7 +128,10 @@ public class InventoryDragController : MonoBehaviour
 
         if (rect == null) return;
 
-        rect.sizeDelta = new Vector2(heldItem.Width * inventory.cellSize.x + (heldItem.Width - 1) * inventory.spacing.x, heldItem.Height * inventory.cellSize.y + (heldItem.Height - 1) * inventory.spacing.y);
+        float width = heldItem.Width * inventory.cellSize.x + (heldItem.Width - 1) * inventory.spacing.x;
+        float height = heldItem.Height * inventory.cellSize.y + (heldItem.Height - 1) * inventory.spacing.y;
+
+        rect.sizeDelta = heldItem.isRotated ? new Vector2(height, width) : new Vector2(width, height);
     }
 
     private void UpdateHeldItemPosition()
@@ -192,19 +191,11 @@ public class InventoryDragController : MonoBehaviour
     private void DropIntoWorld(Vector2 mousePosition)
     {
         if (heldItem == null)return;
-        //GameObject prefab = heldItem.worldPrefab;
-        //
-        //if (prefab == null)
-        //{
-        //    Debug.LogWarning("Cannot drop item: assign its World Prefab.");
-        //    return;
-        //}
 
         Camera worldCamera = Camera.main;
 
         if (worldCamera == null)
         {
-            Debug.LogError("Cannot drop item: no Main Camera.");
             return;
         }
 
@@ -225,10 +216,9 @@ public class InventoryDragController : MonoBehaviour
 
         if (originalItem == null)
         {
-            Debug.LogError("Original world item reference is missing.");
             return;
         }
-        //Instantiate(prefab, dropPosition, prefab.transform.rotation);
+
         originalItem.transform.position = dropPosition;
         originalItem.gameObject.SetActive(true);
 
@@ -265,7 +255,6 @@ public class InventoryDragController : MonoBehaviour
 
         if (cameraLook == null)
         {
-            Debug.LogWarning("cameraLook not found");
             return;
         }
         

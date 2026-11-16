@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
@@ -32,6 +33,10 @@ public class EnemySpawner : MonoBehaviour
     [SerializeField, Min(0.05f)] private float clearanceRadius = 0.4f;
     [SerializeField, Min(0.2f)] private float clearanceHeight = 1.8f;
     [SerializeField] private LayerMask blockingLayers = ~0;
+
+    [Header("Spawn Effect")]
+    [SerializeField] private ParticleSystem spawnSmokePrefab;
+    [SerializeField] private Color spawnSmokeColor = new Color(0.6f, 0.2f, 1f, 1f);
 
     private readonly List<Collider> roomAreas = new List<Collider>();
     private readonly List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -252,8 +257,9 @@ public class EnemySpawner : MonoBehaviour
                 spawnPosition,
                 prefabToSpawn.transform.rotation);
 
+            PlaySpawnSmoke(spawnPosition);
+
             enemy.tag = "Enemy";
-            Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 
             EnemyDespawn despawn = enemy.GetComponent<EnemyDespawn>();
             if (despawn == null)
@@ -268,23 +274,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 movement.Initialize(roomAreas.ToArray(), player);
             }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: Enemy_Movement component not found.",
-                    enemy);
-            }
 
             Detection detection = enemy.GetComponentInChildren<Detection>();
             if (detection != null)
             {
                 detection.Initialize(player, movement);
-            }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: Detection component not found.",
-                    enemy);
             }
 
             EnemyBehavior behavior =
@@ -294,20 +288,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 behavior.Initialize(player, detection, movement);
             }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: No EnemyBehavior component found.",
-                    enemy);
-            }
 
             spawnedEnemies.Add(enemy);
             return true;
         }
-
-        Debug.LogWarning(
-            $"{name}: Couldn't find a clear NavMesh spawn point in any eligible room or hallway.",
-            this);
 
         return false;
     }
@@ -316,21 +300,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogError($"{name}: Player reference is null.", this);
             return null;
         }
 
         if (!player.gameObject.activeInHierarchy)
         {
-            Debug.LogError($"{name}: Player '{player.name}' is inactive.", player);
             return null;
         }
 
         Vector3 position = player.position;
-        Debug.Log(
-            $"{name}: Player={player.name}, position={position}, " +
-            $"collected areas={roomAreas.Count}",
-            player);
 
         foreach (Collider area in roomAreas)
         {
@@ -338,11 +316,6 @@ public class EnemySpawner : MonoBehaviour
                 continue;
 
             bool containsPlayer = IsInsideAreaXZ(area, position);
-            Debug.Log(
-                $"Area={area.name}, parent={area.transform.parent?.name}, " +
-                $"center={area.bounds.center}, size={area.bounds.size}, " +
-                $"containsPlayer={containsPlayer}",
-                area);
 
             if (containsPlayer)
                 return area;
@@ -371,17 +344,6 @@ public class EnemySpawner : MonoBehaviour
                position.x <= bounds.max.x &&
                position.z >= bounds.min.z &&
                position.z <= bounds.max.z;
-    }
-
-    private Collider FindRoomContaining(Vector3 position)
-    {
-        foreach (Collider roomArea in roomAreas)
-        {
-            if (IsPointInside(roomArea, position))
-                return roomArea;
-        }
-
-        return null;
     }
 
     private bool TryGetSpawnPoint(
@@ -437,6 +399,46 @@ public class EnemySpawner : MonoBehaviour
 
         return Physics.CheckCapsule(lowerPoint, upperPoint, radius,
             blockingLayers, QueryTriggerInteraction.Ignore);
+    }
+
+    private void PlaySpawnSmoke(Vector3 position)
+    {
+        if (spawnSmokePrefab == null)
+        {
+            return;
+        }
+
+        ParticleSystem smoke = Instantiate(
+            spawnSmokePrefab,
+            position,
+            Quaternion.identity
+        );
+
+        ParticleSystem[] systems = smoke.GetComponentsInChildren<ParticleSystem>(true);
+
+        foreach (ParticleSystem system in systems)
+        {
+            var main = system.main;
+            main.startColor = spawnSmokeColor;
+            main.loop = false;
+            main.playOnAwake = false;
+
+            system.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
+        }
+
+        smoke.Play(true);
+        StartCoroutine(DestroySmokeWhenFinished(smoke));
+    }
+
+    private IEnumerator DestroySmokeWhenFinished(ParticleSystem smoke)
+    {
+        yield return null;
+
+        while (smoke != null && smoke.IsAlive(true))
+            yield return null;
+
+        if (smoke != null)
+            Destroy(smoke.gameObject);
     }
 
     private void RemoveDestroyedEnemies()
