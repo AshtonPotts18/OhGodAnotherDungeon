@@ -130,6 +130,11 @@ public class Shop : MonoBehaviour, IVisitable
         quotaTarget = NewTarget;
     }
 
+    public void TotalReset()
+    {
+        total = 0;
+    }
+
 
     public void Load()
     {
