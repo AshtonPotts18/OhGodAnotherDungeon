@@ -34,6 +34,7 @@ public class SkeletonAnimation : MonoBehaviour
         if (collision.gameObject == GameManager.Player)
         {
             skeletonAnimator.SetTrigger("Attack");
+            GetComponent<EnemyNoises>().OnDamage();
         }
     }
 
