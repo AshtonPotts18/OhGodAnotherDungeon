@@ -11,14 +11,18 @@ public class WorldBrightnessController : MonoBehaviour
     // Load the saved brightness and apply it when this scene starts.
     void Start()
     {
-        //float savedValue = PlayerPrefs.GetFloat(SaveKey, brightnessSlider != null ? brightnessSlider.value : 0f);
-        //if (brightnessSlider != null)
-        //{
-        //    brightnessSlider.SetValueWithoutNotify(savedValue);
-        //    brightnessSlider.onValueChanged.AddListener(SetBrightness);
-        //}
-        //SetBrightness(savedValue);
-        SetBrightness(0.5f);
+        float savedValue = brightnessSlider != null ? brightnessSlider.value : 0f;
+
+        if (PlayerPrefs.HasKey(SaveKey))
+        { savedValue = PlayerPrefs.GetFloat(SaveKey); }
+
+        if (brightnessSlider != null)
+        {
+            brightnessSlider.SetValueWithoutNotify(savedValue);
+            brightnessSlider.onValueChanged.AddListener(SetBrightness);
+        }
+
+        SetBrightness(savedValue);
     }
 
     // Applies the slider value to the world's ambient brightness and saves the preference.

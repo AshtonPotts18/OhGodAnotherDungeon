@@ -53,7 +53,6 @@ public class Torch : UsableItem
     public override void SetHeld(bool held)
     {
         base.SetHeld(held);
-        Debug.Log($"[Torch] SetHeld({held}) on {name}", this);
     }
 
     public override void UseItem()
@@ -75,11 +74,6 @@ public class Torch : UsableItem
 
         if (Time.time >= nextBurnLogTime)
         {
-            Debug.Log(
-                $"[Torch] Burning: {remainingBurnTime:F1}s left.",
-                this
-            );
-
             nextBurnLogTime = Time.time + 1f;
         }
 
@@ -145,14 +139,6 @@ public class Torch : UsableItem
                 ParticleSystemStopBehavior.StopEmitting
             );
         }
-
-        if (!ApplyModel(unlitModel))
-            Debug.LogError(
-                "[Torch] Could not find a Mesh Filter on the Unlit Model prefab.",
-                this
-            );
-
-        Debug.Log("[Torch] Extinguished; changed to the unlit model.", this);
     }
 
     private bool ApplyModel(GameObject modelPrefab)

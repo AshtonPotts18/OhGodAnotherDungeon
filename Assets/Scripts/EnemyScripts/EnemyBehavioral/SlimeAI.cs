@@ -57,7 +57,6 @@ public class SlimeAI : EnemyBehavior
 
         if(player == null || detection == null || movement == null)
         {
-            Debug.LogError($"{name}: SlimeAI needs a player, Detection, and Enemy_Movement.", this);
             initialized = false;
             return;
         }
@@ -71,7 +70,6 @@ public class SlimeAI : EnemyBehavior
         nextDamageTime = 0f;
         initialized = true;
 
-        Debug.Log($"{name}: slime behavior initialized.", this);
     }
     private void Update()
     {
@@ -157,7 +155,6 @@ public class SlimeAI : EnemyBehavior
     {
         if (movement == null || movement.agent == null)
         {
-            Debug.LogWarning($"{name}: no NavMeshAgent found; slime speed was not adjusted.", this);
             return;
         }
 
@@ -184,11 +181,6 @@ public class SlimeAI : EnemyBehavior
     {
         if (playerHealth != null || warnedMissingHealth)
             return;
-
-        Debug.LogWarning(
-            $"{name}: the player has no component implementing IDamageable. " +
-            "Slime damage will not reduce health.",
-            this);
 
         warnedMissingHealth = true;
     }

@@ -28,7 +28,6 @@ public class EnemyHealth : MonoBehaviour, DamagingEnemy.IDamageable
             originalPropertyBlocks[i] = new MaterialPropertyBlock();
             damageRenderers[i].GetPropertyBlock(originalPropertyBlocks[i]);
         }
-        Debug.Log($"{name}: health initialized to {currentHealth}.", this);
     }
 
     private void TriggerDamageFlash()
@@ -74,17 +73,12 @@ public class EnemyHealth : MonoBehaviour, DamagingEnemy.IDamageable
         currentHealth = Mathf.Max(0f, currentHealth - amount);
         TriggerDamageFlash();
 
-        Debug.Log(
-            $"{name} took {amount} damage. Health: {currentHealth}/{maxHealth}",
-            this);
-
         if (currentHealth <= 0f) { Die(); }
 
     }
 
     private void Die()
     {
-        Debug.Log($"{name} was defeated.", this);
         Destroy(gameObject);
     }
 }

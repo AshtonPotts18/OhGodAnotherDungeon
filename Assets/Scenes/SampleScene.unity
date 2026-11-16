@@ -768,7 +768,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &410087040
 Light:
   m_ObjectHideFlags: 0
@@ -2143,7 +2143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldBrightnessController
   brightnessSlider: {fileID: 0}
-  maxAmbientBrightness: 1
+  maxAmbientBrightness: 0.18
   ambientTint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &1200565430
 Transform:
