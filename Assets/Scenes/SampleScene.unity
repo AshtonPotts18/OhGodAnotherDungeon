@@ -1531,7 +1531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25712cf4272452d40a6dcf9237f66dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  quotaBuffer: 0.1
+  quotaBuffer: 0.2
 --- !u!4 &969927395
 Transform:
   m_ObjectHideFlags: 0
@@ -1885,6 +1885,9 @@ MonoBehaviour:
   - {fileID: 2462064408466990033, guid: 5bd04139a0a0ee84fbea54da8179816d, type: 3}
   - {fileID: 5310880052895582658, guid: 13b811e34a1c7714a97e2544a4e3b24a, type: 3}
   - {fileID: 7843449733760610993, guid: 02fb1b8932e64894e93749307d7ff45f, type: 3}
+  - {fileID: 850631322133749168, guid: 3c68fdb88a45ebb4c9bfdbfcbc5845f0, type: 3}
+  - {fileID: 5992471310698194540, guid: 87e09d3677447504abf812897cfb1e5f, type: 3}
+  - {fileID: 196809952696576694, guid: b54d1ac0285a038478ca67319bbbdd68, type: 3}
   station: {fileID: 965338540}
   levelStartTime: 0
 --- !u!4 &1178532822
