@@ -8,7 +8,13 @@ public class ChangeAllAudio : MonoBehaviour
 
     private float clock = 0.05f;
 
-    private void FixedUpdate()
+    private void Start()
+    {
+        AllEffects();
+        AllMusic();
+        AllEnemies();
+    }
+    private void Update()
     {
         if(clock < 0.0f)
        { 
