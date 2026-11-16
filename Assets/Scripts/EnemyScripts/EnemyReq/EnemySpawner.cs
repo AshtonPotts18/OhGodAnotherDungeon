@@ -260,7 +260,6 @@ public class EnemySpawner : MonoBehaviour
             PlaySpawnSmoke(spawnPosition);
 
             enemy.tag = "Enemy";
-            Debug.Log($"Spawned {enemy.name} at {spawnPosition}", enemy);
 
             EnemyDespawn despawn = enemy.GetComponent<EnemyDespawn>();
             if (despawn == null)
@@ -275,23 +274,11 @@ public class EnemySpawner : MonoBehaviour
             {
                 movement.Initialize(roomAreas.ToArray(), player);
             }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: Enemy_Movement component not found.",
-                    enemy);
-            }
 
             Detection detection = enemy.GetComponentInChildren<Detection>();
             if (detection != null)
             {
                 detection.Initialize(player, movement);
-            }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: Detection component not found.",
-                    enemy);
             }
 
             EnemyBehavior behavior =
@@ -301,20 +288,10 @@ public class EnemySpawner : MonoBehaviour
             {
                 behavior.Initialize(player, detection, movement);
             }
-            else
-            {
-                Debug.LogError(
-                    $"{enemy.name}: No EnemyBehavior component found.",
-                    enemy);
-            }
 
             spawnedEnemies.Add(enemy);
             return true;
         }
-
-        Debug.LogWarning(
-            $"{name}: Couldn't find a clear NavMesh spawn point in any eligible room or hallway.",
-            this);
 
         return false;
     }
@@ -323,21 +300,15 @@ public class EnemySpawner : MonoBehaviour
     {
         if (player == null)
         {
-            Debug.LogError($"{name}: Player reference is null.", this);
             return null;
         }
 
         if (!player.gameObject.activeInHierarchy)
         {
-            Debug.LogError($"{name}: Player '{player.name}' is inactive.", player);
             return null;
         }
 
         Vector3 position = player.position;
-        Debug.Log(
-            $"{name}: Player={player.name}, position={position}, " +
-            $"collected areas={roomAreas.Count}",
-            player);
 
         foreach (Collider area in roomAreas)
         {
@@ -345,11 +316,6 @@ public class EnemySpawner : MonoBehaviour
                 continue;
 
             bool containsPlayer = IsInsideAreaXZ(area, position);
-            Debug.Log(
-                $"Area={area.name}, parent={area.transform.parent?.name}, " +
-                $"center={area.bounds.center}, size={area.bounds.size}, " +
-                $"containsPlayer={containsPlayer}",
-                area);
 
             if (containsPlayer)
                 return area;
@@ -378,17 +344,6 @@ public class EnemySpawner : MonoBehaviour
                position.x <= bounds.max.x &&
                position.z >= bounds.min.z &&
                position.z <= bounds.max.z;
-    }
-
-    private Collider FindRoomContaining(Vector3 position)
-    {
-        foreach (Collider roomArea in roomAreas)
-        {
-            if (IsPointInside(roomArea, position))
-                return roomArea;
-        }
-
-        return null;
     }
 
     private bool TryGetSpawnPoint(
@@ -450,7 +405,6 @@ public class EnemySpawner : MonoBehaviour
     {
         if (spawnSmokePrefab == null)
         {
-            Debug.LogWarning($"{name}: Spawn Smoke Prefab is not assigned.", this);
             return;
         }
 
