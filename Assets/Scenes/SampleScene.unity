@@ -1400,7 +1400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandEncounterController
   roomsRoot: {fileID: 136208476}
   player: {fileID: 5788787506615550010, guid: 4c5e50fdf4a35794ca0a53203977cb8a, type: 3}
-  snapHandPrefab: {fileID: 3150046739261248120, guid: ad35a892d5940b8458f57d74b8b36394, type: 3}
+  snapHandPrefab: {fileID: 354349043613001179, guid: c462b6e522a05ff4d898e9e0c880e7fd, type: 3}
   jazzHandPrefab: {fileID: 6898810954446306540, guid: 609c3ef0c3d505e43a78d27871ebb392, type: 3}
   roomBoundsObjectName: RoomBounds
   delayAfterPlayerAppears: 60
