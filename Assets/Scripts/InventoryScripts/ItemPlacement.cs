@@ -98,7 +98,6 @@ public class ItemPlacement : MonoBehaviour, IVisitable
 
         if (item.RectTransform == null)
         {
-            Debug.LogError("Cannot place item");
             return false;
         }
 
@@ -317,7 +316,6 @@ public class ItemPlacement : MonoBehaviour, IVisitable
                         f++;
                         Coordscounter += 2;
                         
-                        Debug.Log("2x2 inventory slot");
                     }
                 }
             }

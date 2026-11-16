@@ -26,15 +26,6 @@ public class HotkeyController : MonoBehaviour
 
         inventory = ItemPlacement.Instance;
 
-        if (inventory == null)
-        {
-            Debug.LogError("No active ItemPlacement registered in the scene.", this);
-        }
-
-        if (inventory == null)
-        {
-            Debug.LogError("HotkeyEquipmentController: ItemPlacement not found in the scene.", this);
-        }
     }
 
     private void OnEnable()
@@ -66,27 +57,15 @@ public class HotkeyController : MonoBehaviour
     {
         if (item == null || inventory == null || pickupController == null) return;
 
-        if(item.worldPrefab == null)
-        {
-            Debug.LogWarning("No prefab assigned");
-            return;
-        }
+        if(item.worldPrefab == null) return;
 
-        if (pickupController.HeldItem != null && equippedItem == null)
-        {
-            Debug.LogWarning("Drop current item before equipping");
-            return;
-        }
+        if (pickupController.HeldItem != null && equippedItem == null) return;
 
         InventoryItemDimensions previousItem = equippedItem;
 
         if (previousItem != null)
         {
-            if (!inventory.TryReturnItemToGrid(previousItem))
-            {
-                Debug.LogWarning("Cannot swap items: there is no room in the inventory.");
-                return;
-            }
+            if (!inventory.TryReturnItemToGrid(previousItem)) return;
 
             pickupController.MoveHeldItem();
             equippedItem = null;
@@ -108,21 +87,13 @@ public class HotkeyController : MonoBehaviour
         item.SetGridPosition(oldX, oldY);
         item.SetRotation(oldRotation);
 
-        if (!inventory.TryReturnItemToGrid(item))
-        {
-            Debug.LogError("Failed to equip item and could not rturn to inventory", item);
-        }
     }
 
     private void UnequipToInventory()
     {
         if (equippedItem == null || pickupController == null || inventory == null) return;
 
-        if(!inventory.TryReturnItemToGrid(equippedItem))
-        {
-            Debug.LogWarning("Cannot unequip: there is no room in the inventory.");
-            return;
-        }
+        if(!inventory.TryReturnItemToGrid(equippedItem)) return;
 
         pickupController.MoveHeldItem();
         equippedItem = null;
@@ -266,8 +237,6 @@ public class HotkeyController : MonoBehaviour
         }
 
         item.SetHotkeyAction(action);
-
-        Debug.Log("Assigned " + action.action.name + " to " + item.name);
 
         if (hotkeyPrompt != null)
         {

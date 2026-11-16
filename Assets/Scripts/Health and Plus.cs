@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,6 +15,10 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
     public Slider slider;
 
     public string GameOver;
+
+    public AudioSource Source;
+
+    public List<AudioClip> Sounds;
 
     [SerializeField] private string TagName;
 
@@ -65,6 +71,8 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
         if(other.gameObject.CompareTag(TagName) && clock <= 0)
         {
             slider.value -= 5;
+            if(!Source.isPlaying)
+            { Source.PlayOneShot(Sounds[Random.Range(0, Sounds.Count)]); }
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);

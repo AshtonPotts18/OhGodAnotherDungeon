@@ -63,7 +63,8 @@ public class LevelManager : MonoBehaviour
         _roomGenerator.roomCount = currentLevel.roomSpawnCount;
         _roomGenerator.roomSpawnRadius = currentLevel.roomSpawnRadius;
 
-        //Shop.Instance.QuotaTarget = currentLevel.quota;
+        Shop.Instance.QuotaPerLevel(currentLevel.quota);
+        Shop.Instance.TotalReset();
     }
     public void CompleteLevel()
     {

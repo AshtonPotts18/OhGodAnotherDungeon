@@ -85,11 +85,9 @@ public class Sell : MonoBehaviour
     
     private void OnInteract(InputAction.CallbackContext context)
     {
-        Debug.Log("Sell: Interact pressed!");
 
         if (!playerNearby)
         {
-            Debug.Log("Player is not near the sell area.");
             return;
         }
 
@@ -97,7 +95,6 @@ public class Sell : MonoBehaviour
 
         if (itemsInArea.Count == 0)
         {
-            Debug.Log("No items to sell.");
             return;
         }
 
@@ -117,7 +114,6 @@ public class Sell : MonoBehaviour
 
                 PlaySound(itemDropSound);
 
-                Debug.Log($"Item added to sell area: {item.ItemName}");
             }
 
             itemColliders[item].Add(other);
@@ -143,7 +139,6 @@ public class Sell : MonoBehaviour
                 itemColliders.Remove(item);
                 itemsInArea.Remove(item);
 
-                Debug.Log($"Item removed from sell area: {item.ItemName}");
             }
         }
 
@@ -162,7 +157,6 @@ public class Sell : MonoBehaviour
 
         if (Shop.Instance == null)
         {
-            Debug.LogError("No Shop instance found!");
             return;
         }
 
@@ -176,7 +170,6 @@ public class Sell : MonoBehaviour
             itemsInArea.Clear();
             itemColliders.Clear();
 
-            Debug.Log("Items successfully sold!");
         }
     }
 }
