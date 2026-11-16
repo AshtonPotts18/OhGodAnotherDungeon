@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -5,8 +6,10 @@ public class PlayerInterator : MonoBehaviour
 {
     private Camera playerCamera;
     [SerializeField] InputActionAsset inputActions;
+    [SerializeField] private TextMeshProUGUI interactPrompt;
     private InputAction interactAction;
     [SerializeField] float interactRange = 2.5f;
+    bool promptDisplayed = false;
 
 
     private void Awake()
@@ -16,8 +19,37 @@ public class PlayerInterator : MonoBehaviour
     }
     private void Start()
     {
-        
+        TextMeshProUGUI[] texts = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
         playerCamera = GameManager.PlayerCamera;
+
+        foreach (TextMeshProUGUI text in texts)
+        {
+            if (text.gameObject.name == "InteractPrompt")
+            {
+                interactPrompt = text;
+                break;
+            }
+        }
+    }
+
+    private void Update()
+    {
+
+        if (playerCamera == null) return;
+
+
+
+
+        Ray playerCrossHair = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+        if (Physics.Raycast(playerCrossHair, out RaycastHit hitInfo, interactRange) && hitInfo.collider.TryGetComponent<IInteract>(out _))
+        {
+            interactPrompt.text = "Left Click to Interact";
+            interactPrompt.gameObject.SetActive(true);
+        }
+        else
+        {
+            interactPrompt.gameObject.SetActive(false);
+        }
     }
 
     public void OnInteract(InputValue value)

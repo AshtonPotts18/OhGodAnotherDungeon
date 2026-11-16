@@ -4079,6 +4079,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerInterator
   inputActions: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
+  interactPrompt: {fileID: 1083560598511130738, guid: cab1ab0406b723644830108aa57b3a4b, type: 3}
   interactRange: 2.5
 --- !u!114 &2576386962948693580
 MonoBehaviour:
