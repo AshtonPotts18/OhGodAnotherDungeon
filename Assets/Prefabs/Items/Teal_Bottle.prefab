@@ -135,7 +135,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemName: Teal_Bottle
   value: 100
-  inventoryPrefab: {fileID: 0}
+  inventoryPrefab: {fileID: 6232177432067931886, guid: 9320b10bd21a27e4583bd1a22e009d21, type: 3}
   isShopItem: 0
-  pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: Just a Teal Bottle
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
