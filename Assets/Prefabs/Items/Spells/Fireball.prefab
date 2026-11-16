@@ -143,7 +143,6 @@ GameObject:
   - component: {fileID: 8309705710517885219}
   - component: {fileID: -8678547671712985671}
   - component: {fileID: -7396523577397948907}
-  - component: {fileID: 8675208184467789683}
   m_Layer: 0
   m_Name: Fireball
   m_TagString: Projectile
@@ -287,20 +286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FireballCollision
   damage: 30
---- !u!114 &8675208184467789683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3863065172375043055}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b80f5f810bbfe7d4da612f0424dca777, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SmokeEffect
   smokePuffPrefab: {fileID: 2263400886593003554, guid: 0cd9e54cc4fc33042988600b5948fbdb, type: 3}
-  Sizzle: {fileID: 8300000, guid: a8b62b429ba75d1408216ffe5e9852ff, type: 3}
 --- !u!1001 &5392289949676154402
 PrefabInstance:
   m_ObjectHideFlags: 0

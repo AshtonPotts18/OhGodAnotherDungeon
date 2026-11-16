@@ -83,7 +83,6 @@ public class RoomInformation : MonoBehaviour
         {
             if (roomDirection.x > 0)
             {
-                Debug.Log(firstRoomInfo + " Right");
                 firstRoomInfo.openDoors[(int)RoomDirection.RIGHT] = true;
                 firstRoomInfo.TryActivateDoor((int)RoomDirection.RIGHT);
 
@@ -92,7 +91,6 @@ public class RoomInformation : MonoBehaviour
             }
             else
             {
-                Debug.Log(firstRoomInfo + " Left");
                 firstRoomInfo.openDoors[(int)RoomDirection.LEFT] = true;
                 firstRoomInfo.TryActivateDoor((int)RoomDirection.LEFT);
 
@@ -104,7 +102,6 @@ public class RoomInformation : MonoBehaviour
         {
             if (roomDirection.z > 0)
             {
-                Debug.Log(firstRoomInfo + " Front");
                 firstRoomInfo.openDoors[(int)RoomDirection.FRONT] = true;
                 firstRoomInfo.TryActivateDoor((int)RoomDirection.FRONT);
 
@@ -113,7 +110,6 @@ public class RoomInformation : MonoBehaviour
             }
             else
             {
-                Debug.Log(firstRoomInfo + " Back");
                 firstRoomInfo.openDoors[(int)RoomDirection.BACK] = true;
                 firstRoomInfo.TryActivateDoor((int)RoomDirection.BACK);
 

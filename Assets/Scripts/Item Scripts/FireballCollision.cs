@@ -4,7 +4,12 @@ public class FireballCollision : MonoBehaviour
 {
     [SerializeField] private float damage = 30f;
 
+    
     private bool hasHit;
+
+    public GameObject smokePuffPrefab;
+
+    [System.Obsolete]
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -21,6 +26,14 @@ public class FireballCollision : MonoBehaviour
                 break;
             }
         }
+
+        if (smokePuffPrefab != null)
+        {
+            GameObject smokeInstance = Instantiate(smokePuffPrefab, transform.position, Quaternion.identity);
+           
+            Destroy(smokeInstance, 2.0f);
+        }
+
         Destroy(gameObject);
     }
 
