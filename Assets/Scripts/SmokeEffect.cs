@@ -13,7 +13,7 @@ public class SmokeEffect : MonoBehaviour
         if (smokePuffPrefab != null)
         {
             GameObject smokeInstance = Instantiate(smokePuffPrefab, transform.position, Quaternion.identity);
-            AudioSource.PlayClipAtPoint(Sizzle, transform.position, 1.0f);
+            //AudioSource.PlayClipAtPoint(Sizzle, transform.position, 1.0f);
 
             ParticleSystem ps = smokeInstance.GetComponent<ParticleSystem>();
             float totalDuration = ps.duration + ps.main.startLifetime.constantMax;

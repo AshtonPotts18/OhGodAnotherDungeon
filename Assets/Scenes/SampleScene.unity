@@ -1445,7 +1445,7 @@ MonoBehaviour:
   blockingLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  spawnSmokePrefab: {fileID: 0}
+  spawnSmokePrefab: {fileID: 7658756879619906710, guid: 0cd9e54cc4fc33042988600b5948fbdb, type: 3}
   spawnSmokeColor: {r: 0.6, g: 0.2, b: 1, a: 1}
 --- !u!114 &1178532821
 MonoBehaviour:
