@@ -2817,7 +2817,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -416.99997, y: 42.12197}
+  m_AnchoredPosition: {x: -416.99997, y: 13}
   m_SizeDelta: {x: 449.783, y: 91.7673}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &548852315
@@ -6361,7 +6361,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -416.99997, y: -263.30063}
+  m_AnchoredPosition: {x: -415, y: -330}
   m_SizeDelta: {x: 449.783, y: 265.6238}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1262929525
@@ -6397,7 +6397,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: " StylizedKayKit Dungeon Pack: by Kay Lousberg\n -findable Item models, and torch, room textures \n- From Itch.Io \nUnity Asset Store\nStylized Lowpoily Mimic : By Kara Kuzgun Studios \nVR Hands: By PolyOne studios \nStylized Magic Books: By Greyrats Lab           VFX URP - Fire Package: by Wallcoeur           Low Poly Slime: by Sr_bodinho           \t\tMagicMirror from Bathroom props: by Crow Assets                                                          Shop from Medieval Market stalls : by Poly Ronin         Stylized free skeleton : by ThunderForgeStudio "
+  m_Text: " StylizedKayKit Dungeon Pack: by Kay Lousberg\n -findable Item models, and torch, room textures \n- From Itch.Io \nUnity Asset Store\nStylized Lowpoily Mimic : By Kara Kuzgun Studios \nVR Hands: By PolyOne studios \nStylized Magic Books: By Greyrats Lab \nVFX URP - Fire Package: by Wallcoeur \nLow Poly Slime: by Sr_bodinho \nMagicMirror from Bathroom props: by Crow Assets                                                          Shop from Medieval Market stalls : by Poly Ronin         Stylized free skeleton : by ThunderForgeStudio "
 --- !u!222 &1262929526
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6883,7 +6883,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Music Loops Mini Set by Andrew Sitkov Music in unity store                                                                      Action RPG Music Free by \rEscalona Music\nMain Menu, Game Over,Level Transition, and Gameplay "
+  m_Text: "Music Loops Mini Set by Andrew Sitkov Music in unity store \nAction RPG Music Free by Escalona Music\nMain Menu, Game Over,Level Transition, and Gameplay "
 --- !u!222 &1373352435
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7841,7 +7841,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -416.99997, y: 186.97832}
+  m_AnchoredPosition: {x: -416.99997, y: 157.85632}
   m_SizeDelta: {x: 449.783, y: 65.91101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1608903736
@@ -8802,7 +8802,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -416.99997, y: -57.021706}
+  m_AnchoredPosition: {x: -415.00006, y: -123.721085}
   m_SizeDelta: {x: 449.783, y: 65.91101}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1917692776
