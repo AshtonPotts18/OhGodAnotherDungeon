@@ -19,7 +19,14 @@ public class LevelManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if(PlayerPrefs.HasKey("ResetL"))
+        {
+            if(PlayerPrefs.GetInt("ResetL") == 1)
+            {
+                CurrentLevel = 1;
+                PlayerPrefs.SetInt("ResetL", 0);
+            }
+        }
     }
 
     // Update is called once per frame

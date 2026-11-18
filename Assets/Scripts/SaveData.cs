@@ -37,6 +37,20 @@ public class SaveData : MonoBehaviour, IVisitor
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        if(PlayerPrefs.HasKey("Delete"))
+        {
+            if(PlayerPrefs.GetInt("Delete") == 1)
+            {
+                EraseData(Player);
+                PlayerPrefs.SetInt("Delete", 0);
+            }
+        }
+    }
+
+    void Start()
+    {
+        SceneManager.activeSceneChanged += OnSceneChanged;
     }
 
     //This is the Way PlayerHP gets saved to Player Game Data
@@ -91,15 +105,7 @@ public class SaveData : MonoBehaviour, IVisitor
         PlayerData = new GameData();
     }
 
-    void Start()
-    {
-        SceneManager.activeSceneChanged += OnSceneChanged;
-        
-        if(PlayerPrefs.GetInt("Deleted") == 1)
-        {
-            EraseData(Player);
-        }
-    }
+
 
 
 
