@@ -14,6 +14,7 @@ public class ItemGeneration : MonoBehaviour
 
     public List<GameObject> GenerateItems(int quota)
     {
+        currentMapItemValue = 0;
         targetValue = quota + Mathf.RoundToInt(quota * quotaBuffer);
         List<GameObject> spawnedItems = new List<GameObject>();
 

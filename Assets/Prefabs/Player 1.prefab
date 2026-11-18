@@ -7485,7 +7485,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Escape - Pause and UnPause
+  m_Text: Escape/P - Pause and UnPause
 --- !u!1 &8626107596534648402
 GameObject:
   m_ObjectHideFlags: 0
@@ -8609,7 +8609,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3658744963767627044, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 3
+      value: 2.999939
       objectReference: {fileID: 0}
     - target: {fileID: 3834763622684092475, guid: 5a203ff5ad85d814a8fc5d5f332625e3, type: 3}
       propertyPath: m_Name
