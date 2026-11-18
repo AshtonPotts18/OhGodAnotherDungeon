@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.86157
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2386
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.467
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da801b7f3d57aa4439d8935f197c48b9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -99,8 +99,8 @@ MonoBehaviour:
   value: 175
   inventoryPrefab: {fileID: 5901857545013142758, guid: b28b3990b80d6294da039cf7c24cedc5, type: 3}
   isShopItem: 0
-  pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: 'OH GREAT LUCK! WE''RE RICH! Ancient gold coins a whole mountain of them. They''re solid gold and museums will pay a fortune for them. Too bad you need money to get out. '
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
 --- !u!65 &6225585845093675235
 BoxCollider:
   m_ObjectHideFlags: 0

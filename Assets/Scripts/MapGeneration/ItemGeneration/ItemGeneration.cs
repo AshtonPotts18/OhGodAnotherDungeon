@@ -14,6 +14,7 @@ public class ItemGeneration : MonoBehaviour
 
     public List<GameObject> GenerateItems(int quota)
     {
+        currentMapItemValue = 0;
         targetValue = quota + Mathf.RoundToInt(quota * quotaBuffer);
         List<GameObject> spawnedItems = new List<GameObject>();
 
@@ -26,13 +27,6 @@ public class ItemGeneration : MonoBehaviour
             spawnedItems.Add(item);
             currentMapItemValue += itemComponent.Value;
 
-            if (ItemSpawnLocations.Count < 0)
-            {
-                Debug.Log("No More Valid Spawn Locations");
-                break;
-            }
-
-            Console.Write(item + " Spawned at " + item.transform.position);
         } while (targetValue >= currentMapItemValue);
 
 
