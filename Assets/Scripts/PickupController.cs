@@ -159,6 +159,7 @@ public class PickupController : MonoBehaviour
 
     public bool EquipItem(GameObject prefab)
     {
+        Debug.Log("EquipItem was called!");
         if (prefab == null || holdHand == null || heldItem != null)
         {
             return false;
@@ -168,11 +169,14 @@ public class PickupController : MonoBehaviour
 
         Item item = instance.GetComponent<Item>();
 
-        if (item == null)
-        {
-            Destroy(instance);
-            return false;
-        }
+        //if (item == null)
+        //{
+        //    Destroy(instance);
+        //    return false;
+        //}
+        Debug.Log("Prefab assigned: " + prefab.name);
+        Debug.Log("Instantiated object: " + instance.name);
+        Debug.Log("Item component found: " + (item != null));
 
         heldItem = item;
         heldItem.SetHeld(true);
