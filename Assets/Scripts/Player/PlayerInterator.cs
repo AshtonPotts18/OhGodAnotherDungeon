@@ -10,7 +10,7 @@ public class PlayerInterator : MonoBehaviour
     private InputAction interactAction;
     [SerializeField] float interactRange = 2.5f;
     bool promptDisplayed = false;
-
+    int shopLayerMask = 0;
 
     private void Awake()
     {
@@ -19,6 +19,7 @@ public class PlayerInterator : MonoBehaviour
     }
     private void Start()
     {
+        shopLayerMask = LayerMask.NameToLayer("Shop");
         TextMeshProUGUI[] texts = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
         playerCamera = GameManager.PlayerCamera;
 
@@ -37,11 +38,11 @@ public class PlayerInterator : MonoBehaviour
 
         if (playerCamera == null) return;
 
-
+        
 
 
         Ray playerCrossHair = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
-        if (Physics.Raycast(playerCrossHair, out RaycastHit hitInfo, interactRange) && hitInfo.collider.TryGetComponent<IInteract>(out _))
+        if (Physics.Raycast(playerCrossHair, out RaycastHit hitInfo, interactRange, ~shopLayerMask) && hitInfo.collider.TryGetComponent<IInteract>(out _))
         {
             interactPrompt.text = "Left Click to Interact";
             interactPrompt.gameObject.SetActive(true);
