@@ -539,6 +539,13 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector2Int targetDoor = _targetRoom.ClosestDoor(_startingRoom.anchor);
         RoomInformation hallInformation = hallway_prefab.GetComponent<RoomInformation>();
 
+        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom otherRoom) && otherRoom == _targetRoom)
+        {
+            RoomInformation.ConnectRooms(_startingRoom.roomInstance, _targetRoom.roomInstance);
+        }
+
+
+
         List<DungeonRoom> hallwaySegments = new List<DungeonRoom>();
 
         if (!TryFindHallwayPath(startingDoor, targetDoor, _hallwayInformation.floorSize, out List<Vector2Int> path)) // this if a path could not be found than this method returns false and exits GenerateHallwayPath
