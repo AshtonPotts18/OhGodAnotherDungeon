@@ -1,4 +1,5 @@
 using TMPro;
+using UnityEditor.PackageManager;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -9,7 +10,9 @@ public class PlayerInterator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interactPrompt;
     private InputAction interactAction;
     [SerializeField] float interactRange = 2.5f;
+    [SerializeField] string sellStationLayerName = "SellStation";
     int shopLayerMask = 0;
+    int sellStationLayerMask = 8;
 
     private void Awake()
     {
@@ -18,7 +21,9 @@ public class PlayerInterator : MonoBehaviour
     }
     private void Start()
     {
-        shopLayerMask = LayerMask.NameToLayer("Shop");
+        shopLayerMask = LayerMask.GetMask("Shop");
+        sellStationLayerMask = LayerMask.GetMask(sellStationLayerName);
+
         TextMeshProUGUI[] texts = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
         playerCamera = GameManager.PlayerCamera;
 
@@ -56,9 +61,16 @@ public class PlayerInterator : MonoBehaviour
     {
         if (value.isPressed)
         {
+            Ray playerLookDirection = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+            Debug.DrawRay(playerLookDirection.origin, playerLookDirection.direction);
+
+            if (Physics.Raycast(playerLookDirection, out RaycastHit _, interactRange, sellStationLayerMask))
+            {
+                return;
+            }
 
             //first check if something is in player's hand
-            if (GameManager.Player.TryGetComponent<PickupController>(out PickupController pickup) && pickup.HeldItem != null) // first check if there is an item in the player hands, if so then use it
+            else if (GameManager.Player.TryGetComponent<PickupController>(out PickupController pickup) && pickup.HeldItem != null) // first check if there is an item in the player hands, if so then use it
             {
                 Debug.Log(pickup.HeldItem.GetType());
                 pickup.HeldItem.UseItem();
@@ -66,7 +78,7 @@ public class PlayerInterator : MonoBehaviour
             }
             else
             {
-                Ray playerLookDirection = new Ray(playerCamera.transform.position, playerCamera.transform.forward);
+                
 
                 if (Physics.Raycast(playerLookDirection, out RaycastHit hitInfo, interactRange) && hitInfo.collider.TryGetComponent<IInteract>(out IInteract interatableObject))
                 { 
