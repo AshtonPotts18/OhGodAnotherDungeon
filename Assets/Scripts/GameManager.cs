@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+
         CheckInstance();
         Player = player;
     }
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         if (isLoadingNextLevel) { return; }
         StartCoroutine(LoadNextLevelRoutine());
     }
+
 
     private IEnumerator LoadNextLevelRoutine()
     {

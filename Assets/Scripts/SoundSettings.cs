@@ -14,6 +14,56 @@ public class SoundSettings : MonoBehaviour
     public Slider MasterSlider;
 
 
+    void Start()
+    {
+        if(PlayerPrefs.HasKey("MasterVolume"))
+        {
+            AudioListener.volume = PlayerPrefs.GetFloat("MasterVolume");
+        }
+
+        if (PlayerPrefs.HasKey(TagName[0]))
+        {
+            GameObject[] ObjectVolume = GameObject.FindGameObjectsWithTag(TagName[0]);
+            foreach (GameObject Object in ObjectVolume)
+            {
+                AudioSource sound = Object.GetComponent<AudioSource>();
+
+                if (sound != null)
+                {
+                    sound.volume = PlayerPrefs.GetFloat(SavedVolumeName[0]);
+                }
+            }
+        }
+
+        if (PlayerPrefs.HasKey(TagName[1]))
+        {
+            GameObject[] ObjectVolume = GameObject.FindGameObjectsWithTag(TagName[1]);
+            foreach (GameObject Object in ObjectVolume)
+            {
+                AudioSource sound = Object.GetComponent<AudioSource>();
+
+                if (sound != null)
+                {
+                    sound.volume = PlayerPrefs.GetFloat(SavedVolumeName[1]);
+                }
+            }
+        }
+
+        if (PlayerPrefs.HasKey(TagName[2]))
+        {
+            GameObject[] ObjectVolume = GameObject.FindGameObjectsWithTag(TagName[2]);
+            foreach (GameObject Object in ObjectVolume)
+            {
+                AudioSource sound = Object.GetComponent<AudioSource>();
+
+                if (sound != null)
+                {
+                    sound.volume = PlayerPrefs.GetFloat(SavedVolumeName[2]);
+                }
+            }
+        }
+
+    }
 
 
     public void SetVolumeForTag() //Depending on the Tag of the GameObject it will change all sounds for all the tags with a sound.
