@@ -4922,7 +4922,7 @@ MonoBehaviour:
   promptObject: {fileID: 320847622012821326}
   promptText: {fileID: 3242303481551096821}
   playerTag: Player
-  exitPrompt: Press F to Exit
+  exitPrompt: Left Click to Exit
 --- !u!65 &6256269072373801227
 BoxCollider:
   m_ObjectHideFlags: 0
