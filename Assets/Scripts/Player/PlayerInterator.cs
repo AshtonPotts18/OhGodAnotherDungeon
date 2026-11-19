@@ -9,7 +9,6 @@ public class PlayerInterator : MonoBehaviour
     [SerializeField] private TextMeshProUGUI interactPrompt;
     private InputAction interactAction;
     [SerializeField] float interactRange = 2.5f;
-    bool promptDisplayed = false;
     int shopLayerMask = 0;
 
     private void Awake()
