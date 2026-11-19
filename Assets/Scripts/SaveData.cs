@@ -14,6 +14,7 @@ public interface IVisitor // for the visitor function here I want the player inf
     void VisitHealth(HealthandPlus Health);
     void VisitShop(Shop Shop);
 
+    void VisitLevel(LevelManager Level);
     void VisitItems(ItemPlacement it);
 }
 
@@ -26,10 +27,31 @@ public class SaveData : MonoBehaviour, IVisitor
     public bool Delete = false;
     GameData Player = new GameData();
 
-    private static SaveData Instance;
+    public static SaveData Instance { get; private set; }
 
    void Awake()
     {
+
+        if (PlayerPrefs.HasKey("Delete"))
+        {
+            if (PlayerPrefs.GetInt("Delete") == 1)
+            {
+                EraseData(Player);
+                PlayerPrefs.SetInt("Delete", 0);
+            }
+            else
+            {
+                Player = GameObject.Find("LoadData").GetComponent<LoadData>().LoadingData();
+            }
+        }
+        else
+        {
+            Player = GameObject.Find("LoadData").GetComponent<LoadData>().LoadingData();
+        }
+
+       
+
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -38,14 +60,6 @@ public class SaveData : MonoBehaviour, IVisitor
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        if(PlayerPrefs.HasKey("Delete"))
-        {
-            if(PlayerPrefs.GetInt("Delete") == 1)
-            {
-                EraseData(Player);
-                PlayerPrefs.SetInt("Delete", 0);
-            }
-        }
     }
 
     void Start()
@@ -63,6 +77,11 @@ public class SaveData : MonoBehaviour, IVisitor
     public void VisitShop(Shop Shop)
     {
         Player.PlayerMoney = Shop.PartyMoney;
+    }
+
+    public void VisitLevel(LevelManager Level)
+    {
+        Player.SavedLevel = Level.CurrentLevel;
     }
 
     public void VisitItems(ItemPlacement it)
@@ -92,7 +111,7 @@ public class SaveData : MonoBehaviour, IVisitor
         File.WriteAllText(path_of_file, JsonUtility.ToJson(PlayerData));
         Debug.Log(Player.PlayerHP);
         PlayerPrefs.SetInt("Delete", 0);
-        Destroy(Instance.gameObject);
+
     }
 
     public void EraseData(GameData PlayerData)
@@ -105,21 +124,21 @@ public class SaveData : MonoBehaviour, IVisitor
         PlayerData = new GameData();
     }
 
-
-
-
+    public void SaveRemotly()
+    {
+        SavingData(Player);
+    }
 
     private void OnSceneChanged(Scene current, Scene next)
     {
-        if(next.name == "Main Menu")
-        { SavingData(Player); }
-        else if(next.name == "Game Over")
+
+        if(next.name == "Game Over")
         { EraseData(Player); }
-        else if(next.name == "Level Transition")
+        else if(next.name == "LevelTransition")
         {
-            Player.SavedLevel += 1;
             SavingData(Player); 
         }
+        SceneManager.activeSceneChanged -= OnSceneChanged;
     }
 }
 
@@ -131,7 +150,7 @@ public class GameData
 {
     public float PlayerHP = 100;
     public int PlayerMoney = 0;
-    public int SavedLevel = 0;
+    public int SavedLevel = 1;
     public List<InventoryData> Inv = new List<InventoryData>();
 }
 
