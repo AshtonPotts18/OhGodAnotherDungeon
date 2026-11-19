@@ -87,6 +87,12 @@ public class RandomlyGenerateRooms : MonoBehaviour
         List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
         List<Edge> paths = new List<Edge>();
 
+        foreach (Vector2 point in delaunayTrianglePoints)
+        {
+            Debug.Log(point + " ");
+        }
+
+
         if (triangles.Count == 0)
         {
             dungeonGrid = new DungeonGrid();
@@ -540,6 +546,13 @@ public class RandomlyGenerateRooms : MonoBehaviour
         RoomInformation hallInformation = hallway_prefab.GetComponent<RoomInformation>();
 
         List<DungeonRoom> hallwaySegments = new List<DungeonRoom>();
+
+        //check if the rooms are in eachothers doors
+
+        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom other) && other == _targetRoom)
+        {
+            RoomInformation.ConnectRooms(_startingRoom.roomInstance, _targetRoom.roomInstance);
+        }
 
         if (!TryFindHallwayPath(startingDoor, targetDoor, _hallwayInformation.floorSize, out List<Vector2Int> path)) // this if a path could not be found than this method returns false and exits GenerateHallwayPath
         {
