@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class InventoryHover : MonoBehaviour
 {
+    [SerializeField] private InventoryToggle inventoryPanel;
     [SerializeField] private GameObject descriptionPanel;
     [SerializeField] private Text itemName;
     [SerializeField] private Text itemDescription;
@@ -19,6 +20,8 @@ public class InventoryHover : MonoBehaviour
 
     private void Start()
     {
+       // TryGetComponent<InventoryToggle>(out inventoryPanel);
+
         if (descriptionPanel != null)
         {
             descriptionPanel.SetActive(false);
@@ -30,16 +33,22 @@ public class InventoryHover : MonoBehaviour
         if (hotkeyController == null)
         {
             hotkeyController = FindAnyObjectByType<HotkeyController>();
-
         }
+
+        //if (inventoryPanel.IsOpen == false)
+        //{
+        //    HideDescription();
+        //}
 
         DetectItem();
     }
 
     private void DetectItem()
     {
-        if (EventSystem.current == null || Mouse.current == null)
-            return;
+
+        
+
+        if (EventSystem.current == null || Mouse.current == null) return;
 
         pointerData = new PointerEventData(EventSystem.current)
         {
@@ -78,7 +87,12 @@ public class InventoryHover : MonoBehaviour
     }
 
     private void ShowDescription(InventoryItemDimensions item)
-    { 
+    {
+        if (inventoryPanel.IsOpen == false)
+        {
+            descriptionPanel.SetActive(false);
+        }
+
         if (hotkeyController != null)
         {
             hotkeyController.SetHoveredItem(item);

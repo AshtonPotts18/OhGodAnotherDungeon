@@ -107,11 +107,11 @@ RectTransform:
   m_Children:
   - {fileID: 8043034594227466873}
   - {fileID: 8350246017158996039}
-  m_Father: {fileID: 2538814028531594363}
+  m_Father: {fileID: 5900117893520516894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -17.44812, y: -30.5872}
+  m_AnchoredPosition: {x: 1286.8268, y: -30.58714}
   m_SizeDelta: {x: 100, y: 61.6699}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &7339819334022887390
@@ -5034,6 +5034,7 @@ RectTransform:
   m_Children:
   - {fileID: 3056424215531309367}
   - {fileID: 7875989635560357116}
+  - {fileID: 2739954810476687159}
   m_Father: {fileID: 2538814028531594363}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
@@ -5112,6 +5113,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec1c6f09409f2e469016c3266fd1884, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryHover
+  inventoryPanel: {fileID: 4606887084373793831}
   descriptionPanel: {fileID: 152987164414083479}
   itemName: {fileID: 1764532424964608360}
   itemDescription: {fileID: 3559854763549661368}
@@ -7896,7 +7898,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5900117893520516894}
-  - {fileID: 2739954810476687159}
   m_Father: {fileID: 5788787506615550010}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7981,8 +7982,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryToggle
   inventoryPanel: {fileID: 5606481924796373601}
+  descriptionPanel: {fileID: 152987164414083479}
   dragController: {fileID: 6643675636226390844}
-  pickupController: {fileID: 0}
+  pickupController: {fileID: 1190590102167744848}
 --- !u!114 &5316199726112282523
 MonoBehaviour:
   m_ObjectHideFlags: 0
