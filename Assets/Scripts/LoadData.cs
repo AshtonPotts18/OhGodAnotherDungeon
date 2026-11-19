@@ -3,18 +3,50 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 
+
 public class LoadData : MonoBehaviour, IVisitor
 {
+
     private GameData PlayerSaved = new GameData();
-    private void OnEnable() // This should only turn on if the Player chooses to load a player so the object must be disabled if not
+
+    public static LoadData Instance { get; private set; }
+    void Awake() // This should only turn on if the Player chooses to load a player so the object must be disabled if not
     {
         string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json"); // SavedPlayer.json is the name of the file
         if (File.Exists(Path_Of_File)) 
-        {PlayerSaved = LoadingData();}
+        {
+            if(PlayerPrefs.HasKey("Delete"))
+            {
+                if(PlayerPrefs.GetInt("Delete") == 1)
+                {
+                    PlayerSaved = new GameData();
+                }
+                else
+                {
+                    PlayerSaved = LoadingData();
+                }
+            }
+            else
+            {
+                PlayerSaved = LoadingData();
+            }
+
+
+        }
     }
     public void VisitHealth(HealthandPlus Health)
     {
         Health.slider.value = PlayerSaved.PlayerHP;
+    }
+
+    public void VisitLevel(LevelManager Level)
+    {
+        string Path_Of_File = Path.Combine(Application.persistentDataPath, "SavedPlayer.json");
+
+        if (File.Exists(Path_Of_File))
+        { PlayerSaved = LoadingData(); }
+
+        Level.CurrentLevel = PlayerSaved.SavedLevel;
     }
 
     public void VisitItems(ItemPlacement Inv)
@@ -47,7 +79,7 @@ public class LoadData : MonoBehaviour, IVisitor
             string json_file = File.ReadAllText(Path_Of_File);
             return JsonUtility.FromJson<GameData>(json_file); // returns the GameData
         }
-        return null;
+        return new GameData();
     }
 
 

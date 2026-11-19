@@ -87,6 +87,12 @@ public class RandomlyGenerateRooms : MonoBehaviour
         List<Triangle> triangles = DelaunayTriangleAlgorithm.DelaunayTriangulation(delaunayTrianglePoints); // room are generating out of range for valid triangles
         List<Edge> paths = new List<Edge>();
 
+        foreach (Vector2 point in delaunayTrianglePoints)
+        {
+            Debug.Log(point + " ");
+        }
+
+
         if (triangles.Count == 0)
         {
             dungeonGrid = new DungeonGrid();
@@ -96,6 +102,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         }        
 
         TrianglesToPaths(triangles, paths); //adds triangles to paths
+        CheckAllRoomsConnect(paths, dungeonRooms.Keys.ToList()); // if a room is not in the path it gets connected to a random room
 
         SpawnDungeonRooms(dungeonRooms);
 
@@ -207,24 +214,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
                 }
             }
 
-
-            //if (_currentHallPosition != _roomClosestDoor)
-            //{
-            //    int attemptCounter = 0;
-            //    do // this walks the currentPosition to the closest door to current position if not already there.
-            //    {
-            //        nextHallPosition = DungeonGridWalkRandomDirection(_currentHallPosition, _roomClosestDoor); // if it cant move on because it is running into a room, connect that room
-            //        attemptCounter++;
-            //        if (attemptCounter > 1000)
-            //        {
-            //            ConnectHallToRoom(_currentHallPosition, dungeonGrid.RoomAtCell(nextHallPosition).ClosestDoor(_currentHallPosition), _queue, _endOfHallway, _hallInformation, dungeonGrid.RoomAtCell(nextHallPosition));
-            //        }
-
-            //    } while (!dungeonGrid.IsRoomOccupied(nextHallPosition) && _roomClosestDoor != nextHallPosition); // If there is a room and the next position is not the hallway end
-            //}
-
-
-
             _currentHallPosition = nextHallPosition; // sets the position for the closest door (next position) to the current position
             _queue.Enqueue(_currentHallPosition); // this will add the closest door the the queue
             
@@ -238,13 +227,6 @@ public class RandomlyGenerateRooms : MonoBehaviour
             dungeonRooms.Add(nextHallPosition, currHall);
         }
         
-
-
-
-
-        //Debug.Log("<color=green>ROOM ENTRY: </color?" + _currentHallPosition);
-
-
         // ROOM EXIT: this walks through the room towards the door closest to the wallways end point
         Vector2Int exitDoor = _connectedRoom.ClosestDoor(_endOfHallway);
         while (_currentHallPosition != exitDoor) // this will walk Through The room // exit door inclusive
@@ -267,36 +249,54 @@ public class RandomlyGenerateRooms : MonoBehaviour
             dungeonRooms.Add(nextHallPosition, currHall);
         }
 
-
     }
+
+    private void CheckAllRoomsConnect(List<Edge> _paths, List<Vector2Int> _roomList)
+    {
+        // this method is going to make sure that all of the points connect through a minimal search tree
+
+        // check all points are connected
+
+        HashSet<Vector2Int> listOfRooms = new HashSet<Vector2Int>(_roomList);
+
+        HashSet<Vector2Int> visitedPoints = new HashSet<Vector2Int>();
+
+        foreach (Edge path in _paths) // this removes all points that visited by the paths
+        {
+            if (listOfRooms.Contains(Vector2Int.RoundToInt(path.a)))
+            {
+                listOfRooms.Remove(Vector2Int.RoundToInt(path.a));
+                visitedPoints.Add(Vector2Int.RoundToInt(path.a));
+            }
+
+            if (listOfRooms.Contains(Vector2Int.RoundToInt(path.b)))
+            {
+                listOfRooms.Remove(Vector2Int.RoundToInt(path.b));
+                visitedPoints.Add(Vector2Int.RoundToInt(path.b));
+            }
+        }
+
+        // all of the rooms connected by paths have been removed from the listOfRooms
+
+        while (listOfRooms.Count > 0) // creates a path to all rooms not already connected
+        {
+            Vector2Int currentPoint = listOfRooms.First();
+            Vector2Int randomVisitedRoom = visitedPoints.ElementAt(UnityEngine.Random.Range(0, listOfRooms.Count - 1));
+
+            _paths.Add(new Edge(currentPoint, randomVisitedRoom));
+
+            listOfRooms.Remove(currentPoint);
+            visitedPoints.Add(currentPoint);
+        }
+    }
+
+
 
     private void ReservePath(Vector2Int _startingPoint, Vector2Int _target, Queue<Vector2Int> _queue, bool _goThroughRoom = false, Vector2Int _hallwayEnd = new Vector2Int()) // starting point inclusive
     {
         RoomInformation hallwayInformation = hallway_prefab.GetComponent<RoomInformation>();
 
-        //Vector2Int currentPosition = _startingPoint;
         int attemptCounter = 0;
-
-        //do
-        //{
-        //    Vector2Int nextPosition;
-        //    do
-        //    {
-        //        nextPosition = DungeonGridWalkRandomDirection(currentPosition, _target);
-
-        //        attemptCounter++;
-        //        if (attemptCounter > 1000)
-        //        {
-        //            ReservePath(nextPosition, dungeonGrid.RoomAtCell(nextPosition).ClosestDoor(nextPosition), _queue);
-
-        //        }
-        //    } while (dungeonGrid.IsRoomOccupied(nextPosition));
-        //    currentPosition = nextPosition;
-        //    _queue.Enqueue(currentPosition);
-
-        //} while (currentPosition != _target);
-
-
 
         Vector2Int currentPosition = _startingPoint;
 
@@ -545,7 +545,21 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector2Int targetDoor = _targetRoom.ClosestDoor(_startingRoom.anchor);
         RoomInformation hallInformation = hallway_prefab.GetComponent<RoomInformation>();
 
+        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom otherRoom) && otherRoom == _targetRoom)
+        {
+            RoomInformation.ConnectRooms(_startingRoom.roomInstance, _targetRoom.roomInstance);
+        }
+
+
+
         List<DungeonRoom> hallwaySegments = new List<DungeonRoom>();
+
+        //check if the rooms are in eachothers doors
+
+        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom other) && other == _targetRoom)
+        {
+            RoomInformation.ConnectRooms(_startingRoom.roomInstance, _targetRoom.roomInstance);
+        }
 
         if (!TryFindHallwayPath(startingDoor, targetDoor, _hallwayInformation.floorSize, out List<Vector2Int> path)) // this if a path could not be found than this method returns false and exits GenerateHallwayPath
         {

@@ -156,6 +156,14 @@ public class Shop : MonoBehaviour, IVisitable
                 Money.Accept(PlayerSave);                           // This row as well.
             }
         }
+        else if(next.name =="LevelTransition")
+        {
+            var Money = gameObject.GetComponent<IVisitable>();
+            if (PlayerSave != null)
+            {  //Needs set condition to not be recorded every second!!
+                Money.Accept(PlayerSave);                           // This row as well.
+            }
+        }
         
         if(next.name == "Game Over")
         {

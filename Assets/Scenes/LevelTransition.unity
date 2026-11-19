@@ -975,6 +975,7 @@ GameObject:
   - component: {fileID: 1206088292}
   - component: {fileID: 1206088291}
   - component: {fileID: 1206088294}
+  - component: {fileID: 1206088295}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -1046,6 +1047,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1206088295}
+        m_TargetAssemblyTypeName: SaveEverything, Assembly-CSharp
+        m_MethodName: SaveAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 89256651}
         m_TargetAssemblyTypeName: TransitionScreenUI, Assembly-CSharp
         m_MethodName: ContinueToNextLevel
@@ -1120,6 +1133,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5361861f004f94e478faad9c6b05721a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Start
+--- !u!114 &1206088295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1206088289}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3673b0e6edcebf48aaec4f18a7dddbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveEverything
 --- !u!1 &1224533772
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,6 +2161,7 @@ GameObject:
   - component: {fileID: 1857269115}
   - component: {fileID: 1857269114}
   - component: {fileID: 1857269113}
+  - component: {fileID: 1857269116}
   m_Layer: 5
   m_Name: ExitButton
   m_TagString: Untagged
@@ -2207,6 +2233,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 1857269116}
+        m_TargetAssemblyTypeName: SaveEverything, Assembly-CSharp
+        m_MethodName: SaveAll
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 89256651}
         m_TargetAssemblyTypeName: TransitionScreenUI, Assembly-CSharp
         m_MethodName: ExitToMainMenu
@@ -2257,6 +2295,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1857269111}
   m_CullTransparentMesh: 1
+--- !u!114 &1857269116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1857269111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d3673b0e6edcebf48aaec4f18a7dddbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveEverything
 --- !u!1 &1858456356
 GameObject:
   m_ObjectHideFlags: 0
