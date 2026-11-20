@@ -5,11 +5,13 @@ public class InventoryToggle : MonoBehaviour
 {
     //References
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject descriptionPanel;
     [SerializeField] private InventoryDragController dragController;
     [SerializeField] private PickupController pickupController;
     //field
     private bool isOpen = false;
 
+    public bool IsOpen => isOpen;
     private void Start()
     {
         if (inventoryPanel != null)
@@ -47,6 +49,11 @@ public class InventoryToggle : MonoBehaviour
     }
     public void ToggleInventory()
     {
+        //if(!isOpen)
+        //{
+        //    descriptionPanel.gameObject.SetActive(false);
+        //}
+
         isOpen = !isOpen;
 
         if (inventoryPanel != null)

@@ -23,8 +23,8 @@ public class LevelExit : MonoBehaviour, IInteract
     {
         ConfigurePromptCanvas();
 
-        if (promptObject != null)
-            promptObject.SetActive(false);
+        //if (promptObject != null)
+        //    promptObject.SetActive(false);
     }
 
     private void Update()
@@ -37,8 +37,8 @@ public class LevelExit : MonoBehaviour, IInteract
         //    return;
         //}
 
-        if (!playerNearby || promptText == null)
-            return;
+        //if (!playerNearby || promptText == null)
+        //    return;
 
         if (Shop.Instance == null)
         {
@@ -49,31 +49,31 @@ public class LevelExit : MonoBehaviour, IInteract
         promptText.text =
             Shop.Instance.QuotaProgress >= Shop.Instance.QuotaTarget
                 ? exitPrompt
-                : "Find items and sell them to leave";
+                : promptText.text;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log("LevelExit trigger detected the player.", this);
-        if (!IsPlayer(other))
-            return;
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    //Debug.Log("LevelExit trigger detected the player.", this);
+    //    if (!IsPlayer(other))
+    //        return;
 
-        playerNearby = true;
+    //    playerNearby = true;
 
-        if (promptObject != null)
-            promptObject.SetActive(true);
-    }
+    //    if (promptObject != null)
+    //        promptObject.SetActive(true);
+    //}
 
-    private void OnTriggerExit(Collider other)
-    {
-        if (!IsPlayer(other))
-            return;
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (!IsPlayer(other))
+    //        return;
 
-        playerNearby = false;
+    //    playerNearby = false;
 
-        if (promptObject != null)
-            promptObject.SetActive(false);
-    }
+    //    if (promptObject != null)
+    //        promptObject.SetActive(false);
+    //}
 
     private bool IsPlayer(Collider other)
     {
