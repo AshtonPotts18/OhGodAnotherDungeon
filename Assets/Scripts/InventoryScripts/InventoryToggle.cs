@@ -5,16 +5,30 @@ public class InventoryToggle : MonoBehaviour
 {
     //References
     [SerializeField] private GameObject inventoryPanel;
+    [SerializeField] private GameObject descriptionPanel;
     [SerializeField] private InventoryDragController dragController;
     [SerializeField] private PickupController pickupController;
     //field
     private bool isOpen = false;
 
+    public bool IsOpen => isOpen;
     private void Start()
     {
         if (inventoryPanel != null)
         {
             inventoryPanel.SetActive(false);
+        }
+
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            pickupController = playerObject.GetComponentInChildren<PickupController>();
+        }
+
+        if(pickupController != null)
+        {
+            pickupController.ItemPickedUp += OnItemPickedUp;
         }
 
         UpdateCameraLock();
@@ -47,6 +61,11 @@ public class InventoryToggle : MonoBehaviour
     }
     public void ToggleInventory()
     {
+        //if(!isOpen)
+        //{
+        //    descriptionPanel.gameObject.SetActive(false);
+        //}
+
         isOpen = !isOpen;
 
         if (inventoryPanel != null)
@@ -129,4 +148,19 @@ public class InventoryToggle : MonoBehaviour
         }
     }
     
+    private void OnItemPickedUp(Item item)
+    {
+        if(isOpen)
+        {
+            StoreHeldItem();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(pickupController != null)
+        {
+            pickupController.ItemPickedUp -= OnItemPickedUp;
+        }
+    }
 }

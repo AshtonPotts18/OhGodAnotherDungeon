@@ -1,9 +1,12 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : MonoBehaviour, IVisitable
 {
 
+    SaveData PlayerSave;  //Player save Data
+
+    LoadData PlayerData;
     public int CurrentLevel { get; set; } = 1;
     private List<Level> levelMap = new List<Level>();
 
@@ -19,7 +22,16 @@ public class LevelManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        if (GameObject.Find("SaveData"))
+        {
+            PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
+
+            var Level = gameObject.GetComponent<IVisitable>();
+            if (PlayerSave != null)
+            {  //Needs set condition to not be recorded every second!!
+                Level.Accept(PlayerSave);                           // This row as well.
+            }
+        }
     }
 
     // Update is called once per frame
@@ -59,6 +71,17 @@ public class LevelManager : MonoBehaviour
     }
     public void LoadLevel(RandomlyGenerateRooms _roomGenerator)
     {
+        if (GameObject.Find("LoadData"))
+        {
+            PlayerData = GameObject.Find("LoadData").GetComponent<LoadData>();
+        }
+
+        var Level = gameObject.GetComponent<IVisitable>();
+        if (PlayerData != null)
+        {
+            Level.Accept(PlayerData);
+        }
+
         Level currentLevel = GetLevel(CurrentLevel);
         _roomGenerator.roomCount = currentLevel.roomSpawnCount;
         _roomGenerator.roomSpawnRadius = currentLevel.roomSpawnRadius;
@@ -71,6 +94,17 @@ public class LevelManager : MonoBehaviour
         if (CurrentLevel < 11)
         {
             CurrentLevel += 1;
+
+            if (GameObject.Find("SaveData"))
+            {
+                PlayerSave = GameObject.Find("SaveData").GetComponent<SaveData>(); //gets the Player Save Data
+
+                var Level = gameObject.GetComponent<IVisitable>();
+                if (PlayerSave != null)
+                {  //Needs set condition to not be recorded every second!!
+                    Level.Accept(PlayerSave);                           // This row as well.
+                }
+            }
         }
         else
         {
@@ -78,11 +112,10 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-
-
-
-    
-
+    public void Accept(IVisitor visitor)
+    {
+       visitor.VisitLevel(this);
+    }
 }
 [System.Serializable]
 public class Level

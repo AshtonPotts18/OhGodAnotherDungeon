@@ -13,10 +13,18 @@ public class FireballCollision : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(hasHit) { return; }
-        hasHit = true;
-
+        //if(hasHit) { return; }
+        //hasHit = true;
         MonoBehaviour[] components = collision.collider.GetComponentsInParent<MonoBehaviour>();
+
+        if (smokePuffPrefab != null)
+        {
+            GameObject smokeInstance = Instantiate(smokePuffPrefab, transform.position, Quaternion.identity);
+           
+            Destroy(smokeInstance, 2.0f);
+        }
+
+        Destroy(gameObject);
 
         foreach(MonoBehaviour component in components)
         {
@@ -27,14 +35,6 @@ public class FireballCollision : MonoBehaviour
             }
         }
 
-        if (smokePuffPrefab != null)
-        {
-            GameObject smokeInstance = Instantiate(smokePuffPrefab, transform.position, Quaternion.identity);
-           
-            Destroy(smokeInstance, 2.0f);
-        }
-
-        Destroy(gameObject);
     }
 
 }

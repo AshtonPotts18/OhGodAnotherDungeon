@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,8 +17,10 @@ public class PickupController : MonoBehaviour
     //field
     private Item heldItem;
     private Item targetedItem;
+
     //Getter
     public Item HeldItem => heldItem;
+    public event Action<Item> ItemPickedUp;
 
 
     // Update is called once per frame
@@ -52,6 +55,8 @@ public class PickupController : MonoBehaviour
         heldItem.transform.SetParent(holdHand);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.Euler(heldItem.pickupRotationOffset);
+
+        ItemPickedUp?.Invoke(heldItem);
     }
 
     private void Drop()
@@ -61,6 +66,8 @@ public class PickupController : MonoBehaviour
         heldItem.transform.SetParent(null);
         heldItem.SetHeld(false);
 
+        heldItem.transform.position = playerCamera .transform.position + playerCamera.transform.forward * 1.5f;
+        
         heldItem = null;
     }
 
@@ -159,6 +166,7 @@ public class PickupController : MonoBehaviour
 
     public bool EquipItem(GameObject prefab)
     {
+        Debug.Log("EquipItem was called!");
         if (prefab == null || holdHand == null || heldItem != null)
         {
             return false;
@@ -168,11 +176,14 @@ public class PickupController : MonoBehaviour
 
         Item item = instance.GetComponent<Item>();
 
-        if (item == null)
-        {
-            Destroy(instance);
-            return false;
-        }
+        //if (item == null)
+        //{
+        //    Destroy(instance);
+        //    return false;
+        //}
+        Debug.Log("Prefab assigned: " + prefab.name);
+        Debug.Log("Instantiated object: " + instance.name);
+        Debug.Log("Item component found: " + (item != null));
 
         heldItem = item;
         heldItem.SetHeld(true);
@@ -190,4 +201,6 @@ public class PickupController : MonoBehaviour
     {
         Drop();
     }
+
+    
 }

@@ -43,10 +43,10 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
             var Health = gameObject.GetComponent<IVisitable>();
             if (PlayerData != null)
             {
-                //new WaitForSeconds(0.5f);
                 Health.Accept(PlayerData);
             }
         }
+        Save();
 
 
     }
@@ -63,9 +63,8 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
         {  //Needs set condition to not be recorded every second!!
             Health.Accept(PlayerSave);                           // This row as well.
         }
-
-        
     }
+
     private void OnCollisionStay(Collision other)
     {
         if(other.gameObject.CompareTag(TagName) && clock <= 0)
@@ -76,6 +75,8 @@ public class HealthandPlus : MonoBehaviour, DamagingEnemy.IDamageable, IVisitabl
             clock = InvincFrames;
             string objectName = other.gameObject.name;
             PlayerPrefs.SetString("LastTouched", objectName);
+
+            Save();
 
             if(slider.value == 0)
             {
