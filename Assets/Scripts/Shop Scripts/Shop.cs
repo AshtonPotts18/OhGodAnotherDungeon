@@ -93,6 +93,12 @@ public class Shop : MonoBehaviour, IVisitable
             Debug.Log("Quota completed!");
         }
 
+        var Money = gameObject.GetComponent<IVisitable>();
+        if (PlayerSave != null)
+        {  //Needs set condition to not be recorded every second!!
+            Money.Accept(PlayerSave);                           // This row as well.
+        }
+
         return true;
     }
 
