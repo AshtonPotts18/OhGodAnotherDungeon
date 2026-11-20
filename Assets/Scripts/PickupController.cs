@@ -173,18 +173,14 @@ public class PickupController : MonoBehaviour
             return false;
         }
 
-        GameObject instance = Instantiate(prefab, holdHand.position, holdHand.rotation);
+        Item item = prefab.GetComponent<Item>();
 
-        Item item = instance.GetComponent<Item>();
-
-        //if (item == null)
-        //{
-        //    Destroy(instance);
-        //    return false;
-        //}
-        Debug.Log("Prefab assigned: " + prefab.name);
-        Debug.Log("Instantiated object: " + instance.name);
-        Debug.Log("Item component found: " + (item != null));
+        if (item == null)
+        {
+            return false;
+        }
+        
+        item.gameObject.SetActive(true);
 
         heldItem = item;
         heldItem.SetHeld(true);

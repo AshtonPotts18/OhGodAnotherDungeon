@@ -1443,6 +1443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: torch_lit
       objectReference: {fileID: 0}
+    - target: {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4153135895677232516, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.0926766

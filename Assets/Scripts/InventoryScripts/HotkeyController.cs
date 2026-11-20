@@ -75,15 +75,19 @@ public class HotkeyController : MonoBehaviour
         int oldY = item.gridY;
         bool oldRotation = item.isRotated;
 
+        Item worldItem = item.originalItem;
+
         inventory.RemoveItemFromGrid(item);
+
         item.gameObject.SetActive(false);
 
-        if(pickupController.EquipItem(item.worldPrefab))
+        if(pickupController.EquipItem(worldItem.gameObject))
         {
             equippedItem = item;
             return;
         }
 
+        item.gameObject.SetActive(true);
         item.SetGridPosition(oldX, oldY);
         item.SetRotation(oldRotation);
 
