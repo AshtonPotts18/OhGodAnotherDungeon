@@ -2662,12 +2662,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Movement
   agent: {fileID: 2212526219632514184}
-  navMeshSampleRadius: 2
-  destinationAttempts: 20
+  patrolRadius: 6
+  patrolSampleRadius: 0.75
+  maximumPatrolPathLength: 12
+  patrolAttempts: 20
   minimumWait: 1.5
   maximumWait: 4
-  lostPlayerSearchTime: 1.5
+  chaseStoppingDistance: 1.25
+  targetSampleRadius: 2
+  retargetDistance: 0.75
   destinationRefreshRate: 0.6
+  searchWaitTime: 1.5
+  searchTravelTimeout: 10
+  turnSpeed: 180
+  stuckTimeout: 2.5
+  progressCheckInterval: 0.5
+  minimumPositionProgress: 0.15
 --- !u!114 &8625140090476181020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2845,7 +2855,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalRotation.x
@@ -2853,7 +2863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalRotation.z
@@ -2865,7 +2875,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: 3641062098642390106, guid: 424845b49ec503246a32a52b9c86cac7, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

@@ -58,6 +58,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         //Delete the NavMesh on the Ceiling - Ashton
         int defaultLayer = LayerMask.NameToLayer("Default");
         int obstacleLayer = LayerMask.NameToLayer("Obstacle");
+        int ceilingLayer = LayerMask.NameToLayer("Ceiling");
 
         if (defaultLayer < 0|| obstacleLayer < 0)
         {
@@ -69,6 +70,7 @@ public class RandomlyGenerateRooms : MonoBehaviour
         navMeshSurface.layerMask = (1 << defaultLayer) | (1 << obstacleLayer); // Only include the Default and Obstacle layers
         navMeshSurface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
 
+        //navMeshSurface.layerMask &= ~(1 << ceilingLayer);
         navMeshSurface.RemoveData();
         navMeshSurface.BuildNavMesh();
         

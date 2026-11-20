@@ -44,7 +44,6 @@ public class JazzHandAI : EnemyBehavior
         {
             Debug.LogWarning($"{name}: no complete NavMesh path from this spawn point to the player.",
                 this);
-            return;
         }
 
         movement.SetAttacking(false);
@@ -53,7 +52,6 @@ public class JazzHandAI : EnemyBehavior
         initialized = true;
         IsReady = true;
 
-        Debug.Log($"{name}: pursuing the player.", this);
     }
 
     private void Update()

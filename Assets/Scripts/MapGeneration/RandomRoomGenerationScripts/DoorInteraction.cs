@@ -23,4 +23,12 @@ public class DoorInteraction : MonoBehaviour, IInteract
         gameObject.GetComponent<NavMeshObstacle>().carving = isOpen;
     }
 
+    public void OpenForEnemy()
+    {
+        if (!isOpen)
+        {
+            Interact();
+        }
+    }
+
 }

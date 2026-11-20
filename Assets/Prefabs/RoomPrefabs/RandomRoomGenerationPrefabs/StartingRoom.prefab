@@ -222,7 +222,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6327074457357266655}
-  m_Layer: 3
+  m_Layer: 10
   m_Name: Ceiling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1776,7 +1776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2093,7 +2093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2433,7 +2433,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2484,7 +2484,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3775573704807887482, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2532,7 +2532,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
@@ -2558,7 +2558,24 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8926989498005848635}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1883890212434185837}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4568842758029141012}
   m_SourcePrefab: {fileID: 100100000, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+--- !u!114 &99885766057298643 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588759501839904017, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+  m_PrefabInstance: {fileID: 4525081779541583810}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318185818704017728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44c93cd21c60604fb97ca2f4556127b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
 --- !u!1 &135680886220410626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
@@ -2802,10 +2819,64 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 1.3750001, z: 0.19}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.82000005, y: 1.3750001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &1883890212434185837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318185818704017728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410c962096a356e4cb218b023fcf389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDoorTrigger
+  onEnemyApproach:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 99885766057298643}
+        m_TargetAssemblyTypeName: DoorInteraction, Assembly-CSharp
+        m_MethodName: OpenForEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!54 &4568842758029141012
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2318185818704017728}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &4747526545784122590
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3211,9 +3282,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4102995789849198691}
     m_Modifications:
+    - target: {fileID: 761699272089306256, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
@@ -3265,7 +3340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
@@ -3291,6 +3366,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7775514368196420913}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 781805933285470745}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3821382272358610856}
   m_SourcePrefab: {fileID: 100100000, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
 --- !u!1 &6204407876627521036 stripped
 GameObject:
@@ -3309,10 +3390,75 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 1.3750001, z: 0.19}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.82000005, y: 1.3750001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!114 &781805933285470745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204407876627521036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410c962096a356e4cb218b023fcf389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDoorTrigger
+  onEnemyApproach:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8598348313156201887}
+        m_TargetAssemblyTypeName: DoorInteraction, Assembly-CSharp
+        m_MethodName: OpenForEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!54 &3821382272358610856
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204407876627521036}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &8598348313156201887 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588759501839904017, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+  m_PrefabInstance: {fileID: 5259628532029227150}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6204407876627521036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44c93cd21c60604fb97ca2f4556127b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
 --- !u!1 &8634434727732701262 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
@@ -3704,7 +3850,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3807,7 +3953,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3965,7 +4111,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3775573704807887482, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4013,7 +4159,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
@@ -4039,6 +4185,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8365476574152484224}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1429243474135328445}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7782090105678333590}
   m_SourcePrefab: {fileID: 100100000, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
 --- !u!1 &5809572629847378154 stripped
 GameObject:
@@ -4057,10 +4209,64 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 1.3750001, z: 0.19}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.82000005, y: 1.3750001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!54 &1429243474135328445
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809572629847378154}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7782090105678333590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809572629847378154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410c962096a356e4cb218b023fcf389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDoorTrigger
+  onEnemyApproach:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8202950126061714297}
+        m_TargetAssemblyTypeName: DoorInteraction, Assembly-CSharp
+        m_MethodName: OpenForEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &8166837237307915944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
@@ -4282,6 +4488,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8202950126061714297 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588759501839904017, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+  m_PrefabInstance: {fileID: 5654330740884297320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5809572629847378154}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44c93cd21c60604fb97ca2f4556127b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
 --- !u!4 &8799399932522652690 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3775573704807887482, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
@@ -4559,7 +4776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -4717,7 +4934,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3775573704807887482, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4765,7 +4982,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       propertyPath: m_IsActive
@@ -4791,6 +5008,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4341352656622746243}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2895584427962196240}
+    - targetCorrespondingSourceObject: {fileID: 2226898482731966082, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7240506394554998567}
   m_SourcePrefab: {fileID: 100100000, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
 --- !u!1 &4787679409389211527 stripped
 GameObject:
@@ -4809,10 +5032,75 @@ NavMeshObstacle:
   m_Shape: 1
   m_Extents: {x: 1, y: 1.3750001, z: 0.19}
   m_MoveThreshold: 0.1
-  m_Carve: 1
+  m_Carve: 0
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.82000005, y: 1.3750001, z: 0}
   m_TimeToStationary: 0.5
+--- !u!54 &2895584427962196240
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787679409389211527}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &7240506394554998567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787679409389211527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410c962096a356e4cb218b023fcf389f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyDoorTrigger
+  onEnemyApproach:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7149540433865833492}
+        m_TargetAssemblyTypeName: DoorInteraction, Assembly-CSharp
+        m_MethodName: OpenForEnemy
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &7149540433865833492 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4588759501839904017, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
+  m_PrefabInstance: {fileID: 6671741249487163653}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4787679409389211527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a44c93cd21c60604fb97ca2f4556127b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DoorInteraction
 --- !u!1 &7185653434221181381 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4552674040746174656, guid: b8e6ccdd4666268408099630b3ef256d, type: 3}
@@ -5101,7 +5389,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5414,7 +5702,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5624,7 +5912,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ad8bc30209a1ce549a2f7147f7fa237b, type: 3}
       propertyPath: m_Layer
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
