@@ -18,7 +18,6 @@ public class PickupController : MonoBehaviour
     private Item heldItem;
     private Item targetedItem;
 
-    private Collider collider;
     //Getter
     public Item HeldItem => heldItem;
     public event Action<Item> ItemPickedUp;
@@ -53,9 +52,6 @@ public class PickupController : MonoBehaviour
 
         heldItem.SetHeld(true);
 
-        collider = heldItem.GetComponent<Collider>();
-        collider.enabled = false;
-
         heldItem.transform.SetParent(holdHand);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.Euler(heldItem.pickupRotationOffset);
@@ -70,10 +66,8 @@ public class PickupController : MonoBehaviour
         heldItem.transform.SetParent(null);
         heldItem.SetHeld(false);
 
-        collider = heldItem.GetComponent<Collider>();
-        collider.enabled = true;
-
-
+        heldItem.transform.position = playerCamera .transform.position + playerCamera.transform.forward * 1.5f;
+        
         heldItem = null;
     }
 
