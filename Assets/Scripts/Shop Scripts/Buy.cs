@@ -36,6 +36,8 @@ public class BuyStation : MonoBehaviour
     [SerializeField] private AudioSource shopAudio;
     [SerializeField] private AudioClip LookAtSound;
     [SerializeField] private AudioClip buySound;
+    [SerializeField] private string noInteractPromptLayer = "NoInteractPrompt";
+
 
     private readonly Dictionary<Item, StockEntry> availableItems = new Dictionary<Item, StockEntry>();
 
@@ -141,6 +143,7 @@ public class BuyStation : MonoBehaviour
             if (entry.displayPoint == null) continue;
 
             GameObject display = Instantiate(entry.itemPrefab, entry.displayPoint.position, entry.displayPoint.rotation);
+            display.layer = LayerMask.NameToLayer(noInteractPromptLayer);
             
             Item displayItem = display.GetComponent<Item>();
 
@@ -236,7 +239,7 @@ public class BuyStation : MonoBehaviour
             promptObject.SetActive(false);
         }
 
-        }
+     }
 
     private void UpdateShopMoneyUI()
     {

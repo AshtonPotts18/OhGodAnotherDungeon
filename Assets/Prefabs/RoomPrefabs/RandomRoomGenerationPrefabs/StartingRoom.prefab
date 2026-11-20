@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5427603594898346758}
   - component: {fileID: 7236642007220118652}
   - component: {fileID: 3589358054644139966}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Prompt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 4571088770995283584}
   - component: {fileID: 4546855234666619222}
   - component: {fileID: 2516210206825314913}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: ItemShopSign
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 7785362176031794326}
   - component: {fileID: 8064065419435335093}
   - component: {fileID: 2812216854043396022}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -367,7 +367,7 @@ GameObject:
   - component: {fileID: 251523782772188995}
   - component: {fileID: 3736918270759978951}
   - component: {fileID: 3242303481551096821}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PromptText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 1333062355797719307}
   - component: {fileID: 2003071879230299135}
   - component: {fileID: 64138601815744577}
-  m_Layer: 5
+  m_Layer: 9
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2198,6 +2198,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: floor_foundation_allsides
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f198510da9440764ea02a32c093801a2, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2968,6 +2972,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e1309fa672aa09e45921991079b94039, type: 3}
       propertyPath: m_Name
       value: banner_blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e1309fa672aa09e45921991079b94039, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
