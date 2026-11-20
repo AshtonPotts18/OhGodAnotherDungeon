@@ -19,6 +19,18 @@ public class InventoryToggle : MonoBehaviour
             inventoryPanel.SetActive(false);
         }
 
+        GameObject playerObject = GameObject.FindGameObjectWithTag("Player");
+
+        if (playerObject != null)
+        {
+            pickupController = playerObject.GetComponentInChildren<PickupController>();
+        }
+
+        if(pickupController != null)
+        {
+            pickupController.ItemPickedUp += OnItemPickedUp;
+        }
+
         UpdateCameraLock();
         UpdateCursorState();
     }
@@ -136,4 +148,19 @@ public class InventoryToggle : MonoBehaviour
         }
     }
     
+    private void OnItemPickedUp(Item item)
+    {
+        if(isOpen)
+        {
+            StoreHeldItem();
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if(pickupController != null)
+        {
+            pickupController.ItemPickedUp -= OnItemPickedUp;
+        }
+    }
 }

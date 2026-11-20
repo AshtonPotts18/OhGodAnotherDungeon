@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,8 +17,11 @@ public class PickupController : MonoBehaviour
     //field
     private Item heldItem;
     private Item targetedItem;
+
+    private Collider collider;
     //Getter
     public Item HeldItem => heldItem;
+    public event Action<Item> ItemPickedUp;
 
 
     // Update is called once per frame
@@ -49,9 +53,14 @@ public class PickupController : MonoBehaviour
 
         heldItem.SetHeld(true);
 
+        collider = heldItem.GetComponent<Collider>();
+        collider.enabled = false;
+
         heldItem.transform.SetParent(holdHand);
         heldItem.transform.localPosition = Vector3.zero;
         heldItem.transform.localRotation = Quaternion.Euler(heldItem.pickupRotationOffset);
+
+        ItemPickedUp?.Invoke(heldItem);
     }
 
     private void Drop()
@@ -60,6 +69,10 @@ public class PickupController : MonoBehaviour
 
         heldItem.transform.SetParent(null);
         heldItem.SetHeld(false);
+
+        collider = heldItem.GetComponent<Collider>();
+        collider.enabled = true;
+
 
         heldItem = null;
     }
@@ -194,4 +207,6 @@ public class PickupController : MonoBehaviour
     {
         Drop();
     }
+
+    
 }
