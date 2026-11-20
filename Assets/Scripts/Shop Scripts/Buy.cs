@@ -61,6 +61,8 @@ public class BuyStation : MonoBehaviour
 
     public void StartBuyStation()
     {
+        playerNearby = false;
+
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
