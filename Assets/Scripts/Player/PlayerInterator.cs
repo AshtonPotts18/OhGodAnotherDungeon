@@ -21,7 +21,7 @@ public class PlayerInterator : MonoBehaviour
     }
     private void Start()
     {
-        shopLayerMask = LayerMask.GetMask("Shop");
+        shopLayerMask = LayerMask.GetMask("NoInteractPrompt");
         sellStationLayerMask = LayerMask.GetMask(sellStationLayerName);
 
         TextMeshProUGUI[] texts = FindObjectsByType<TextMeshProUGUI>(FindObjectsInactive.Include);
