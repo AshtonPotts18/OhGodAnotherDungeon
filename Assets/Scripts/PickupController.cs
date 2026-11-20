@@ -63,12 +63,18 @@ public class PickupController : MonoBehaviour
     {
         if (heldItem == null) return;
 
+        Vector3 dropPosition = playerCamera.transform.position + playerCamera.transform.forward * 1.5f;
+
+        if(Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hit, 1.5f))
+        {
+            dropPosition = hit.point - playerCamera.transform.forward * 0.3f;
+        }
+
         GameObject itemManager = GameObject.Find("ItemManager");
         heldItem.transform.SetParent(itemManager.transform);
         heldItem.SetHeld(false);
+        heldItem.transform.position = dropPosition;
 
-        heldItem.transform.position = playerCamera .transform.position + playerCamera.transform.forward * 1.5f;
-        
         heldItem = null;
     }
 

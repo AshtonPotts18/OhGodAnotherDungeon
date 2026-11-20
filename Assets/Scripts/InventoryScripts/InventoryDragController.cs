@@ -202,7 +202,7 @@ public class InventoryDragController : MonoBehaviour
 
         Vector3 dropPosition;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, 1000f, dropLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, dropRange, dropLayer))
         {
             dropPosition = hit.point;
         }
@@ -220,6 +220,7 @@ public class InventoryDragController : MonoBehaviour
 
         originalItem.transform.position = dropPosition;
         originalItem.gameObject.SetActive(true);
+        originalItem.SetHeld(false);
 
         Destroy(heldItem.gameObject);
         heldItem = null;
