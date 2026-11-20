@@ -63,7 +63,8 @@ public class PickupController : MonoBehaviour
     {
         if (heldItem == null) return;
 
-        heldItem.transform.SetParent(null);
+        GameObject itemManager = GameObject.Find("ItemManager");
+        heldItem.transform.SetParent(itemManager.transform);
         heldItem.SetHeld(false);
 
         heldItem.transform.position = playerCamera .transform.position + playerCamera.transform.forward * 1.5f;
