@@ -7,62 +7,88 @@ public class Enemy_Movement : MonoBehaviour
     public NavMeshAgent agent;
     public bool isChasing { get; private set; }
 
+    private enum State
+    {
+        Patrol,
+        Chase,
+        Search,
+        SearchWait,
+        Attack
+    }
+
     [Header("Patrol")]
-    [SerializeField] private float navMeshSampleRadius = 2f;
-    [SerializeField] private int destinationAttempts = 20;
+    [SerializeField] private float patrolRadius = 6f;
+    [SerializeField] private float patrolSampleRadius = 0.75f;
+    [SerializeField] private float maximumPatrolPathLength = 12f;
+    [SerializeField] private int patrolAttempts = 20;
     [SerializeField] private float minimumWait = 1.5f;
     [SerializeField] private float maximumWait = 4f;
 
-    [Header("Chase")]
-    [SerializeField] private float lostPlayerSearchTime = 1.5f;
+    [Header("Chase and Search")]
+    [SerializeField] private float chaseStoppingDistance = 1.25f;
+    [SerializeField] private float targetSampleRadius = 2f;
+    [SerializeField] private float retargetDistance = 0.75f;
     [SerializeField] private float destinationRefreshRate = 0.6f;
+    [SerializeField] private float searchWaitTime = 1.5f;
+    [SerializeField] private float searchTravelTimeout = 10f;
 
+    [Header("Movement")]
+    [SerializeField] private float turnSpeed = 180f;
+    [SerializeField] private float stuckTimeout = 2.5f;
+    [SerializeField] private float progressCheckInterval = 0.5f;
+    [SerializeField] private float minimumPositionProgress = 0.15f;
+
+    private State state = State.Patrol;
     private Collider[] patrolAreas;
     private Transform playerTarget;
+
     private bool playerVisible;
-    private bool isAttacking;
-    private bool originalUpdateRotation;
     private bool hasDestination;
-    private bool searchingAtLastKnownPosition;
+    private bool hasLastPatrolPoint;
+
     private Vector3 lastKnownPlayerPosition;
+    private Vector3 lastChaseRequestPosition;
+    private Vector3 currentDestination;
+    private Vector3 lastPatrolPoint;
+    private Vector3 previousPosition;
+
+    private float defaultStoppingDistance;
     private float waitUntil;
     private float searchUntil;
+    private float searchDeadline;
     private float nextDestinationUpdate;
+    private float lastProgressCheck;
+    private float noProgressTime;
 
     private void Awake()
     {
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
-        if (agent != null)
-            originalUpdateRotation = agent.updateRotation;
+
+        defaultStoppingDistance = agent.stoppingDistance;
+        agent.updatePosition = true;
+        agent.angularSpeed = turnSpeed;
     }
 
     public void Initialize(Collider[] areas, Transform target)
     {
         patrolAreas = areas;
-
         playerTarget = target;
 
         playerVisible = false;
-
         isChasing = false;
+        hasLastPatrolPoint = false;
+        state = State.Patrol;
+        waitUntil = Time.time;
 
-        isAttacking = false;
-
-        hasDestination = false;
-
-        searchingAtLastKnownPosition = false;
-
-        waitUntil = 0f;
-
-        searchUntil = 0f;
-
+        ClearPath();
     }
 
-    //Changed
+    // Called by Detection.
     public void SetPlayerVisible(bool visible, Transform target)
     {
-        if (target != null) { playerTarget = target; }
+        if (target != null)
+            playerTarget = target;
 
         if (visible && playerTarget != null)
         {
@@ -71,183 +97,450 @@ public class Enemy_Movement : MonoBehaviour
             playerVisible = true;
             isChasing = true;
             lastKnownPlayerPosition = playerTarget.position;
-            searchingAtLastKnownPosition = false;
-            searchUntil = 0f;
 
-            if (justSpottedPlayer) { nextDestinationUpdate = 0f; }
+            if (state != State.Attack)
+                state = State.Chase;
+
+            if (justSpottedPlayer && state == State.Chase)
+            {
+                ClearPath();
+                nextDestinationUpdate = Time.time;
+            }
         }
         else if (playerVisible)
         {
             playerVisible = false;
-            searchingAtLastKnownPosition = false;
-            searchUntil = 0f;
-            nextDestinationUpdate = 0f;
+            searchDeadline = Time.time + searchTravelTimeout;
+
+            if (state != State.Attack)
+            {
+                state = State.Search;
+                nextDestinationUpdate = Time.time;
+                ClearPath();
+            }
         }
     }
 
+    // Call true when the attack animation starts and false when it ends.
     public void SetAttacking(bool attacking)
     {
-        isAttacking = attacking;
+        if (attacking)
+        {
+            state = State.Attack;
+            PauseAgent();
+            return;
+        }
 
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh)
+        if (state != State.Attack)
             return;
 
-        agent.isStopped = attacking;
-        agent.updateRotation = attacking ? false : originalUpdateRotation;
+        if (playerVisible)
+            state = State.Chase;
+        else if (isChasing)
+            state = State.Search;
+        else
+            state = State.Patrol;
 
-        if (attacking)
-            agent.velocity = Vector3.zero;
+        nextDestinationUpdate = Time.time;
+        waitUntil = Time.time;
+        ClearPath();
     }
 
     private void Update()
     {
-        if (agent == null || !agent.enabled || !agent.isOnNavMesh) { return; }
-
-        if (isAttacking)
-        {
-            agent.isStopped = true;
-            agent.velocity = Vector3.zero;
+        if (!AgentReady())
             return;
-        }
 
-        if (isChasing)
+        switch (state)
         {
-            UpdateChase();
+            case State.Patrol:
+                UpdatePatrol();
+                break;
 
-            if (isChasing) { return; }
+            case State.Chase:
+                UpdateChase();
+                break;
+
+            case State.Search:
+                UpdateSearch();
+                break;
+
+            case State.SearchWait:
+                PauseAgent();
+
+                if (Time.time >= searchUntil)
+                    FinishSearch();
+
+                break;
+
+            case State.Attack:
+                PauseAgent();
+                break;
         }
 
-        UpdatePatrol();
-    }
-
-    private void UpdateChase()
-    {
-        agent.isStopped = false;
-
-        Vector3 destination = playerVisible && playerTarget != null
-            ? playerTarget.position : lastKnownPlayerPosition;
-
-        if (Time.time >= nextDestinationUpdate)
-        {
-            agent.SetDestination(destination);
-            nextDestinationUpdate = Time.time + destinationRefreshRate;
-        }
-
-        if (!playerVisible && ReachedDestination())
-        {
-            if (!searchingAtLastKnownPosition)
-            {
-                searchingAtLastKnownPosition = true;
-                searchUntil = Time.time + lostPlayerSearchTime;
-            }
-            else if (Time.time >= searchUntil)
-            {
-                isChasing = false;
-                hasDestination = false;
-                searchingAtLastKnownPosition = false;
-                searchUntil = 0f;
-                waitUntil = 0f;
-            }
-        }
+        CheckForStall();
     }
 
     private void UpdatePatrol()
     {
-        if (patrolAreas == null || patrolAreas.Length == 0) { return; }
+        agent.stoppingDistance = defaultStoppingDistance;
 
-        if (hasDestination && ReachedDestination())
+        if (hasDestination && !agent.pathPending)
         {
-            hasDestination = false;
-            waitUntil = Time.time + Random.Range(minimumWait, maximumWait);
+            if (ReachedDestination())
+            {
+                ClearPath();
+                waitUntil = Time.time + Random.Range(
+                    minimumWait,
+                    Mathf.Max(minimumWait, maximumWait)
+                );
+
+                return;
+            }
+
+            if (agent.pathStatus != NavMeshPathStatus.PathComplete ||
+                !agent.hasPath)
+            {
+                RecoverStalledRoute();
+                return;
+            }
+
+            ResumeAgent();
+            return;
         }
 
-        if (!hasDestination && Time.time >= waitUntil) { PickDestination(); }
+        if (hasDestination)
+            return;
+
+        if (Time.time >= waitUntil)
+            PickPatrolPoint();
+        else
+            PauseAgent();
     }
 
-    private bool ReachedDestination()
+    private void UpdateChase()
     {
-        if (agent.pathPending) { return false; }
+        if (playerTarget == null)
+        {
+            state = State.Search;
+            searchDeadline = Time.time + searchTravelTimeout;
+            return;
+        }
 
-        float remainingDistance = agent.remainingDistance;
+        agent.stoppingDistance =
+            Mathf.Max(defaultStoppingDistance, chaseStoppingDistance);
 
-        // Infinity means Unity has not produced a path yet.
-        return !float.IsInfinity(remainingDistance) && !float.IsNaN(remainingDistance)
-            && remainingDistance <= Mathf.Max(agent.stoppingDistance, 0.15f);
-    }
+        if (playerVisible)
+            lastKnownPlayerPosition = playerTarget.position;
 
-    private void PickDestination()
-    {
-        if (patrolAreas == null || patrolAreas.Length == 0)
+        if (hasDestination && !agent.pathPending)
+        {
+            if (ReachedDestination())
+                PauseAgent();
+            else if (agent.pathStatus != NavMeshPathStatus.PathComplete ||
+                     !agent.hasPath)
+            {
+                RecoverStalledRoute();
+                return;
+            }
+            else
+                ResumeAgent();
+        }
+
+        bool targetMoved =
+            Vector3.Distance(playerTarget.position, lastChaseRequestPosition)
+            >= retargetDistance;
+
+        if ((hasDestination && !targetMoved) ||
+            Time.time < nextDestinationUpdate)
         {
             return;
         }
 
+        if (SetPathNear(playerTarget.position, targetSampleRadius))
+            lastChaseRequestPosition = playerTarget.position;
+        else if (!hasDestination)
+            PauseAgent();
 
-        // Shuffle the areas so the search doesn't keep picking the same ones.
-        Collider[] areasToTry = (Collider[])patrolAreas.Clone();
+        nextDestinationUpdate = Time.time + destinationRefreshRate;
+    }
 
-        for (int i = areasToTry.Length - 1; i > 0; i--)
+    private void UpdateSearch()
+    {
+        agent.stoppingDistance = defaultStoppingDistance;
+
+        if (Time.time >= searchDeadline)
         {
-            int swapIndex = Random.Range(0, i + 1);
-
-            Collider temp = areasToTry[i];
-            areasToTry[i] = areasToTry[swapIndex];
-            areasToTry[swapIndex] = temp;
+            FinishSearch();
+            return;
         }
 
-        // Try two points in every area, or destinationAttempts times
-        // if that setting is higher.
-        int attempts = Mathf.Max(destinationAttempts, areasToTry.Length * 2);
-
-        for (int i = 0; i < attempts; i++)
+        if (hasDestination && !agent.pathPending)
         {
-            Collider area = areasToTry[i % areasToTry.Length];
-
-            if (area == null || !area.enabled) { continue; }
-
-            Bounds bounds = area.bounds;
-
-            Vector3 candidate = new Vector3(
-                Random.Range(bounds.min.x, bounds.max.x),
-                agent.transform.position.y,
-                Random.Range(bounds.min.z, bounds.max.z)
-            );
-
-            if (!NavMesh.SamplePosition( candidate, out NavMeshHit hit,
-                    navMeshSampleRadius, NavMesh.AllAreas))
+            if (ReachedDestination())
             {
-                continue;
-            }
-
-            if (!IsInsideBounds(area.bounds, hit.position))
-                continue;
-
-            NavMeshPath path = new NavMeshPath();
-
-            if (!agent.CalculatePath(hit.position, path) ||
-                path.status != NavMeshPathStatus.PathComplete)
-            {
-                continue;
-            }
-
-            if (Vector3.Distance(transform.position, hit.position) < 1f)
-                continue;
-
-            if (agent.SetPath(path))
-            {
-                hasDestination = true;
+                ClearPath();
+                state = State.SearchWait;
+                searchUntil = Time.time + searchWaitTime;
                 return;
             }
+
+            if (agent.pathStatus != NavMeshPathStatus.PathComplete ||
+                !agent.hasPath)
+            {
+                RecoverStalledRoute();
+                return;
+            }
+
+            ResumeAgent();
+            return;
         }
 
+        if (hasDestination || Time.time < nextDestinationUpdate)
+            return;
+
+        if (!SetPathNear(lastKnownPlayerPosition, targetSampleRadius))
+            PauseAgent();
+
+        nextDestinationUpdate = Time.time + destinationRefreshRate;
+    }
+
+    private void FinishSearch()
+    {
+        isChasing = false;
+        state = State.Patrol;
+        waitUntil = Time.time;
+        ClearPath();
+    }
+
+    private void PickPatrolPoint()
+    {
+        if (patrolAreas == null || patrolAreas.Length == 0)
+        {
+            PauseAgent();
+            return;
+        }
+
+        for (int i = 0; i < patrolAttempts; i++)
+        {
+            Vector2 direction = Random.insideUnitCircle.normalized;
+
+            if (direction.sqrMagnitude < 0.001f)
+                continue;
+
+            Vector3 candidate = transform.position + new Vector3(
+                direction.x * patrolRadius,
+                0f,
+                direction.y * patrolRadius
+            );
+
+            if (!NavMesh.SamplePosition(
+                    candidate,
+                    out NavMeshHit hit,
+                    patrolSampleRadius,
+                    agent.areaMask))
+            {
+                continue;
+            }
+
+            if (!InsidePatrolArea(hit.position))
+                continue;
+
+            if (hasLastPatrolPoint &&
+                Vector3.Distance(hit.position, lastPatrolPoint) < 1.5f)
+            {
+                continue;
+            }
+
+            if (!TryGetCompletePath(hit.position, out NavMeshPath path))
+                continue;
+
+            if (GetPathLength(path) > maximumPatrolPathLength)
+                continue;
+
+            if (!SetPath(path, hit.position))
+                continue;
+
+            lastPatrolPoint = hit.position;
+            hasLastPatrolPoint = true;
+            return;
+        }
+
+        PauseAgent();
         waitUntil = Time.time + 1f;
     }
 
-    private bool IsInsideBounds(Bounds bounds, Vector3 point)
+    private bool SetPathNear(Vector3 position, float sampleRadius)
     {
-        return point.x >= bounds.min.x
-            && point.x <= bounds.max.x
-            && point.z >= bounds.min.z
-            && point.z <= bounds.max.z;
+        if (!NavMesh.SamplePosition(
+                position,
+                out NavMeshHit hit,
+                sampleRadius,
+                agent.areaMask))
+        {
+            return false;
+        }
+
+        if (!TryGetCompletePath(hit.position, out NavMeshPath path))
+            return false;
+
+        return SetPath(path, hit.position);
+    }
+
+    private bool TryGetCompletePath(Vector3 point, out NavMeshPath path)
+    {
+        path = new NavMeshPath();
+
+        return agent.CalculatePath(point, path) &&
+               path.status == NavMeshPathStatus.PathComplete;
+    }
+
+    private bool SetPath(NavMeshPath path, Vector3 destination)
+    {
+        if (!agent.SetPath(path))
+            return false;
+
+        currentDestination = destination;
+        hasDestination = true;
+        ResetProgressCheck();
+        ResumeAgent();
+
+        return true;
+    }
+
+    private void CheckForStall()
+    {
+        if (!hasDestination || agent.pathPending || agent.isStopped)
+        {
+            ResetProgressCheck();
+            return;
+        }
+
+        float elapsed = Time.time - lastProgressCheck;
+
+        if (elapsed < progressCheckInterval)
+            return;
+
+        float moved = Vector3.Distance(transform.position, previousPosition);
+        bool destinationIsAhead =
+            Vector3.Distance(transform.position, currentDestination) >
+            Mathf.Max(agent.stoppingDistance + 0.25f, 0.5f);
+
+        if (moved >= minimumPositionProgress || !destinationIsAhead)
+            noProgressTime = 0f;
+        else
+            noProgressTime += elapsed;
+
+        previousPosition = transform.position;
+        lastProgressCheck = Time.time;
+
+        if (noProgressTime >= stuckTimeout)
+            RecoverStalledRoute();
+    }
+
+    private void RecoverStalledRoute()
+    {
+        if (state == State.Patrol)
+        {
+            lastPatrolPoint = currentDestination;
+            hasLastPatrolPoint = true;
+            waitUntil = Time.time + 0.2f;
+        }
+        else
+        {
+            nextDestinationUpdate = Time.time + destinationRefreshRate;
+        }
+
+        ClearPath();
+    }
+
+    private bool ReachedDestination()
+    {
+        if (agent.pathPending)
+            return false;
+
+        float threshold = Mathf.Max(agent.stoppingDistance, 0.15f);
+        float remaining = agent.remainingDistance;
+
+        if (!float.IsInfinity(remaining) &&
+            !float.IsNaN(remaining) &&
+            remaining <= threshold)
+        {
+            return true;
+        }
+
+        return Vector3.Distance(transform.position, currentDestination) <= threshold
+               && agent.velocity.sqrMagnitude < 0.04f;
+    }
+
+    private bool InsidePatrolArea(Vector3 point)
+    {
+        foreach (Collider area in patrolAreas)
+        {
+            if (area != null &&
+                area.enabled &&
+                (area.ClosestPoint(point) - point).sqrMagnitude <= 0.0025f)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private float GetPathLength(NavMeshPath path)
+    {
+        float length = 0f;
+        Vector3[] corners = path.corners;
+
+        for (int i = 1; i < corners.Length; i++)
+            length += Vector3.Distance(corners[i - 1], corners[i]);
+
+        return length;
+    }
+
+    private void ClearPath()
+    {
+        hasDestination = false;
+
+        if (AgentReady())
+        {
+            agent.ResetPath();
+            PauseAgent();
+        }
+
+        ResetProgressCheck();
+    }
+
+    private void PauseAgent()
+    {
+        if (!AgentReady())
+            return;
+
+        agent.isStopped = true;
+        agent.updateRotation = false;
+    }
+
+    private void ResumeAgent()
+    {
+        if (!AgentReady())
+            return;
+
+        agent.updateRotation = true;
+        agent.isStopped = false;
+    }
+
+    private void ResetProgressCheck()
+    {
+        previousPosition = transform.position;
+        lastProgressCheck = Time.time;
+        noProgressTime = 0f;
+    }
+
+    private bool AgentReady()
+    {
+        return agent != null &&
+               agent.enabled &&
+               agent.isOnNavMesh;
     }
 }

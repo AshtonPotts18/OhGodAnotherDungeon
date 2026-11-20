@@ -1,12 +1,13 @@
 
+using Newtonsoft.Json.Bson;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
-using UnityEngine;
 //Temp
 using Unity.AI.Navigation;
-using Newtonsoft.Json.Bson;
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.AI;
 
 public class RandomlyGenerateRooms : MonoBehaviour
 {
@@ -56,15 +57,18 @@ public class RandomlyGenerateRooms : MonoBehaviour
 
         //Delete the NavMesh on the Ceiling - Ashton
         int defaultLayer = LayerMask.NameToLayer("Default");
+        int obstacleLayer = LayerMask.NameToLayer("Obstacle");
 
-        if(defaultLayer < 0)
+        if (defaultLayer < 0|| obstacleLayer < 0)
         {
-            Debug.LogError("RandomlyGenerateRooms: Default layer not found.", this);
+            Debug.LogError("RandomlyGenerateRooms: One or more required layers not found.", this);
             return roomList;
         }
 
         navMeshSurface.collectObjects = CollectObjects.All;
-        navMeshSurface.layerMask = 1 << defaultLayer; // Only include the Default layer
+        navMeshSurface.layerMask = (1 << defaultLayer) | (1 << obstacleLayer); // Only include the Default and Obstacle layers
+        navMeshSurface.useGeometry = NavMeshCollectGeometry.PhysicsColliders;
+
         navMeshSurface.RemoveData();
         navMeshSurface.BuildNavMesh();
         

@@ -135,8 +135,18 @@ MonoBehaviour:
   destinationAttempts: 20
   minimumWait: 1.5
   maximumWait: 4
-  lostPlayerSearchTime: 1.5
+  minimumPatrolDistance: 1
   destinationRefreshRate: 0.6
+  chaseTargetSampleRadius: 3
+  chaseRetargetDistance: 0.5
+  lostPlayerSearchTime: 1.5
+  searchTravelTimeout: 10
+  progressCheckInterval: 0.5
+  stuckTimeout: 2.5
+  minimumPathProgress: 0.15
+  maxRecoveryAttempts: 2
+  spinWarningDegreesPerSecond: 220
+  spinWarningDuration: 0.75
 --- !u!114 &3291890804097006401
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,7 +319,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
