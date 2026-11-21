@@ -1532,7 +1532,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25712cf4272452d40a6dcf9237f66dff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  quotaBuffer: 0.2
+  quotaBuffer: 0.4
 --- !u!4 &969927395
 Transform:
   m_ObjectHideFlags: 0
