@@ -1060,7 +1060,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &578015356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1481,6 +1481,7 @@ MonoBehaviour:
   shopAudio: {fileID: 1356095387}
   LookAtSound: {fileID: 8300000, guid: f175a5574585f734b958ddee3097b5b8, type: 3}
   buySound: {fileID: 8300000, guid: 5496023090955c644840648ae9f93348, type: 3}
+  noInteractPromptLayer: NoInteractPrompt
 --- !u!65 &965338541
 BoxCollider:
   m_ObjectHideFlags: 0

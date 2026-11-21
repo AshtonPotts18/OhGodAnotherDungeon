@@ -1199,7 +1199,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &682239827
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1442,6 +1442,10 @@ PrefabInstance:
     - target: {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
       propertyPath: m_Name
       value: torch_lit
+      objectReference: {fileID: 0}
+    - target: {fileID: 3668524649369812798, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4153135895677232516, guid: d16e8595a479a4144a7d277d741ea535, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2077,6 +2081,7 @@ MonoBehaviour:
   shopAudio: {fileID: 1533014392}
   LookAtSound: {fileID: 8300000, guid: d898cdb8500573e4fac969147622f3ae, type: 3}
   buySound: {fileID: 8300000, guid: 92da39a9297f3c0438456a5d0ec8588a, type: 3}
+  noInteractPromptLayer: NoInteractPrompt
 --- !u!65 &1392341051
 BoxCollider:
   m_ObjectHideFlags: 0

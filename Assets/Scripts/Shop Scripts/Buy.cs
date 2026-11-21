@@ -61,6 +61,8 @@ public class BuyStation : MonoBehaviour
 
     public void StartBuyStation()
     {
+        playerNearby = false;
+
         if (playerCamera == null)
         {
             playerCamera = Camera.main;
@@ -226,7 +228,10 @@ public class BuyStation : MonoBehaviour
 
         GameObject droppedItem = Instantiate(entry.itemPrefab, purchaseSpawnPoint.position, purchaseSpawnPoint.rotation);
         
-        Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
+        GameObject itemManager = GameObject.Find("ItemManager");
+        droppedItem.transform.SetParent(itemManager.transform);
+        
+            Rigidbody rb = droppedItem.GetComponent<Rigidbody>();
 
         if (rb != null)
         {

@@ -137,15 +137,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.75676
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.06
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.42
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -153,7 +153,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.00000008146034
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalRotation.y
@@ -161,7 +161,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -178,6 +178,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
       propertyPath: m_Name
       value: torch_lit
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c24f52e0efcb4024087975bdd831a9fc, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -273,8 +277,8 @@ MonoBehaviour:
   value: 10
   inventoryPrefab: {fileID: 6331482838052994670, guid: d2027ca005f8ad34f8da298949daf004, type: 3}
   isShopItem: 0
-  pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: A light source that will illuminate your way for 3 minutes. try not to let it run out.
+  pickupRotationOffset: {x: 0, y: 0, z: 0}
   inputMap: {fileID: -944628639613478452, guid: 36f7cf47487ab1344b8bca74003ba3c7, type: 3}
   numOfUses: 1
   itemUseSound: {fileID: 0}

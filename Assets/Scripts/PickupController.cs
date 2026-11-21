@@ -63,11 +63,18 @@ public class PickupController : MonoBehaviour
     {
         if (heldItem == null) return;
 
-        heldItem.transform.SetParent(null);
-        heldItem.SetHeld(false);
+        Vector3 dropPosition = playerCamera.transform.position + playerCamera.transform.forward * 1.5f;
 
-        heldItem.transform.position = playerCamera .transform.position + playerCamera.transform.forward * 1.5f;
-        
+        if(Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out RaycastHit hit, 1.5f))
+        {
+            dropPosition = hit.point - playerCamera.transform.forward * 0.3f;
+        }
+
+        GameObject itemManager = GameObject.Find("ItemManager");
+        heldItem.transform.SetParent(itemManager.transform);
+        heldItem.SetHeld(false);
+        heldItem.transform.position = dropPosition;
+
         heldItem = null;
     }
 
@@ -172,18 +179,14 @@ public class PickupController : MonoBehaviour
             return false;
         }
 
-        GameObject instance = Instantiate(prefab, holdHand.position, holdHand.rotation);
+        Item item = prefab.GetComponent<Item>();
 
-        Item item = instance.GetComponent<Item>();
-
-        //if (item == null)
-        //{
-        //    Destroy(instance);
-        //    return false;
-        //}
-        Debug.Log("Prefab assigned: " + prefab.name);
-        Debug.Log("Instantiated object: " + instance.name);
-        Debug.Log("Item component found: " + (item != null));
+        if (item == null)
+        {
+            return false;
+        }
+        
+        item.gameObject.SetActive(true);
 
         heldItem = item;
         heldItem.SetHeld(true);
