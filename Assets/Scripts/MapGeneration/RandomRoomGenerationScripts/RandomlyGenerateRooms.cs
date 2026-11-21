@@ -551,10 +551,11 @@ public class RandomlyGenerateRooms : MonoBehaviour
         Vector2Int targetDoor = _targetRoom.ClosestDoor(_startingRoom.anchor);
         RoomInformation hallInformation = hallway_prefab.GetComponent<RoomInformation>();
 
-        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom otherRoom) && otherRoom == _targetRoom)
+        if (dungeonGrid.TryGetRoomAtCell(startingDoor, out DungeonRoom otherRoom) && dungeonGrid.IsRoomOccupied(startingDoor))
         {
             RoomInformation.ConnectRooms(_startingRoom.roomInstance, _targetRoom.roomInstance);
         }
+
 
 
 
