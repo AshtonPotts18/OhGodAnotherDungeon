@@ -22,24 +22,10 @@ public class LevelExit : MonoBehaviour, IInteract
     private void Awake()
     {
         ConfigurePromptCanvas();
-
-        //if (promptObject != null)
-        //    promptObject.SetActive(false);
     }
 
     private void Update()
     {
-        //if (playerNearby &&
-        //    Keyboard.current != null &&
-        //    Keyboard.current.fKey.wasPressedThisFrame)
-        //{
-        //    Interact();
-        //    return;
-        //}
-
-        //if (!playerNearby || promptText == null)
-        //    return;
-
         if (Shop.Instance == null)
         {
             promptText.text = "Shop unavailable";
@@ -50,35 +36,6 @@ public class LevelExit : MonoBehaviour, IInteract
             Shop.Instance.QuotaProgress >= Shop.Instance.QuotaTarget
                 ? exitPrompt
                 : promptText.text;
-    }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    //Debug.Log("LevelExit trigger detected the player.", this);
-    //    if (!IsPlayer(other))
-    //        return;
-
-    //    playerNearby = true;
-
-    //    if (promptObject != null)
-    //        promptObject.SetActive(true);
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (!IsPlayer(other))
-    //        return;
-
-    //    playerNearby = false;
-
-    //    if (promptObject != null)
-    //        promptObject.SetActive(false);
-    //}
-
-    private bool IsPlayer(Collider other)
-    {
-        return other.CompareTag(playerTag) ||
-               other.transform.root.CompareTag(playerTag);
     }
 
     private EnemySpawner FindEnemySpawner()
@@ -114,7 +71,7 @@ public class LevelExit : MonoBehaviour, IInteract
         }
 
         float levelTime = GameManager.Instance != null
-            ? GameManager.Instance.levelManager.CurrentLevel
+            ? GameManager.Instance.LevelElapsedSeconds
             : 0f;
 
         int moneyCollected =

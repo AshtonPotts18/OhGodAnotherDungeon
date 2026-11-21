@@ -15,7 +15,7 @@ public class HandEncounterController : MonoBehaviour
     [SerializeField] private string roomBoundsObjectName = "RoomBounds";
 
     [Header("Encounter Timing")]
-    [SerializeField, Min(0f)] private float delayAfterPlayerAppears = 10f;
+    [SerializeField, Min(0f)] private float delayAfterPlayerAppears = 60f;
 
     [Header("Spawn Search")]
     [SerializeField, Min(0.1f)] private float navMeshSampleRadius = 3f;
@@ -52,9 +52,9 @@ public class HandEncounterController : MonoBehaviour
             yield return new WaitForSeconds(0.25f);
         }
         //Use this to delay the hands from spawning until the player has been in the level for a certain amount of time.
-        float handsActivateAt = GameManager.Instance.LevelElapsedSeconds + delayAfterPlayerAppears;
-
-        while (Time.time < handsActivateAt)
+        // Wait until the current level reaches the hand spawn delay.
+        while (GameManager.Instance == null ||
+               GameManager.Instance.LevelElapsedSeconds < delayAfterPlayerAppears)
         {
             if (player == null)
                 FindPlayer();
