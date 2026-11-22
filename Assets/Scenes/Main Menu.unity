@@ -6100,6 +6100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64fd7347bd8bee4419906266968cc1d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Quit
+  quitButton: {fileID: 1622494740}
 --- !u!1 &1087234565
 GameObject:
   m_ObjectHideFlags: 0

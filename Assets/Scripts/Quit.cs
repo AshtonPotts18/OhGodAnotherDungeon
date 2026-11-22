@@ -1,12 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Quit : MonoBehaviour
 {
+    [SerializeField] GameObject quitButton;
     private void Start()
     {
         if(Application.platform == RuntimePlatform.WebGLPlayer)
         {
-            gameObject.SetActive(false);
+            quitButton.SetActive(false);
         }
     }
    public void QuitButton()
