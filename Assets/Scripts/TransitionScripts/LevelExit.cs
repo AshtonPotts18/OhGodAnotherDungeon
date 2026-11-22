@@ -14,7 +14,6 @@ public class LevelExit : MonoBehaviour, IInteract
     [Header("Prompt")]
     [SerializeField] private GameObject promptObject;
     [SerializeField] private TMP_Text promptText;
-    [SerializeField] private string playerTag = "Player";
     [SerializeField] private string exitPrompt = "Press Left Click to Exit";
 
     private bool playerNearby;

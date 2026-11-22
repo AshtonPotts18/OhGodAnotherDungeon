@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ad033a389c067e46bb4ef9a145e352a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.602
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ad033a389c067e46bb4ef9a145e352a, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.10017
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ad033a389c067e46bb4ef9a145e352a, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.077
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8ad033a389c067e46bb4ef9a145e352a, type: 3}
       propertyPath: m_LocalRotation.w
@@ -147,5 +147,5 @@ MonoBehaviour:
   value: 100
   inventoryPrefab: {fileID: 1466338138783702249, guid: 24580eb5ccc61c3479e97d407dcef9fb, type: 3}
   isShopItem: 0
-  pickupRotationOffset: {x: 0, y: 0, z: 0}
   itemDescription: 'A box created with the craftsmanship of ancient civilizations. It is unkown how to open them. They are only good for taking up space and making a quick buck. '
+  pickupRotationOffset: {x: 0, y: 0, z: 0}

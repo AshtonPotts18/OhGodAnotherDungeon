@@ -313,22 +313,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Enemy_Movement
   agent: {fileID: 0}
-  navMeshSampleRadius: 2
-  destinationAttempts: 20
+  patrolRadius: 6
+  patrolSampleRadius: 0.75
+  maximumPatrolPathLength: 12
+  patrolAttempts: 20
   minimumWait: 0.1
   maximumWait: 1
-  minimumPatrolDistance: 1
+  chaseStoppingDistance: 1.25
+  targetSampleRadius: 2
+  retargetDistance: 0.75
   destinationRefreshRate: 0.6
-  chaseTargetSampleRadius: 3
-  chaseRetargetDistance: 0.5
-  lostPlayerSearchTime: 10
+  searchWaitTime: 1.5
   searchTravelTimeout: 10
-  progressCheckInterval: 0.5
+  turnSpeed: 180
   stuckTimeout: 2.5
-  minimumPathProgress: 0.15
-  maxRecoveryAttempts: 2
-  spinWarningDegreesPerSecond: 220
-  spinWarningDuration: 0.75
+  progressCheckInterval: 0.5
+  minimumPositionProgress: 0.15
 --- !u!114 &5456936532116669699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -404,7 +404,7 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
