@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject playerCamera;
     [SerializeField] private float moveSpeed = 5.0f;
     [SerializeField] private float lookSpeed = 30.0f;
+    [SerializeField] private float gravity = -9.81f;
+    private float verticalVelocity = 0f;
 
     [SerializeField] private CharacterController playerController;
     public Slider slider;
@@ -100,6 +102,19 @@ public class PlayerMovement : MonoBehaviour
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
             Movement();
+        }
+
+        if (playerController != null)
+        {
+            if (playerController.isGrounded && verticalVelocity < 0f)
+            {
+                verticalVelocity = -2f;
+            }
+
+            verticalVelocity += gravity * Time.deltaTime;
+
+            // Apply gravity to the player
+            playerController.Move(Vector3.up * verticalVelocity * Time.deltaTime);
         }
 
         if (playerLight != null) playerLight.intensity = playerBrightness;
