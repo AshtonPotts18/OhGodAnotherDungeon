@@ -1038,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hand Mirror
       objectReference: {fileID: 0}
+    - target: {fileID: 9101564074879941779, guid: 33589594d4469f54ca1c5a699c2f76df, type: 3}
+      propertyPath: MirrorText
+      value: 
+      objectReference: {fileID: 820149240}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -4140,7 +4140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HotkeyController
   pickupController: {fileID: 1190590102167744848}
-  inventory: {fileID: 0}
+  inventory: {fileID: 5316199726112282523}
   dropAction: {fileID: -931694189238020456, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   hotkey1: {fileID: -9070742130838849308, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   hotkey2: {fileID: 3632777780254658031, guid: 052faaac586de48259a63d0c4782560b, type: 3}
